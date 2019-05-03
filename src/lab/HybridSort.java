@@ -27,63 +27,63 @@ public class HybridSort {
 	 * rekursives HybridSort
 	 * @param array zu sortierendes Array
 	 * @param k komplexity switch
-	 * @param p untere Schranke
-	 * @param r obere Schranke
+	 * @param left untere Schranke
+	 * @param right obere Schranke
 	 */
-	private void sort(SortArray array, int k, int p, int r) {
-		int d = p - r;							// Abstand zwischen unterer und oberer Schranke bestimmen
-		if(d < 2) return;						// Array kleiner gleich der Größe 1 müssen nicht sortiert werden
+	private void sort(SortArray array, int k, int left, int right) {
+		int d = right - left;						// Abstand zwischen unterer und oberer Schranke bestimmen
+		if(d < 1) return;							// Array kleiner gleich der Größe 1 müssen nicht sortiert werden
 		if(d < k) {
-			insertionSort(array, p, r);			// echt kleiner k wird InsertionSort eingesetzt
+			insertionSort(array, left, right);		// echt kleiner k wird InsertionSort eingesetzt
 		} else {
-			int q = partition(array, p, r);		// größer gleich k wird QuickSort verwendet
-			sort(array, k, p, q-1);
-			sort(array, k, q+1, r);
+			int q = partition(array, left, right);	// größer gleich k wird QuickSort verwendet
+			sort(array, k, left, q-1);
+			sort(array, k, q+1, right);
 		}
 	}
 	
 	/**
 	 * wendet den Partition-Algorithmus von QuickSort auf das Array an
 	 * @param array zu sortierendes Array
-	 * @param p untere Schranke
-	 * @param r obere Schranke
+	 * @param left untere Schranke
+	 * @param right obere Schranke
 	 * @return Postion der Problemzerlegung
 	 */
-	private int partition(SortArray array, int p, int r) {
-		Card x = array.getElementAt(p);						// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
-		int i = p-1;										// index i setzen
-		for(int j=0; j < r-1; j++) {
-			if(array.getElementAt(j).compareTo(x) <= 0) {	// aktuelles kleiner gleich dem Pivot?
-				i++;
+	private int partition(SortArray array, int left, int right) {
+		Card pivot = array.getElementAt(left);					// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
+		int i = right;
+		for(int j = right; j > left; j--) {
+			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
 				swap(array, i, j);
+				i--;
 			}
-		} swap(array, ++i, p);								// Pivot-Element an die richtige Position tauschen
-		return i;											// neuen Index des Pivot-Element zurückgeben
+		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
+		return i;												// neue Position zurückgeben
 	}
 	
 	/**
 	 * Vertauscht zwei Elemente im Array
 	 * @param array zu sortierendes Array
-	 * @param i Position des ersten Element
-	 * @param j Position des zweiten Elements
+	 * @param m Position des ersten Element
+	 * @param n Position des zweiten Elements
 	 */
-	private void swap(SortArray array, int i, int j) {
-		Card cache = array.getElementAt(i);				// Zwischenspeicher für Element i erzeugen
-		array.setElementAt(i, array.getElementAt(j));	// i mit j überschreiben
-		array.setElementAt(j, cache);					// j auf den Wert des Zwischenspeichers setzen
+	private void swap(SortArray array, int m, int n) {
+		Card cache = array.getElementAt(m);				// Zwischenspeicher für Element i erzeugen
+		array.setElementAt(m, array.getElementAt(n));	// i mit j überschreiben
+		array.setElementAt(n, cache);					// j auf den Wert des Zwischenspeichers setzen
 	}
 	
 	/**
 	 * sortiert Array mit Insertion-Sort zwischen der unteren und oberen Schranke
 	 * @param array zu sortierendes Array
-	 * @param p untere Schranke
-	 * @param r obere Schranke
+	 * @param left untere Schranke
+	 * @param right obere Schranke
 	 */
-	private void insertionSort(SortArray array, int p, int r) {
-		for(int j=p+1; j < r; j++) {
+	private void insertionSort(SortArray array, int left, int right) {
+		for(int j=left+1; j < right; j++) {
 			Card key = array.getElementAt(j);								// j-ter Eintrag im Array ist der Schlüsselwert
 			int i = j-1;
-			while(i >= p && array.getElementAt(i).compareTo(key) > 0) {
+			while(i >= left && array.getElementAt(i).compareTo(key) > 0) {
 				array.setElementAt(i+1, array.getElementAt(i));				// Schieben des Arrayeintrages
 				i--;
 			} array.setElementAt(i+1, key);									// Key an der richtigen Stelle einfügen
