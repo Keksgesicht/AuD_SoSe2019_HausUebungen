@@ -2,8 +2,9 @@ package lab;
 
 /**
  * Aufgabe H1b)
- * 
- * Abgabe von: <name>, <name> und <name>
+ * @author Emre Berber
+ * @author Christoph Berst
+ * @author Jan Braun
  */
 
 public class Card {
@@ -44,7 +45,45 @@ public class Card {
 	 * @return -1, 0 or 1
 	 */
 	public int compareTo(Card other) {
-		// TODO: implement
+		int compare = comapareValue(other);
+		if(compare != 0)
+			return compare;
+		return compareSuit(other);
+	}
+	
+	/**
+	 * compares the suit attribute
+	 * @param other The object we compare this to.
+	 * @return -1, 0 or 1
+	 */
+	private int compareSuit(Card other) {
+		switch(this.suit) {
+			case Diamonds:
+				return other.suit == Suit.Diamonds ? 0 :
+													-1 ;
+			case Hearts:
+				return other.suit == Suit.Hearts ? 		0 :
+					   other.suit == Suit.Diamonds ? 	1 :
+						   							   -1 ;
+			case Spades:
+				return other.suit == Suit.Spades ? 	0 :
+					   other.suit == Suit.Clubs ?  -1 :
+						   							1 ;
+			case Clubs:
+				return other.suit == Suit.Clubs ? 0 :
+												  1 ;
+		} return 0;
+	}
+	
+	/**
+	 * compares the value attribute
+	 * @param other The object we compare this to.
+	 * @return -1, 0 or 1
+	 */
+	private int comapareValue(Card other) {
+		return this.value < other.value ? -1 :
+			   this.value > other.value ?  1 :
+				   						   0 ;
 	}
 	
 }
