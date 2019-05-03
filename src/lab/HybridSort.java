@@ -5,8 +5,6 @@ package lab;
  * @author Emre Berber
  * @author Christoph Berst
  * @author Jan Braun
- *
- * Abgabe von: <name>, <name> und <name>
  */
 
 import frame.SortArray;
@@ -22,10 +20,26 @@ public class HybridSort {
 	 */
 	public void sort(SortArray array, int k) {
 		assert(k>=0);
-		
-		// Sorting
-		
-		return;
+		sort(array, k, 0, array.getNumberOfItems() - 1);
+	}
+	
+	/**
+	 * rekursives HybridSort
+	 * @param array zu sortierendes Array
+	 * @param k komplexity switch
+	 * @param p untere Schranke
+	 * @param r obere Schranke
+	 */
+	private void sort(SortArray array, int k, int p, int r) {
+		int d = p - r;							// Abstand zwischen unterer und oberer Schranke bestimmen
+		if(d < 2) return;						// Array kleiner gleich der Größe 1 müssen nicht sortiert werden
+		if(d < k) {
+			insertionSort(array, p, r);			// echt kleiner k wird InsertionSort eingesetzt
+		} else {
+			int q = partition(array, p, r);		// größer gleich k wird QuickSort verwendet
+			sort(array, k, p, q-1);
+			sort(array, k, q+1, r);
+		}
 	}
 	
 	/**
@@ -36,15 +50,15 @@ public class HybridSort {
 	 * @return Postion der Problemzerlegung
 	 */
 	private int partition(SortArray array, int p, int r) {
-		Card x = array.getElementAt(p);
-		int i = p-1;
+		Card x = array.getElementAt(p);						// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
+		int i = p-1;										// index i setzen
 		for(int j=0; j < r-1; j++) {
-			if(array.getElementAt(j).compareTo(x) <= 0) {
+			if(array.getElementAt(j).compareTo(x) <= 0) {	// aktuelles kleiner gleich dem Pivot?
 				i++;
 				swap(array, i, j);
 			}
-		} swap(array, ++i, p);
-		return i;
+		} swap(array, ++i, p);								// Pivot-Element an die richtige Position tauschen
+		return i;											// neuen Index des Pivot-Element zurückgeben
 	}
 	
 	/**
@@ -66,13 +80,13 @@ public class HybridSort {
 	 * @param r obere Schranke
 	 */
 	private void insertionSort(SortArray array, int p, int r) {
-		for(int j=p+1; j < r-1; j++) {
-			Card key = array.getElementAt(j);
+		for(int j=p+1; j < r; j++) {
+			Card key = array.getElementAt(j);								// j-ter Eintrag im Array ist der Schlüsselwert
 			int i = j-1;
 			while(i >= p && array.getElementAt(i).compareTo(key) > 0) {
-				array.setElementAt(i+1, array.getElementAt(i));
+				array.setElementAt(i+1, array.getElementAt(i));				// Schieben des Arrayeintrages
 				i--;
-			} array.setElementAt(i+1, key);
+			} array.setElementAt(i+1, key);									// Key an der richtigen Stelle einfügen
 		}
 	}
 	
