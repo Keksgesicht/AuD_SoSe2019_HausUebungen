@@ -2,6 +2,7 @@ package lab;
 
 /**
  * Aufgabe H1
+ * 
  * @author Emre Berber
  * @author Christoph Berst
  * @author Jan Braun

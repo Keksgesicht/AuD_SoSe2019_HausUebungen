@@ -49,7 +49,7 @@ public class HybridSort {
 	 * @return das gewählte Pivot-Element
 	 */
 	protected int getPivot(int left, int right) {
-		return left;
+		return left;	// H1b wählt untere Schranke
 	}
 	
 	/**
@@ -60,13 +60,13 @@ public class HybridSort {
 	 * @return Position der Problemzerlegung
 	 */
 	private int partition(SortArray array, int left, int right) {
-		int p = getPivot(left, right);
-		if(left != p) swap(array, left, p);
+		int p = getPivot(left, right);							// bestimme Pivot-Element
+		if(left != p) swap(array, left, p);						// vertausche Pivot mit untere Schranke
 		Card pivot = array.getElementAt(left);					// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
 		int i = right;
 		for(int j = right; j > left; j--) {
-			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
-				if(i != j) swap(array, i, j);
+			if(array.getElementAt(j).compareTo(pivot) > 0) {
+				if(i != j) swap(array, i, j);					// vertauscht Elemente nur, wenn nicht an der selben Position
 				i--;
 			}
 		} if(i != left) swap(array, i, left);					// Pivot an die richtige Stelle bringen
@@ -98,8 +98,7 @@ public class HybridSort {
 			while(i >= left && array.getElementAt(i).compareTo(key) > 0) {
 				array.setElementAt(i+1, array.getElementAt(i));				// Schieben des Arrayeintrages
 				i--;
-			}
-			if(++i != j)
+			} if(++i != j)			 										// Key nur einfügen fall verschoben wurde
 				array.setElementAt(i, key);									// Key an der richtigen Stelle einfügen
 		}
 	}
