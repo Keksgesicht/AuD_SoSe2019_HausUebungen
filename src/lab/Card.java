@@ -3,9 +3,9 @@ package lab;
 /**
  * Aufgabe H1b)
  * 
- * @author Emre Berber
+ * @author Emre Berber 2957148
  * @author Christoph Berst
- * @author Jan Braun
+ * @author Jan Braun 2768531
  */
 
 public class Card {

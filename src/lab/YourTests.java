@@ -3,9 +3,9 @@ package lab;
 /**
  * Aufgabe H1
  * 
- * @author Emre Berber
+ * @author Emre Berber 2957148
  * @author Christoph Berst
- * @author Jan Braun
+ * @author Jan Braun 2768531
  */
 
 import static org.junit.jupiter.api.Assertions.*;
