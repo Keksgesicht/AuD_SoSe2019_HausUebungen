@@ -4,9 +4,10 @@ import frame.SortArray;
 
 /**
  * Aufgabe H1c)
-
  * 
- * Abgabe von: Jan Braun, Christoph Berst und Emre Berber
+ * @author Emre Berber
+ * @author Christoph Berst
+ * @author Jan Braun
  */
 
 /**
@@ -15,8 +16,8 @@ import frame.SortArray;
 public class HybridSortRandomPivot extends HybridSort {
 	
 	protected int partition(SortArray array, int left, int right) {
-		int p = (int)(Math.random() * (right-left+1)) + left;	 
-		Card pivot = array.getElementAt(p); // Pivot-Element ist ein zuf�lliges Element zwischen left und right
+		int p = left + (int)(Math.random() * (right-left+1));
+		Card pivot = array.getElementAt(p);						// Pivot-Element ist ein zuf�lliges Element zwischen left und right
 		swap(array,p,left);
 		int i = right;
 		for(int j = right; j > left; j--) {
@@ -24,8 +25,8 @@ public class HybridSortRandomPivot extends HybridSort {
 				swap(array, i, j);
 				i--;
 			}
-		} swap(array, i, left); // Pivot an die richtige Stelle bringen
-		return i; // neue Position zurückgeben
+		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
+		return i;												// neue Position zurückgeben
 	}
 	
 }

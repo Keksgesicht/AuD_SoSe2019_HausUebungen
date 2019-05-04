@@ -2,7 +2,7 @@ package lab;
 
 /**
  * Aufgabe H1b)
-
+ * 
  * @author Emre Berber
  * @author Christoph Berst
  * @author Jan Braun
@@ -81,7 +81,7 @@ public class HybridSort {
 	 * @param right obere Schranke
 	 */
 	protected void insertionSort(SortArray array, int left, int right) {
-		for(int j=left+1; j < right; j++) {
+		for(int j=left+1; j <= right; j++) {
 			Card key = array.getElementAt(j);								// j-ter Eintrag im Array ist der Schlüsselwert
 			int i = j-1;
 			while(i >= left && array.getElementAt(i).compareTo(key) > 0) {
