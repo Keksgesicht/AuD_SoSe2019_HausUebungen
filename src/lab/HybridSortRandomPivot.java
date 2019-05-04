@@ -16,7 +16,7 @@ import frame.SortArray;
 public class HybridSortRandomPivot extends HybridSort {
 	
 	protected int partition(SortArray array, int left, int right) {
-		int p = left + (int)(Math.random() * (right-left+1));
+		int p = left + (int) (Math.random() * (right-left+1));
 		Card pivot = array.getElementAt(p);						// Pivot-Element ist ein zuf�lliges Element zwischen left und right
 		swap(array,p,left);
 		int i = right;

@@ -55,7 +55,8 @@ public class HybridSort {
 		int i = right;
 		for(int j = right; j > left; j--) {
 			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
-				swap(array, i, j);
+				if(i != j)
+					swap(array, i, j);
 				i--;
 			}
 		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
@@ -87,7 +88,9 @@ public class HybridSort {
 			while(i >= left && array.getElementAt(i).compareTo(key) > 0) {
 				array.setElementAt(i+1, array.getElementAt(i));				// Schieben des Arrayeintrages
 				i--;
-			} array.setElementAt(i+1, key);									// Key an der richtigen Stelle einfügen
+			}
+			if(++i != j)
+				array.setElementAt(i, key);									// Key an der richtigen Stelle einfügen
 		}
 	}
 	
