@@ -2,14 +2,11 @@ package lab;
 
 /**
  * Aufgabe H1c)
+ * Use a random pivot within Quick Sort.
  * 
  * @author Emre Berber 2957148
  * @author Christoph Berst 2743394
  * @author Jan Braun 2768531
- */
-
-/**
- * Use a random pivot within Quick Sort.
  */
 public class HybridSortRandomPivot extends HybridSort {
 	

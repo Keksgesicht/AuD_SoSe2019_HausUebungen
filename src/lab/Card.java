@@ -1,13 +1,12 @@
 package lab;
 
 /**
- * Aufgabe H1b)
+ * Aufgabe H1a)
  * 
  * @author Emre Berber 2957148
  * @author Christoph Berst 2743394
  * @author Jan Braun 2768531
  */
-
 public class Card {
 	
 	// DO NOT MODIFY
@@ -67,12 +66,12 @@ public class Card {
 					   other.suit == Suit.Diamonds ? 1 :	// Hearts > Diamonds
 						   							-1 ;	// Hearts < Spades < Clubs
 			case Spades:
-				return other.suit == Suit.Spades ? 	0 : 	// Spades == Spades
-					   other.suit == Suit.Clubs ?  -1 : 	// Spades < Clubs
-						   							1 ; 	// Spades > Hearts > Diamonds
+				return other.suit == Suit.Spades ? 	 0 : 	// Spades == Spades
+					   other.suit == Suit.Clubs ?   -1 : 	// Spades < Clubs
+						   							 1 ; 	// Spades > Hearts > Diamonds
 			case Clubs:
-				return other.suit == Suit.Clubs ?   0 : 	// Clubs == Clubs
-													1 ; 	// Clubs > Spades > Hearts > Diamonds
+				return other.suit == Suit.Clubs ?    0 : 	// Clubs == Clubs
+													 1 ; 	// Clubs > Spades > Hearts > Diamonds
 		} return 0;
 	}
 	

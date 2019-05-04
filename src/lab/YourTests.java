@@ -43,7 +43,7 @@ class YourTests {
 	 * @param array zu überprüfendes Array
 	 * @return ob das Array sortiert ist
 	 */
-	private boolean sorted(SortArray array) {
+	private boolean isSorted(SortArray array) {
 		Card last = null;
 		Card current = null;
 		for(int i=0; i < array.getNumberOfItems(); i++) {
@@ -63,9 +63,9 @@ class YourTests {
 	 * @param array zu sortierendes Array
 	 * @param t entscheidet welches Sortierverfahren verwendet werden soll (zwischen 0 und 3)
 	 */
-	void sortAlgo(SortArray array, int t) {
-		if(t<2) sortAlgo(array, t, new HybridSort());			// 0 und 1
-		else sortAlgo(array, t, new HybridSortRandomPivot());	// 3 und 4
+	void chooseSortAlgo(SortArray array, int t) {
+		if(t<2) chooseSortAlgo(array, t, new HybridSort());			// 0 und 1
+		else chooseSortAlgo(array, t, new HybridSortRandomPivot());	// 2 und 3
 	}
 	
 	/**
@@ -74,51 +74,58 @@ class YourTests {
 	 * @param t entscheidet welche Hybridstufe verwendet werden soll (zwischen 0 und 3)
 	 * @param sortAlgo das Sortierverfahren
 	 */
-	void sortAlgo(SortArray array, int t, HybridSort sortAlgo) {
+	void chooseSortAlgo(SortArray array, int t, HybridSort sortAlgo) {
 		if(t % 2 == 0) sortAlgo.sort(array, 0);		// 0 oder 2
 		else sortAlgo.sort(array, 1);				// 1 oder 3
 	}
 
 	/**
-	 * Erstellt und sammelt Messdaten für und über das Sortierverfahren
+	 * erstellt und sammelt Messdaten für und über das Sortierverfahren
 	 * @param t entscheidet welches Sortierverfahren mit welcher Hybridstufe verwendet werden soll (zwischen 0 und 3)
 	 */
-	void sortUnit(int t) {
+	void sortTestUnit(int t) {
 		ArrayList<Card> alc;
 		SortArray sa;
 		clearData();
 		
 		for(int c=0; c < 100; c++) {
+			// create test data
 			alc = new ArrayList<Card>();
-			for(int i=0; i<100000; i++) {
+			for(int i=0; i<100000; i++)
 				alc.add(new Card((int) (Math.random() * 100), Suit.values()[(int) Math.random() * 4]));
-			} 
 			sa = new SortArray(alc);
-			sortAlgo(sa, t);
 			
+			// sort
+			chooseSortAlgo(sa, t);
+			
+			// get data
 			int ro = sa.getReadingOperations();
 			int wo = sa.getWritingOperations();
 			
+			// minimum
 			readOPS[0] = readOPS[0] == 0 ? ro : readOPS[0] > ro ? ro : readOPS[0];
 			writeOPS[0] = writeOPS[0] == 0 ? wo : writeOPS[0] > wo ? wo : writeOPS[0];
 			
+			// average
 			readOPS[1] += sa.getReadingOperations();
 			writeOPS[1] += sa.getWritingOperations();
 			
+			// maximum
 			readOPS[2] = readOPS[2] == 0 ? ro : readOPS[2] < ro ? ro : readOPS[2];
 			writeOPS[2] = writeOPS[2] == 0 ? wo : writeOPS[2] < wo ? wo : writeOPS[2];
 			
-			assertTrue(sorted(sa));
+			// check
+			assertTrue(isSorted(sa));
 		}
 		printData();
 	}
 	
 	@Test
 	void tester() {
-		System.out.println("pivot=left | k=0");		sortUnit(0);
-		System.out.println("pivot=left | k=10");	sortUnit(1);
-		System.out.println("pivot=random | k=0");	sortUnit(2);
-		System.out.println("pivot=random | k=10");	sortUnit(3);
+		System.out.println("pivot=left | k=0");		sortTestUnit(0);
+		System.out.println("pivot=left | k=10");	sortTestUnit(1);
+		System.out.println("pivot=random | k=0");	sortTestUnit(2);
+		System.out.println("pivot=random | k=10");	sortTestUnit(3);
 	}
 	
 }

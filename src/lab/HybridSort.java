@@ -1,5 +1,7 @@
 package lab;
 
+import frame.SortArray;
+
 /**
  * Aufgabe H1b)
  * 
@@ -7,9 +9,6 @@ package lab;
  * @author Christoph Berst 2743394
  * @author Jan Braun 2768531
  */
-
-import frame.SortArray;
-
 public class HybridSort {
 	
 	/**
@@ -38,8 +37,8 @@ public class HybridSort {
 			insertionSort(array, left, right);		// echt kleiner k wird InsertionSort eingesetzt
 		} else {
 			int q = partition(array, left, right);	// größer gleich k wird QuickSort verwendet
-			sort(array, k, left, q-1);
-			sort(array, k, q+1, right);
+			sort(array, k, left, q-1);				// linkes Teilarray
+			sort(array, k, q+1, right);				// rechtes Teilarray
 		}
 	}
 	
