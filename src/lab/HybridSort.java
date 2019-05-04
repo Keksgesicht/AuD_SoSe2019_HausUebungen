@@ -31,7 +31,7 @@ public class HybridSort {
 	 * @param left untere Schranke
 	 * @param right obere Schranke
 	 */
-	protected void sort(SortArray array, int k, int left, int right) {
+	private void sort(SortArray array, int k, int left, int right) {
 		int d = right - left;						// Abstand zwischen unterer und oberer Schranke bestimmen
 		if(d < 1) return;							// Array kleiner gleich der Größe 1 müssen nicht sortiert werden
 		if(d < k) {
@@ -44,22 +44,32 @@ public class HybridSort {
 	}
 	
 	/**
+	 * @param left untere Schranke
+	 * @param right obere Schranke
+	 * @return das gewählte Pivot-Element
+	 */
+	protected int getPivot(int left, int right) {
+		return left;
+	}
+	
+	/**
 	 * wendet den Partition-Algorithmus von QuickSort auf das Array an
 	 * @param array zu sortierendes Array
 	 * @param left untere Schranke
 	 * @param right obere Schranke
 	 * @return Position der Problemzerlegung
 	 */
-	protected int partition(SortArray array, int left, int right) {
+	private int partition(SortArray array, int left, int right) {
+		int p = getPivot(left, right);
+		if(left != p) swap(array, left, p);
 		Card pivot = array.getElementAt(left);					// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
 		int i = right;
 		for(int j = right; j > left; j--) {
 			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
-				if(i != j)
-					swap(array, i, j);
+				if(i != j) swap(array, i, j);
 				i--;
 			}
-		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
+		} if(i != left) swap(array, i, left);					// Pivot an die richtige Stelle bringen
 		return i;												// neue Position zurückgeben
 	}
 	
@@ -69,7 +79,7 @@ public class HybridSort {
 	 * @param m Position des ersten Element
 	 * @param n Position des zweiten Elements
 	 */
-	protected void swap(SortArray array, int m, int n) {
+	private void swap(SortArray array, int m, int n) {
 		Card cache = array.getElementAt(m);				// Zwischenspeicher für Element i erzeugen
 		array.setElementAt(m, array.getElementAt(n));	// i mit j überschreiben
 		array.setElementAt(n, cache);					// j auf den Wert des Zwischenspeichers setzen
@@ -81,7 +91,7 @@ public class HybridSort {
 	 * @param left untere Schranke
 	 * @param right obere Schranke
 	 */
-	protected void insertionSort(SortArray array, int left, int right) {
+	private void insertionSort(SortArray array, int left, int right) {
 		for(int j=left+1; j <= right; j++) {
 			Card key = array.getElementAt(j);								// j-ter Eintrag im Array ist der Schlüsselwert
 			int i = j-1;
