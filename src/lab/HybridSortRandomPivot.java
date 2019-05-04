@@ -1,7 +1,5 @@
 package lab;
 
-import java.util.Random;
-
 import frame.SortArray;
 
 /**
@@ -17,15 +15,16 @@ import frame.SortArray;
 public class HybridSortRandomPivot extends HybridSort {
 	
 	protected int partition(SortArray array, int left, int right) {
-		Card pivot = array.getElementAt((int)(Math.random() * left) + right); // Pivot-Element ist ein zuf‰lliges Element zwischen left und right
+		int p = (int)(Math.random() * right-left) + left; 	 
+		Card pivot = array.getElementAt(p); // Pivot-Element ist ein zuf‰lliges Element zwischen left und right
 		int i = right;
 		for(int j = right; j > left; j--) {
 			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
 				swap(array, i, j);
 				i--;
 			}
-		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
-		return i;												// neue Position zur√ºckgeben
+		} swap(array, i, p); // Pivot an die richtige Stelle bringen		
+		return i; // neue Position zur√ºckgeben
 	}
 	
 }
