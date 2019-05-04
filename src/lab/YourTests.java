@@ -33,4 +33,16 @@ class YourTests {
 		System.out.println(alc);
 	}
 
+	@Test
+	void testRandom() {
+		ArrayList<Card> alc = new ArrayList<Card>();
+		for(int i=0; i<10; i++) {
+			alc.add(new Card((int) (Math.random() * 100), Suit.Diamonds));
+		}
+		System.out.println(alc);
+		SortArray sa = new SortArray(alc);
+		HybridSortRandomPivot sortAlgo = new HybridSortRandomPivot();
+		sortAlgo.sort(sa, 0);
+		System.out.println(alc);
+	}
 }
