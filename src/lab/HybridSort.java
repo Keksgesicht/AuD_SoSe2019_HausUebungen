@@ -61,15 +61,15 @@ public class HybridSort {
 	 */
 	private int partition(SortArray array, int left, int right) {
 		int p = getPivot(left, right);							// bestimme Pivot-Element
-		if(left != p) swap(array, left, p);						// vertausche Pivot mit untere Schranke
+		swap(array, left, p);									// vertausche Pivot mit untere Schranke
 		Card pivot = array.getElementAt(left);					// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
 		int i = right;
 		for(int j = right; j > left; j--) {
-			if(array.getElementAt(j).compareTo(pivot) > 0) {
-				if(i != j) swap(array, i, j);					// vertauscht Elemente nur, wenn nicht an der selben Position
+			if(array.getElementAt(j).compareTo(pivot) > 0) {	// teilt Elemente in Teilarrays ein
+				swap(array, i, j);
 				i--;
 			}
-		} if(i != left) swap(array, i, left);					// Pivot an die richtige Stelle bringen
+		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
 		return i;												// neue Position zurückgeben
 	}
 	
@@ -80,6 +80,7 @@ public class HybridSort {
 	 * @param n Position des zweiten Elements
 	 */
 	private void swap(SortArray array, int m, int n) {
+		if(m == n) return;								// vertauscht nur Elemente an verschiedenen Positionen
 		Card cache = array.getElementAt(m);				// Zwischenspeicher für Element i erzeugen
 		array.setElementAt(m, array.getElementAt(n));	// i mit j überschreiben
 		array.setElementAt(n, cache);					// j auf den Wert des Zwischenspeichers setzen
@@ -98,7 +99,7 @@ public class HybridSort {
 			while(i >= left && array.getElementAt(i).compareTo(key) > 0) {
 				array.setElementAt(i+1, array.getElementAt(i));				// Schieben des Arrayeintrages
 				i--;
-			} if(++i != j)			 										// Key nur einfügen fall verschoben wurde
+			} if(++i != j)			 										// Key nur einfügen, falls verschoben wurde
 				array.setElementAt(i, key);									// Key an der richtigen Stelle einfügen
 		}
 	}

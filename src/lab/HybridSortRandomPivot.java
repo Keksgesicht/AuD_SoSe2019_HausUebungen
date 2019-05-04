@@ -15,7 +15,7 @@ public class HybridSortRandomPivot extends HybridSort {
 	
 	@Override
 	protected int getPivot(int left, int right) {
-		return left + (int) (Math.random() * (right-left+1));	// wählt eine zufällige Position zwischen den Schranken
+		return left + (int) (Math.random() * (right - left + 1));	// wählt eine zufällige Position zwischen den Schranken
 	}
 	
 }

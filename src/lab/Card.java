@@ -46,10 +46,10 @@ public class Card {
 	 * @return -1, 0 or 1
 	 */
 	public int compareTo(Card other) {
-		int compare = compareValue(other);		// vergleiche Werte von this und other
-		if(compare != 0)						// falls this.value != other.value
-			return compare;						// gibt -1 oder 1 zrurück 
-		return compareSuit(other);				// bei gleichem Wert vergleiche Farbe
+		int compare = compareValue(other);	// vergleiche Werte von this und other
+		return compare != 0 ?				// falls this.value != other.value
+					compare :				// gibt -1 oder 1 zrurück 
+		  compareSuit(other);				// bei gleichem Wert vergleiche Farbe
 	}
 	
 	/**
@@ -58,21 +58,21 @@ public class Card {
 	 * @return -1, 0 or 1
 	 */
 	private int compareSuit(Card other) {
-		switch(this.suit) {										// Diamonds < Hearts < Spades < Clubs
+		switch(this.suit) {									// Diamonds < Hearts < Spades < Clubs
 			case Diamonds:
-				return other.suit == Suit.Diamonds ? 0 :		// Diamonds == Diamonds
-													-1 ;		// Diamonds < Hearts < Spades < Clubs
+				return other.suit == Suit.Diamonds ? 0 :	// Diamonds == Diamonds
+													-1 ;	// Diamonds < Hearts < Spades < Clubs
 			case Hearts:
-				return other.suit == Suit.Hearts ? 		0 :		// Hearts == Hearts
-					   other.suit == Suit.Diamonds ? 	1 :		// Hearts > Diamonds
-						   							   -1 ;		// Hearts < Spades < Clubs
+				return other.suit == Suit.Hearts ? 	 0 :	// Hearts == Hearts
+					   other.suit == Suit.Diamonds ? 1 :	// Hearts > Diamonds
+						   							-1 ;	// Hearts < Spades < Clubs
 			case Spades:
-				return other.suit == Suit.Spades ? 	0 :			// Spades == Spades
-					   other.suit == Suit.Clubs ?  -1 :			// Spades < Clubs
-						   							1 ;			// Spades > Hearts > Diamonds
+				return other.suit == Suit.Spades ? 	0 : 	// Spades == Spades
+					   other.suit == Suit.Clubs ?  -1 : 	// Spades < Clubs
+						   							1 ; 	// Spades > Hearts > Diamonds
 			case Clubs:
-				return other.suit == Suit.Clubs ? 0 :			// Clubs == Clubs
-												  1 ;			// Clubs > Spades > Hearts > Diamonds
+				return other.suit == Suit.Clubs ?   0 : 	// Clubs == Clubs
+													1 ; 	// Clubs > Spades > Hearts > Diamonds
 		} return 0;
 	}
 	
