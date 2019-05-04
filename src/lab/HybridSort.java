@@ -2,6 +2,7 @@ package lab;
 
 /**
  * Aufgabe H1b)
+
  * @author Emre Berber
  * @author Christoph Berst
  * @author Jan Braun
@@ -47,7 +48,7 @@ public class HybridSort {
 	 * @param array zu sortierendes Array
 	 * @param left untere Schranke
 	 * @param right obere Schranke
-	 * @return Postion der Problemzerlegung
+	 * @return Position der Problemzerlegung
 	 */
 	protected int partition(SortArray array, int left, int right) {
 		Card pivot = array.getElementAt(left);					// Pivot-Element ist das erste Element im zu sortierenden Abschnitt
