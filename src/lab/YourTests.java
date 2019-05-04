@@ -4,7 +4,7 @@ package lab;
  * Aufgabe H1
  * 
  * @author Emre Berber 2957148
- * @author Christoph Berst
+ * @author Christoph Berst 2743394
  * @author Jan Braun 2768531
  */
 
