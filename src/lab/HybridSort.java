@@ -3,7 +3,7 @@ package lab;
 /**
  * Aufgabe H1b)
  * 
- * @author Emre Berber
+ * @author Emre Berber 2957148
  * @author Christoph Berst
  * @author Jan Braun
  */
@@ -20,7 +20,7 @@ public class HybridSort {
 	 * 			otherwise keep on using Quick Sort.
 	 */
 	public void sort(SortArray array, int k) {
-		assert(k>=0);
+		assert(k>=0); 
 		sort(array, k, 0, array.getNumberOfItems() - 1);
 	}
 	
