@@ -2,16 +2,30 @@ package lab;
 
 import java.util.Random;
 
+import frame.SortArray;
+
 /**
  * Aufgabe H1c)
+
  * 
- * Abgabe von: <name>, <name> und <name>
+ * Abgabe von: Jan Braun, Christoph Berst und Emre Berber
  */
 
 /**
  * Use a random pivot within Quick Sort.
  */
 public class HybridSortRandomPivot extends HybridSort {
-	// TODO: Implement 
+	
+	protected int partition(SortArray array, int left, int right) {
+		Card pivot = array.getElementAt((int)(Math.random() * left) + right); // Pivot-Element ist ein zuf‰lliges Element zwischen left und right
+		int i = right;
+		for(int j = right; j > left; j--) {
+			if(array.getElementAt(j).compareTo(pivot) > 0) {	// > oder >= ??
+				swap(array, i, j);
+				i--;
+			}
+		} swap(array, i, left);									// Pivot an die richtige Stelle bringen
+		return i;												// neue Position zur√ºckgeben
+	}
 	
 }
