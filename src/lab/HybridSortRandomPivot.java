@@ -1,5 +1,7 @@
 package lab;
 
+import java.util.Random;
+
 /**
  * Aufgabe H1c)
  * Use a random pivot within Quick Sort.
@@ -10,9 +12,11 @@ package lab;
  */
 public class HybridSortRandomPivot extends HybridSort {
 	
+	Random rnd = new Random(System.currentTimeMillis());
+	
 	@Override
 	protected int getPivot(int left, int right) {
-		return left + (int) (Math.random() * (right - left + 1));	// wählt eine zufällige Position zwischen den Schranken
+		return left + rnd.nextInt(right - left + 1);	// wählt eine zufällige Position zwischen den Schranken
 	}
 	
 }

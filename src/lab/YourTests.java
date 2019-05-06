@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import frame.SortArray;
 import lab.Card.Suit;
@@ -20,6 +21,7 @@ class YourTests {
 	
 	long[] readOPS;
 	long[] writeOPS;
+	Random rnd = new Random(System.currentTimeMillis());
 	
 	/**
 	 * @BeforeEach
@@ -69,7 +71,6 @@ class YourTests {
 	}
 	
 	/**
-	 * 
 	 * @param array zu sortierendes Array
 	 * @param t entscheidet welche Hybridstufe verwendet werden soll (zwischen 0 und 3)
 	 * @param sortAlgo das Sortierverfahren
@@ -92,7 +93,7 @@ class YourTests {
 			// create test data
 			alc = new ArrayList<Card>();
 			for(int i=0; i<100000; i++)
-				alc.add(new Card((int) (Math.random() * 100), Suit.values()[(int) Math.random() * 4]));
+				alc.add(new Card(rnd.nextInt(100), Suit.values()[rnd.nextInt(4)]));
 			sa = new SortArray(alc);
 			
 			// sort
