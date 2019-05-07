@@ -108,8 +108,8 @@ class YourTests {
 			writeOPS[0] = writeOPS[0] == 0 ? wo : writeOPS[0] > wo ? wo : writeOPS[0];
 			
 			// average
-			readOPS[1] += sa.getReadingOperations();
-			writeOPS[1] += sa.getWritingOperations();
+			readOPS[1] += ro;
+			writeOPS[1] += wo;
 			
 			// maximum
 			readOPS[2] = readOPS[2] == 0 ? ro : readOPS[2] < ro ? ro : readOPS[2];
