@@ -9,25 +9,84 @@
 \usepackage{nccmath}
 \usepackage{amssymb}
 \usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{wrapfig}
 \pagenumbering{gobble}
              
 \begin{document}
 	
 	\begin{center}
-		\Large\textbf{Algorithmen und Datenstrukturen} \\
-		\Large\textbf{Hausübung 03}\\
+		\LARGE\textbf{Algorithmen und Datenstrukturen} \\
+		\LARGE\textbf{Hausübung 03}\\
 	\end{center}
+
+	\section*{Gruppenmitglieder}
+	
+		\begin{itemize}
+			\item Emre Berber
+			\item Christoph Berst
+			\item Jan Braun
+		\end{itemize}
 	
 	\section*{H1}
+	
 		\subsection*{a)}
 		
 			\begin{fleqn}[\parindent]
 				\begin{equation*}
 					\begin{split}
-						\frac{(n - 1) \cdot (n + 2)}{2}
+						\Theta(n) = \frac{(n - 1) \cdot (n + 2)}{2}
 					\end{split}
 				\end{equation*}
 			\end{fleqn}
+			Je nachdem, ob in Zeile 4 vom Partition-Algorithmus (s. Foliensatz 02 - Seite 220-284) $ < $ oder $ \leq $ steht, durchläuft i das Teilarray gar nicht oder komplett. Auf jeden Fall steht i nach Partition an einer der Enden des Teilarrays, weswegen der nächste Rekursionsaufruf unbalanciert mit (Anzahl der Elemente im aktuellen Teilarray) $ -1 $ Elementen geschieht. Das ganze geschieht $ (n - 1) $ mal, da man den letzten Fall bei dem das Teilarray nur noch aus einem Element besteht nicht betrachten muss. Wenn dieses Ablaufen der Elemente nun graphisch betrachten, haben wir nun ein Dreieck. Daher kommt auch das $ \frac{(n + 2)}{2} $. Die $ (n + 2) $ entstehen durch das aneinander legen der Dreiecke. Zur Erinnerung der letzte Rekursionsaufruf hat 2 Elemente.
+		
+		\subsection*{b)}
 			
+			\begin{wrapfigure}{R}{0.54\textwidth}
+				\vspace{-27pt}
+				\label{QuickSortTree}
+				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
+				\caption{H1b - Quicksort - Teilarrayzerlegung}
+			\end{wrapfigure}
+			
+			Teilarrayzerlegung s. Figure 1 \\
+			\\
+			Die fertige Liste sollte nach der Sortierung \\ folgendermaßen aussehen: \\
+			$ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $
+			
+		\subsection*{c)}
+			
+			(einfach mal geraten?!) \\
+			Best-Case: \\
+			Worst-Case: $ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $ \\
+			
+	\section*{H2}
+	
+		\subsection*{a)}
+		
+			qwertz
+		
+		\subsection*{b)}
+		
+			qwertz
+		
+		\subsection*{c)}
+		
+			qwertz
+			
+	\section*{H3}
+	
+		\subsection*{a)}
+	
+			qwertz
+	
+		\subsection*{b)}
+	
+			qwertz
+	
+		\subsection*{c)}
+	
+			qwertz
 			
 \end{document}
