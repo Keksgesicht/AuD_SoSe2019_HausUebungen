@@ -4,33 +4,41 @@
  				{article}
 
 \usepackage[a4paper, left=22mm, right=22mm, top=22mm, bottom=22mm]{geometry}
+\usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{nccmath}
 \usepackage{amssymb}
-\usepackage{changepage}
 \usepackage{graphicx}
 \usepackage{wrapfig}
-\pagenumbering{gobble}
-             
+
+\title{Algorithmen und Datenstrukturen - Hausübung 03}
+\date{ }
+
+\renewcommand*\contentsname{Inhaltsverzeichnis}
+\setcounter{secnumdepth}{0}
+
 \begin{document}
 	
-	\begin{center}
-		\LARGE\textbf{Algorithmen und Datenstrukturen} \\
-		\LARGE\textbf{Hausübung 03}\\
-	\end{center}
+	\maketitle
 
 	\section*{Gruppenmitglieder}
 	
 		\begin{itemize}
-			\item Emre Berber
-			\item Christoph Berst
-			\item Jan Braun
+			\item Emre Berber (2957148)
+			\item Christoph Berst (2743394)
+			\item Jan Braun (2768531)
 		\end{itemize}
 	
-	\section*{H1}
+	\vspace{1.5em}
+	\thispagestyle{empty}
+	\tableofcontents
+	\newpage
+	\setcounter{page}{1}
 	
-		\subsection*{a)}
+	\section{H1}
+		
+		\subsection{a)}
 		
 			\begin{fleqn}[\parindent]
 				\begin{equation*}
@@ -41,11 +49,11 @@
 			\end{fleqn}
 			Je nachdem, ob in Zeile 4 vom Partition-Algorithmus (s. Foliensatz 02 - Seite 220-284) $ < $ oder $ \leq $ steht, durchläuft i das Teilarray gar nicht oder komplett. Auf jeden Fall steht i nach Partition an einer der Enden des Teilarrays, weswegen der nächste Rekursionsaufruf unbalanciert mit (Anzahl der Elemente im aktuellen Teilarray) $ -1 $ Elementen geschieht. Das ganze geschieht $ (n - 1) $ mal, da man den letzten Fall bei dem das Teilarray nur noch aus einem Element besteht nicht betrachten muss. Wenn dieses Ablaufen der Elemente nun graphisch betrachten, haben wir nun ein Dreieck. Daher kommt auch das $ \frac{(n + 2)}{2} $. Die $ (n + 2) $ entstehen durch das aneinander legen der Dreiecke. Zur Erinnerung der letzte Rekursionsaufruf hat 2 Elemente.
 		
-		\subsection*{b)}
+		\subsection{b)}
 			
 			\begin{wrapfigure}{R}{0.54\textwidth}
-				\vspace{-27pt}
-				\label{QuickSortTree}
+				\vspace{-32pt}
+				\label{QuickSortTreePicture}
 				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
 				\caption{H1b - Quicksort - Teilarrayzerlegung}
 			\end{wrapfigure}
@@ -55,37 +63,67 @@
 			Die fertige Liste sollte nach der Sortierung \\ folgendermaßen aussehen: \\
 			$ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $
 			
-		\subsection*{c)}
+		\subsection{c)}
 			
-			(einfach mal geraten?!) \\
 			Best-Case: \\
-			Worst-Case: $ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $ \\
-			
-	\section*{H2}
+			Worst-Case: $ [20, 17, 11, 8, 5, 2, 3, 7, 10, 16, 19] $
 	
-		\subsection*{a)}
+	\section{H2}
 		
+		\subsection{a)}
+		
+			\fbox{\begin{minipage}{\textwidth} % box
+			\begin{tabbing}
+				\hspace*{2em}\= \hspace*{2.5em}\= \hspace*{3em}\= \hspace*{3.5em}\= \kill % set the tabbings
+				Find-Modal-M(Array) \\
+				1	\> left = 0 \\
+				2	\> right = Array.length \\
+				3	\> WHILE true \\
+				4	\> 	\> m = left + (right - left) / 2 \\
+				5 	\> 	\> IF m $>$ m+1 \\
+				6	\>	\> 	\> IF m = left \\
+				7	\>	\>\	\> \> return m \\
+				8	\>	\> 	\> right = m \\
+				9	\>	\> ELSE \\
+				10	\>	\>	\> IF m = left \\
+				11	\>	\>	\>	\> return m+1 \\
+				12	\>	\>	\> left = m+1
+			\end{tabbing}
+			\end{minipage}}
+			\\\\
+		 	$ f(n) \in \text{O}( 2 \cdot \log n ) $
+
+		\subsection{b)}
+		
+			\fbox{\begin{minipage}{\textwidth} % box
+					\begin{tabbing}
+						\hspace*{2em}\= \kill % set the tabbings
+						BIGGEST-X() \\
+						1	\> RETURN Find-Modal-M(V)
+					\end{tabbing}
+			\end{minipage}}
+		
+		\subsection{c)}
+		
+			\fbox{\begin{minipage}{\textwidth} % box
+					\begin{tabbing}
+						\hspace*{2em}\= \kill % set the tabbings
+						BIGGEST-Y() \\
+						1	\> RETURN Find-Modal-M(W)
+					\end{tabbing}
+			\end{minipage}}
+	
+	\section{H3}
+		
+		\subsection{a)}
+	
 			qwertz
 		
-		\subsection*{b)}
+		\subsection{b)}
+	
+			qwertz
 		
-			qwertz
-		
-		\subsection*{c)}
-		
-			qwertz
-			
-	\section*{H3}
-	
-		\subsection*{a)}
-	
-			qwertz
-	
-		\subsection*{b)}
-	
-			qwertz
-	
-		\subsection*{c)}
+		\subsection{c)}
 	
 			qwertz
 			

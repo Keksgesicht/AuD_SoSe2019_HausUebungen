@@ -31,7 +31,7 @@ public class HybridSort {
 	 * @param right obere Schranke
 	 */
 	private void sort(SortArray array, int k, int left, int right) {
-		int d = right - left;						// Abstand zwischen unterer und oberer Schranke bestimmen
+		int d = right - left + 1;						// Abstand zwischen unterer und oberer Schranke bestimmen
 		if(d < 1) return;							// Array kleiner gleich der Größe 1 müssen nicht sortiert werden
 		if(d < k) {
 			insertionSort(array, left, right);		// echt kleiner k wird InsertionSort eingesetzt
