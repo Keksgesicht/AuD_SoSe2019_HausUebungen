@@ -43,7 +43,7 @@
 			\begin{fleqn}[\parindent]
 				\begin{equation*}
 					\begin{split}
-						\Theta(n) = \frac{(n - 1) \cdot (n + 2)}{2}
+						& \Theta(n) = \frac{(n - 1) \cdot (n + 2)}{2} & \text{ also } && O(n) = n^{2} \\
 					\end{split}
 				\end{equation*}
 			\end{fleqn}
@@ -51,7 +51,7 @@
 		
 		\subsection{b)}
 			
-			\begin{wrapfigure}{R}{0.54\textwidth}
+			\begin{wrapfigure}[1]{R}{0.54\textwidth}
 				\vspace{-32pt}
 				\label{QuickSortTreePicture}
 				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
@@ -65,33 +65,42 @@
 			
 		\subsection{c)}
 			
-			Best-Case: \\
-			Worst-Case: $ [20, 17, 11, 8, 5, 2, 3, 7, 10, 16, 19] $
+			Best-Case: \\ $ [2, 11, 7, 19, 3, 16, 8, 20, 5, 17, 10] $ \\ 23 Vergleiche \\
+			\\
+			Worst-Case: \\ $ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $ \\ 55 Vergleiche \\
 	
 	\section{H2}
 		
 		\subsection{a)}
-		
-			\fbox{\begin{minipage}{\textwidth} % box
-			\begin{tabbing}
-				\hspace*{2em}\= \hspace*{2.5em}\= \hspace*{3em}\= \hspace*{3.5em}\= \kill % set the tabbings
-				Find-Modal-M(Array) \\
-				1	\> left = 0 \\
-				2	\> right = Array.length \\
-				3	\> WHILE true \\
-				4	\> 	\> m = left + (right - left) / 2 \\
-				5 	\> 	\> IF m $>$ m+1 \\
-				6	\>	\> 	\> IF m = left \\
-				7	\>	\>\	\> \> return m \\
-				8	\>	\> 	\> right = m \\
-				9	\>	\> ELSE \\
-				10	\>	\>	\> IF m = left \\
-				11	\>	\>	\>	\> return m+1 \\
-				12	\>	\>	\> left = m+1
-			\end{tabbing}
-			\end{minipage}}
-			\\\\
-		 	$ f(n) \in \text{O}( 2 \cdot \log n ) $
+			
+			\begin{minipage}[t]{0.4\linewidth}
+				\vspace{0pt} % reference top (floating)
+				\fbox{\begin{minipage}{\linewidth} % box
+				\begin{tabbing}
+					\hspace*{2em}\= \hspace*{2.5em}\= \hspace*{3em}\= \hspace*{3.5em}\= \kill % set the tabbings
+					Find-Modal-M(Array, left, right) \\
+					1	\> // left = 0 \\
+					2	\> // right = Array.length $-$ 1 \\
+					3	\> WHILE true \\
+					4	\> 	\> m = left + (right $-$ left) / 2 \\
+					5 	\> 	\> IF Array[m] $>$ Array[m+1] \\
+					6	\>	\> 	\> IF m = left \\
+					7	\>	\>\	\> \> return m \\
+					8	\>	\> 	\> right = m \\
+					9	\>	\> ELSE \\
+					10	\>	\>	\> IF m = left \\
+					11	\>	\>	\>	\> return m+1 \\
+					12	\>	\>	\> left = m+1
+				\end{tabbing}
+				\end{minipage}}
+			\end{minipage}
+			\begin{minipage}[t]{0.6\linewidth}
+				\vspace{6pt} % reference top (floating)
+				Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird. \\
+		 		$ f(n) \in \text{O}( \log n ) $ \\
+		 		\\
+		 		Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben.
+		 	\end{minipage}
 
 		\subsection{b)}
 		
@@ -99,19 +108,27 @@
 					\begin{tabbing}
 						\hspace*{2em}\= \kill % set the tabbings
 						BIGGEST-X() \\
-						1	\> RETURN Find-Modal-M(V)
+						1	\> RETURN Find-Modal-M(V, 0, V.length $-$ 1)
 					\end{tabbing}
 			\end{minipage}}
 		
 		\subsection{c)}
-		
-			\fbox{\begin{minipage}{\textwidth} % box
+			
+			\begin{minipage}[t]{0.52\linewidth}
+				\vspace{0pt} % reference top (floating)
+				\fbox{\begin{minipage}{\textwidth} % box
 					\begin{tabbing}
 						\hspace*{2em}\= \kill % set the tabbings
 						BIGGEST-Y() \\
-						1	\> RETURN Find-Modal-M(W)
+						1	\> RETURN Find-Modal-M(W, 0, BIGGEST-X())
 					\end{tabbing}
-			\end{minipage}}
+				\end{minipage}}
+			\end{minipage}
+			\begin{minipage}[t]{0.48\linewidth}
+				\vspace{6pt} % reference top (floating)
+				Da hier einfach nur 2 mal Algorithmen mit $ \log n $ ausgeführt werden, ist es immer noch in O(n)
+			\end{minipage}
+			
 	
 	\section{H3}
 		
