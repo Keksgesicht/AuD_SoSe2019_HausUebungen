@@ -51,7 +51,7 @@
 		
 		\subsection{b)}
 			
-			\begin{wrapfigure}[1]{R}{0.54\textwidth}
+			\begin{wrapfigure}[15]{r}{0.54\textwidth}
 				\vspace{-32pt}
 				\label{QuickSortTreePicture}
 				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
@@ -73,8 +73,8 @@
 		
 		\subsection{a)}
 			
-			\begin{minipage}[t]{0.4\linewidth}
-				\vspace{0pt} % reference top (floating)
+			\begin{wrapfigure}[12]{l}{0.38\linewidth}
+				\vspace{-3.3ex}
 				\fbox{\begin{minipage}{\linewidth} % box
 				\begin{tabbing}
 					\hspace*{2em}\= \hspace*{2.5em}\= \hspace*{3em}\= \hspace*{3.5em}\= \kill % set the tabbings
@@ -93,15 +93,20 @@
 					12	\>	\>	\> left = m+1
 				\end{tabbing}
 				\end{minipage}}
-			\end{minipage}
-			\begin{minipage}[t]{0.6\linewidth}
-				\vspace{6pt} % reference top (floating)
-				Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird. \\
-		 		$ f(n) \in \text{O}( \log n ) $ \\
-		 		\\
-		 		Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben.
-		 	\end{minipage}
-
+			\end{wrapfigure}
+			
+			Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird. \\
+		 	$ f(n) \in \text{O}( \log n ) $ \\
+		 	\\
+		 	Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben. \\
+		 	\\
+		 	Schleifeninvariante - \textbf{Korrektheitsbeweis!}
+			\\
+			\\
+			\\
+			\\
+			\\
+				
 		\subsection{b)}
 		
 			\fbox{\begin{minipage}{\textwidth} % box
@@ -111,11 +116,12 @@
 						1	\> RETURN Find-Modal-M(V, 0, V.length $-$ 1)
 					\end{tabbing}
 			\end{minipage}}
-		
+			
+		\newpage
 		\subsection{c)}
 			
-			\begin{minipage}[t]{0.52\linewidth}
-				\vspace{0pt} % reference top (floating)
+			\begin{wrapfigure}[3]{l}{0.5\linewidth}
+				\vspace{-3.3ex}
 				\fbox{\begin{minipage}{\textwidth} % box
 					\begin{tabbing}
 						\hspace*{2em}\= \kill % set the tabbings
@@ -123,12 +129,10 @@
 						1	\> RETURN Find-Modal-M(W, 0, BIGGEST-X())
 					\end{tabbing}
 				\end{minipage}}
-			\end{minipage}
-			\begin{minipage}[t]{0.48\linewidth}
-				\vspace{6pt} % reference top (floating)
-				Da hier einfach nur 2 mal Algorithmen mit $ \log n $ ausgeführt werden, ist es immer noch in O(n)
-			\end{minipage}
+			\end{wrapfigure}
 			
+			Da hier einfach nur 2 mal Algorithmen mit $ \log n $ ausgeführt werden, ist es immer noch in $ \text{O}( \log n )$. \\
+			Die Punkten werden im Uhrzeigersinn beginnend mit dem Punkt mit dem kleinsten x-Wert aufgelistet. Die y-Werte in W könnten nun nach dem Hochpunkt m auch einen Tiefpunkt besitzen. Deshalb betrachten wir für den größten y-Wert nur den Halbkreis zwischen 0 und dem Punkt, mit dem größten x-Wert.
 	
 	\section{H3}
 		
