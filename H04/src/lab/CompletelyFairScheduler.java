@@ -1,14 +1,15 @@
 package lab;
 
-/**
- * Aufgabe H1b)
- * 
- * Abgabe von: <name>, <name> und <name>
- */
-
 import frame.TreeNode;
 import frame.Process;
 
+/**
+ * Aufgabe H1b)
+ * 
+ * @author Emre Berber 2957148
+ * @author Christoph Berst 2743394
+ * @author Jan Braun 2768531
+ */
 public class CompletelyFairScheduler {
 	
 	private RedBlackTree tree;

@@ -96,24 +96,7 @@ public class RedBlackTree {
 	 */
 	public void insert(TreeNode newNode) {
 		clearChildren(newNode);
-		TreeNode px = _nil;
-		TreeNode x = _root;
-		
-		while(x != _nil) {
-			px = x;
-			x = x.key > newNode.key ? 
-				x.left : 
-				x.right; 
-		} 
-		newNode.p = px;
-		if(px == _nil)
-			_root = newNode;
-		else {
-			if(px.key > newNode.key)
-				px.left = newNode;
-			else
-				px.right = newNode;
-		}
+		// TODO
 	}
 	
 	private void transplant(TreeNode u, TreeNode v) {
@@ -134,24 +117,6 @@ public class RedBlackTree {
 	 * @param toDelete the TreeNode that gets removed
 	 */
 	public void delete(TreeNode toDelete) {
-		if(toDelete.left == _nil)
-			transplant(toDelete, toDelete.right);
-		else if(toDelete.right == _nil)
-			transplant(toDelete, toDelete.left);
-		else {
-			TreeNode y = toDelete.right;
-			
-			while(y.left != _nil)
-				y = y.left;
-			
-			if(y.p != toDelete) {
-				transplant(y, y.right);
-				y.right = toDelete.right;
-				y.right.p = y;
-			}
-			transplant(toDelete, y);
-			y.left = toDelete.left;
-			y.left.p = y;
-		}
+		// TODO
 	}
 }
