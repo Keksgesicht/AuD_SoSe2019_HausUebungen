@@ -154,7 +154,7 @@
 			\begin{fleqn}[\parindent]
 				\begin{equation*}
 				\begin{split}
-					& P \trianglelefteq Q \land Q \trianglelefteq P \\
+					& P \trianglelefteq Q \land Q \trianglelefteq P \Leftrightarrow \\
 					& ( ( x_{1} \leq x_{2} ) \land ( y_{1} \leq y_{2} ) ) 
 					\land
 					( ( x_{1} \geq x_{2} ) \land ( y_{1} \geq y_{2} ) )
@@ -163,13 +163,74 @@
 				\end{split}
 				\end{equation*}
 			\end{fleqn}
-		
+			Transitivität: \\
+			\begin{fleqn}[\parindent]
+				\begin{equation*}
+				\begin{split}
+					& \text{Sei } R \in \mathbb{Z}^{2} \text{ mit } R = ( x_{3}, y_{3} ) \\
+					& P \trianglelefteq Q \land Q \trianglelefteq R \Leftrightarrow \\
+					& ( ( x_{1} \leq x_{2} ) \land ( y_{1} \leq y_{2} ) ) 
+					\land
+					( ( x_{2} \leq x_{3} ) \land ( y_{2} \leq y_{3} ) )
+					\Rightarrow 
+					( x_{1} \leq x_{3} ) \land ( y_{1} \leq y_{3} ) \Rightarrow P \trianglelefteq R \\
+				\end{split}
+				\end{equation*}
+			\end{fleqn}
+			$ \Rightarrow $ $ \trianglelefteq $ ist eine Ordnungralation auf $ \mathbb{Z}^{2} $ \\
+			\\
+			Sei P = (1,2) und Q = (2,1), dann ist weder P $ \trianglelefteq $ Q $ \Leftrightarrow ( 1 \leq 2 ) \land ( 2 \leq 1 ) $ noch Q $ \trianglelefteq $ P $ \Leftrightarrow ( 2 \leq 1 ) \land ( 1 \leq 2 ) $ \\
+			Also ist $ \trianglelefteq $ keine totale Ordnung auf $ \mathbb{Z}^{2} $ \\
+			\\
+		\begin{minipage}[t]{0.5\textwidth}
 		\subsection{b)}
-	
-			qwertz
 		
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							Fin-All-Max(M) \\
+							1	\> IF IsEmpty(M) THEN \\
+							2	\>	\> RETURN M \\
+							3	\> IF Size(M) == 1 THEN \\
+							4	\>	\> RETURN M \\
+							5	\> p = 0 \\
+							6	\> q = 1 \\
+							7	\> RETURN Compare(M, p, q)
+						\end{tabbing}
+				\end{minipage}}
+				
+				\vspace{3mm}
+							
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							Compare(M, p, q) \\
+							1	\> IF p+1 > M.length THEN \\
+							2	\>	\> RETURN M \\
+							3	\> IF q+1 > M.length THEN \\
+							4	\>	\> RETURN Compare(M, p+1, 0) \\
+							5	\> IF a == b THEN \\
+							6	\>	\> RETURN Compare(M, p, q+1) \\
+							7	\> IF M[p] $ \trianglelefteq $ M[q] THEN \\
+							8	\>	\> Remove(M, p) \\
+							9	\>	\> RETURN Compare(M, q, q+1) \\
+							10	\> ELSE \\
+							11	\>	\> RETURN Compare(M, p, q+1)
+						\end{tabbing}
+				\end{minipage}}
+				\\
+				\\
+				{\fontsize{5}{0} \selectfont  M[p] $ \trianglelefteq $ M[q] := M[p].x $ <= $ M[q].x $ \land $ M[p].y $ <= $ M[q].y \\
+				Remove(M, p) := removes an element at position p in M}	
+		
+		\end{minipage}	
+		\begin{minipage}[t]{0.5\textwidth}
 		\subsection{c)}
 	
-			qwertz
+			Laufzeit: $ (n-1) \cdot n \in \text{O}(n^{2}) $
+			
+		\end{minipage}	
 			
 \end{document}
