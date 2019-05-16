@@ -43,7 +43,7 @@
 			\begin{fleqn}[\parindent]
 				\begin{equation*}
 					\begin{split}
-						& \Theta \left( \frac{(n - 1) \cdot (n + 2)}{2} \right) & \text{ Also liegt es in } \text{O}(n^{2}) \\
+						& \frac{(n - 1) \cdot (n + 2)}{2} \in \text{O}(n^{2}) \\
 					\end{split}
 				\end{equation*}
 			\end{fleqn}
@@ -54,7 +54,6 @@
 			
 			\begin{wrapfigure}[15]{r}{0.54\textwidth}
 				\vspace{-32pt}
-				\label{QuickSortTreePicture}
 				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
 				\caption{H1b - Quicksort - Teilarrayzerlegung}
 			\end{wrapfigure}
@@ -74,54 +73,60 @@
 		
 		\subsection{a)}
 			
-			\begin{wrapfigure}[12]{l}{0.37\linewidth}
+			\begin{wrapfigure}[12]{l}{0.335\linewidth}
+				\ttfamily
 				\vspace{-3.3ex}
 				\fbox{\begin{minipage}{\linewidth} % box
 				\begin{tabbing}
 					\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
-					Find-Modal-M(Array, left, right) \\
-					1	\> // left = 0 \\
-					2	\> // right = Array.length $-$ 1 \\
-					3	\> WHILE true \\
-					4	\> 	\> m = left + (right $-$ left) / 2 \\
-					5 	\> 	\> IF Array[m] $>$ Array[m+1] \\
-					6	\>	\> 	\> IF m == left \\
+					Find-Modal-M(A, l, r) \\
+					1	\> // l = 0 \\
+					2	\> // r = A.length $-$ 1 \\
+					3	\> WHILE true DO\\
+					4	\> 	\> m = l + (r $-$ l) / 2 \\
+					5 	\> 	\> IF A[m] $>$ A[m+1] THEN \\
+					6	\>	\> 	\> IF m == l \\
 					7	\>	\>\	\> \> return m \\
-					8	\>	\> 	\> right = m \\
+					8	\>	\> 	\> r = m \\
 					9	\>	\> ELSE \\
-					10	\>	\>	\> IF m == left \\
+					10	\>	\>	\> IF m == l \\
 					11	\>	\>	\>	\> return m+1 \\
 					12	\>	\>	\> left = m+1
 				\end{tabbing}
 				\end{minipage}}
 			\end{wrapfigure}
 			
-			Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird. \\
+			Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird.
 		 	O$ ( \log n ) $ \\
 		 	\\
-		 	Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben. \\
-		 	\\
-		 	Schleifeninvariante - \textbf{Korrektheitsbeweis!}
+		 	\underline{Schleifeninvariante:} Zwischen l und r liegt immer m. \\
+			\textbf{Initialisierung:} In jedem Modalenarray gibt es ein m. \\
+			\textbf{Fortsetzung:} Da m zwischen dem Auf- und dem Absteienteil liegt, muss m in der linken Hälfte liegen, wenn A[m] $>$ A[m+1] absteigen ist, und in der rechten Hälfte, wenn A[m] $\leq$ A[m+1] aufsteigend ist. \\
+			\textbf{Terminierung:} Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben. \\
 			\\
 			\\
-			\\
-			\\
-			\\
-				
+			
 		\subsection{b)}
 		
-			\fbox{\begin{minipage}{\textwidth} % box
-					\begin{tabbing}
-						\hspace*{2em}\= \kill % set the tabbings
-						BIGGEST-X() \\
-						1	\> RETURN Find-Modal-M(V, 0, V.length $-$ 1)
-					\end{tabbing}
-			\end{minipage}}
+			\begin{wrapfigure}[3]{l}{0.49\linewidth}
+				\ttfamily
+				\vspace{-3.3ex}
+				\fbox{\begin{minipage}{\textwidth} % box
+						\begin{tabbing}
+							\hspace*{2em}\= \kill % set the tabbings
+							BIGGEST-X() \\
+							1	\> RETURN Find-Modal-M(V, 0, V.length $-$ 1)
+						\end{tabbing}
+				\end{minipage}}
+			\end{wrapfigure}
 			
-		\newpage
+			Die Laufzeit sollte indetisch mit der Aufgabe a sein. \\
+			Da das Polygon konvex ist, ist das Array V auch modal. \\
+			
 		\subsection{c)}
 			
-			\begin{wrapfigure}[3]{l}{0.5\linewidth}
+			\begin{wrapfigure}[3]{l}{0.475\linewidth}
+				\ttfamily
 				\vspace{-3.3ex}
 				\fbox{\begin{minipage}{\textwidth} % box
 					\begin{tabbing}
