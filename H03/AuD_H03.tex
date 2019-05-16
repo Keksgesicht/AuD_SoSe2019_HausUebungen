@@ -47,7 +47,6 @@
 					\end{split}
 				\end{equation*}
 			\end{fleqn}
-		
 			Je nachdem, ob in Zeile 4 vom Partition-Algorithmus (s. Foliensatz 02 - Seite 220-284) $ < $ oder $ \leq $ steht, durchläuft i das Teilarray gar nicht oder komplett. Auf jeden Fall steht i nach Partition an einer der Enden des Teilarrays, weswegen der nächste Rekursionsaufruf unbalanciert mit (Anzahl der Elemente im aktuellen Teilarray) $ -1 $ Elementen geschieht. Das ganze geschieht $ (n - 1) $ mal, da man den letzten Fall bei dem das Teilarray nur noch aus einem Element besteht nicht betrachten muss. \\
 			Wenn dieses Ablaufen der Elemente nun graphisch betrachten, haben wir nun ein Dreieck. Daher kommt auch die Multiplikation mit $ (n + 2) $ und $ \frac{1}{2} $. Die $ (n + 2) $ entstehen durch das aneinander legen der Dreiecke. Zur Erinnerung der letzte Rekursionsaufruf hat 2 Elemente.
 		
@@ -117,7 +116,7 @@
 				\end{minipage}}
 			\end{wrapfigure}
 			
-			Die Laufzeit sollte indetisch mit der Aufgabe a sein. \\
+			Die Laufzeit sollte identisch mit der Aufgabe a sein. \\
 			Da das Polygon konvex ist, ist das Array V auch modal. \\
 		
 		\newpage	
@@ -142,7 +141,28 @@
 		
 		\subsection{a)}
 	
-			qwertz
+			Reflexiv: \\
+			\begin{fleqn}[\parindent]
+				\begin{equation*}
+				\begin{split}
+					& \text{Sei } P = (x,y) \\
+					& P \trianglelefteq P \Leftrightarrow ( x \leq x ) \land ( y \leq y ) \\
+				\end{split}
+				\end{equation*}
+			\end{fleqn}	
+			Antisemmetrie: \\
+			\begin{fleqn}[\parindent]
+				\begin{equation*}
+				\begin{split}
+					& P \trianglelefteq Q \land Q \trianglelefteq P \Rightarrow P = Q \\
+					& ( ( x_{1} \leq x_{2} ) \land ( y_{1} \leq y_{2} ) ) 
+					\land
+					( ( x_{1} \geq x_{2} ) \land ( y_{1} \geq y_{2} ) )
+					\Rightarrow 
+					( x_{1} = x_{2} ) \land ( y_{1} = y_{2} ) \\
+				\end{split}
+				\end{equation*}
+			\end{fleqn}
 		
 		\subsection{b)}
 	
