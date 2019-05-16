@@ -182,7 +182,7 @@
 			Sei P = (1,2) und Q = (2,1), dann ist weder P $ \trianglelefteq $ Q $ \Leftrightarrow ( 1 \leq 2 ) \land ( 2 \leq 1 ) $ noch Q $ \trianglelefteq $ P $ \Leftrightarrow ( 2 \leq 1 ) \land ( 1 \leq 2 ) $ \\
 			Also ist $ \trianglelefteq $ keine totale Ordnung auf $ \mathbb{Z}^{2} $ \\
 			\\
-		\begin{minipage}[t]{0.5\textwidth}
+		\begin{minipage}[t]{0.42\textwidth}
 		\subsection{b)}
 		
 				\fbox{\begin{minipage}{\textwidth} % box
@@ -207,30 +207,53 @@
 						\begin{tabbing}
 							\hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
 							Compare(M, p, q) \\
-							1	\> IF p+1 > M.length THEN \\
+							1	\> IF p+1 > M.length $-$ 1 THEN \\
 							2	\>	\> RETURN M \\
-							3	\> IF q+1 > M.length THEN \\
+							3	\> IF q+1 > M.length $-$ 1 THEN \\
 							4	\>	\> RETURN Compare(M, p+1, 0) \\
-							5	\> IF a == b THEN \\
+							5	\> IF p == q THEN \\
 							6	\>	\> RETURN Compare(M, p, q+1) \\
-							7	\> IF M[p] $ \trianglelefteq $ M[q] THEN \\
-							8	\>	\> Remove(M, p) \\
+							7	\> IF M[p].x $ < $ M[q].x \\
+							\>	$ \land $ M[p].y $ < $ M[q].y THEN \\
+							8	\>	\> Delete(M, p) \\
 							9	\>	\> RETURN Compare(M, q, q+1) \\
 							10	\> ELSE \\
 							11	\>	\> RETURN Compare(M, p, q+1)
 						\end{tabbing}
 				\end{minipage}}
 				\\
-				\\
-				{\fontsize{5}{0} \selectfont  M[p] $ \trianglelefteq $ M[q] := M[p].x $ <= $ M[q].x $ \land $ M[p].y $ <= $ M[q].y \\
-				Remove(M, p) := removes an element at position p in M}	
+				{\fontsize{5}{0} \selectfont
+					Delete(M,p) := löscht das Element an Position p in M
+				}	
 		
 		\end{minipage}	
-		\begin{minipage}[t]{0.5\textwidth}
+		\begin{minipage}[t]{0.58\textwidth}
 		\subsection{c)}
 	
-			Laufzeit: $ (n-1) \cdot n \in \text{O}(n^{2}) $
-			
-		\end{minipage}	
+			\underline{Laufzeit:} $ (n-1) \cdot n \in \text{O}(n^{2}) $ \\
+			\\
+			\underline{Korrektheit:} \\
+			\textbf{Initialisierung:} \\
+			Vor dem ersten Aufruf der Methode Compare gilt M$ \neq \emptyset $ und hat mehr als ein Element. p=0 und q=1. \\
+			\\
+			\textbf{Fortsetzung:} \\
+			5 Verscheidenen Fälle sind zu betrachten:
+			\begin{itemize}
+				\setlength\itemsep{3pt}
+				\item Wenn p das letzte Element ist, besteht M schon aus den größten Elementen.
+				\item Wenn q das letzte Element ist, dann ist p ein maximaler Punkt und wir können nach diesem weitersuchen.
+				\item Wenn p gleich q ist, dann vergleichen wir direkt p mit dem Element nach q.
+				\item Wenn der Punkt p kleiner dem Punkt q ist, dann ist der Punkt p definitiv nicht der maximale Punkt sein kann und können q mit allen anderen Punkten vergleichen.
+				\item In allen anderen Fällen können wir einfach das nächsten Punkte vergleichen.
+			\end{itemize}
+		\end{minipage}
+	
+		\newpage
+		\begin{flushleft}
+			\textbf{Terminierung:} \\
+			Compare terminiert, wenn die Bedingung in Zeile 1 zutrifft und somit M zurückgegeben wird. Dies wird erst erreicht, wenn p von 0 bis zum letzten Element gelaufen ist.
+			p wird immer dann erhöht, wenn es mit jedem anderen Element verglichen wurde oder sicher ist, dass es kein maximaler Punkt ist.
+		\end{flushleft}
+		
 			
 \end{document}
