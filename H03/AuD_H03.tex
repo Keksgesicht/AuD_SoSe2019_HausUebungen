@@ -47,35 +47,33 @@
 					\end{split}
 				\end{equation*}
 			\end{fleqn}
+		
 			Je nachdem, ob in Zeile 4 vom Partition-Algorithmus (s. Foliensatz 02 - Seite 220-284) $ < $ oder $ \leq $ steht, durchläuft i das Teilarray gar nicht oder komplett. Auf jeden Fall steht i nach Partition an einer der Enden des Teilarrays, weswegen der nächste Rekursionsaufruf unbalanciert mit (Anzahl der Elemente im aktuellen Teilarray) $ -1 $ Elementen geschieht. Das ganze geschieht $ (n - 1) $ mal, da man den letzten Fall bei dem das Teilarray nur noch aus einem Element besteht nicht betrachten muss. \\
 			Wenn dieses Ablaufen der Elemente nun graphisch betrachten, haben wir nun ein Dreieck. Daher kommt auch die Multiplikation mit $ (n + 2) $ und $ \frac{1}{2} $. Die $ (n + 2) $ entstehen durch das aneinander legen der Dreiecke. Zur Erinnerung der letzte Rekursionsaufruf hat 2 Elemente.
 		
 		\subsection{b)}
 			
-			\begin{wrapfigure}[15]{r}{0.54\textwidth}
-				\vspace{-32pt}
+			\begin{wrapfigure}[15]{R}{0.54\textwidth}
+				\vspace{-35pt}
 				\includegraphics[width=\linewidth]{H1b_QuickSortTree.png}
-				\caption{H1b - Quicksort - Teilarrayzerlegung}
 			\end{wrapfigure}
-			
-			Teilarrayzerlegung s. Figure 1 \\
-			\\
-			Die fertige Liste sollte nach der Sortierung \\ folgendermaßen aussehen: \\
-			$ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $
+			Teilarrayzerlegung seihe Bild rechts
 			
 		\subsection{c)}
 			
 			Best-Case: \\ $ [2, 11, 7, 19, 3, 16, 8, 20, 5, 17, 10] $ \\ 23 Vergleiche \\
 			\\
 			Worst-Case: \\ $ [2, 3, 5, 7, 8, 10, 11, 16, 17, 19, 20] $ \\ 55 Vergleiche \\
+			\\ \\ \\ \\	\\
+			\vspace{-7.5em}
 	
 	\section{H2}
 		
 		\subsection{a)}
-			
-			\begin{wrapfigure}[12]{l}{0.335\linewidth}
+		
+			\begin{wrapfigure}[9]{L}{0.335\linewidth}
 				\ttfamily
-				\vspace{-3.3ex}
+				\vspace{-7em}
 				\fbox{\begin{minipage}{\linewidth} % box
 				\begin{tabbing}
 					\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
@@ -95,6 +93,7 @@
 				\end{tabbing}
 				\end{minipage}}
 			\end{wrapfigure}
+			\vspace{2cm}
 			
 			Laufzeit bestimmt sich da dadurch, dass es sich durch die Zeilen 4, 8 und 12 das betrachtete Array immer halbiert wird.
 		 	O$ ( \log n ) $ \\
@@ -102,9 +101,7 @@
 		 	\underline{Schleifeninvariante:} Zwischen l und r liegt immer m. \\
 			\textbf{Initialisierung:} In jedem Modalenarray gibt es ein m. \\
 			\textbf{Fortsetzung:} Da m zwischen dem Auf- und dem Absteienteil liegt, muss m in der linken Hälfte liegen, wenn A[m] $>$ A[m+1] absteigen ist, und in der rechten Hälfte, wenn A[m] $\leq$ A[m+1] aufsteigend ist. \\
-			\textbf{Terminierung:} Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben. \\
-			\\
-			\\
+			\textbf{Terminierung:} Sobald das betrachtete Array nur noch aus 2 Elementen besteht, wird das jeweils größere Element zurückgegeben.
 			
 		\subsection{b)}
 		
@@ -122,7 +119,8 @@
 			
 			Die Laufzeit sollte indetisch mit der Aufgabe a sein. \\
 			Da das Polygon konvex ist, ist das Array V auch modal. \\
-			
+		
+		\newpage	
 		\subsection{c)}
 			
 			\begin{wrapfigure}[3]{l}{0.475\linewidth}
