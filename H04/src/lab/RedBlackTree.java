@@ -96,7 +96,99 @@ public class RedBlackTree {
 	 */
 	public void insert(TreeNode newNode) {
 		clearChildren(newNode);
-		// TODO
+		TreeNode x = _root; 
+		TreeNode px = _nil;
+		
+		while(x != _nil) {
+			px = x;
+			if(x.key > newNode.key)
+				x = x.left;
+			else
+				x = x.right;
+		}
+		newNode.p = px;
+		if(px == _nil)
+			_root = newNode;
+		else {
+			if(px.key > newNode.key)
+				px.left = newNode;
+			else
+				px.right = newNode;
+		}
+		newNode.color = TreeNode.NodeColor.RED;
+		fixColorsAfterInsertion(newNode);
+	}
+	
+	private void fixColorsAfterInsertion(TreeNode newNode) {
+		while(newNode.p.color == TreeNode.NodeColor.RED) {
+			if(newNode.p == newNode.p.p.left) {
+				TreeNode y = newNode.p.p.right;
+				if(y.color == TreeNode.NodeColor.RED) {
+					newNode.p.color = TreeNode.NodeColor.BLACK;
+					y.color = TreeNode.NodeColor.BLACK;
+					newNode.p.p.color = TreeNode.NodeColor.RED;
+					newNode = newNode.p.p;
+				} else {
+					if(newNode == newNode.p.right) {
+						newNode = newNode.p;
+						rotateLeft(newNode);
+					}
+					newNode.p.color = TreeNode.NodeColor.BLACK;
+					newNode.p.p.color = TreeNode.NodeColor.RED;
+					rotateRight(newNode.p.p);
+				}
+			} else {
+				TreeNode y = newNode.p.p.left;
+				if(y.color == TreeNode.NodeColor.RED) {
+					newNode.p.color = TreeNode.NodeColor.BLACK;
+					y.color = TreeNode.NodeColor.BLACK;
+					newNode.p.p.color = TreeNode.NodeColor.RED;
+					newNode = newNode.p.p;
+				} else {
+					if(newNode == newNode.p.left) {
+						newNode = newNode.p;
+						rotateRight(newNode);
+					}
+					newNode.p.color = TreeNode.NodeColor.BLACK;
+					newNode.p.p.color = TreeNode.NodeColor.RED;
+					rotateLeft(newNode.p.p);
+				}
+			}
+		} _root.color = TreeNode.NodeColor.BLACK;
+	}
+
+	private void rotateLeft(TreeNode x) {
+		TreeNode y = x.right;
+		x.right=y.left;
+		if(y.left != _nil)
+			y.left.p = x;
+		y.p = x.p;
+		if(x.p == _nil)
+			_root = y;
+		else
+			if(x == x.p.left)
+				x.p.left = y;
+			else
+				x.p.right = y;
+		y.left = x;
+		x.p = y;
+	}
+	
+	private void rotateRight(TreeNode x) {
+		TreeNode y = x.left;
+		x.right=y.left;
+		if(y.right != _nil)
+			y.right.p = x;
+		y.p = x.p;
+		if(x.p == _nil)
+			_root = y;
+		else
+			if(x == x.p.right)
+				x.p.right = y;
+			else
+				x.p.left = y;
+		y.right = x;
+		x.p = y;
 	}
 	
 	private void transplant(TreeNode u, TreeNode v) {
@@ -117,6 +209,25 @@ public class RedBlackTree {
 	 * @param toDelete the TreeNode that gets removed
 	 */
 	public void delete(TreeNode toDelete) {
-		// TODO
+		if(toDelete.left == _nil)
+			transplant(toDelete, toDelete.right);
+		else if(toDelete.right == _nil)
+			transplant(toDelete, toDelete.left);
+		else {
+			TreeNode y = toDelete.right;
+			
+			while(y.left != _nil)
+				y = y.left;
+			
+			if(y.p != toDelete) {
+				transplant(y, y.right);
+				y.right = toDelete.right;
+				y.right.p = y;
+			}
+			transplant(toDelete, y);
+			y.left = toDelete.left;
+			y.left.p = y;
+		}
 	}
+	
 }
