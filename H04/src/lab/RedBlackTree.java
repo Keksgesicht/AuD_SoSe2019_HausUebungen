@@ -13,19 +13,31 @@ import frame.TreeNode;
 public class RedBlackTree {
 	
 	private TreeNode _root;
-	private TreeNode _nil;
+	private static TreeNode _nil; // mh.. When I try to access this. Do I get a NilPointerException?
 	
-	public RedBlackTree() {
-		_nil = new TreeNode();
-		_root = _nil;
+	static {
+		_nil = new TreeNode(); // nil doesn't need to exist multiple times
+		_nil.left = _nil;
+		_nil.right = _nil;	// nil is our sentinel
+		_nil.p = _nil;
 	}
 	
+	public RedBlackTree() {
+		_root = _nil; // the root is at the beginning a useless node
+	}
+	
+	/**
+	 * @return the root node of this tree
+	 */
 	public TreeNode root() {
 		return this._root;
 	}
 	
+	/**
+	 * @return the sentinel of this tree
+	 */
 	public TreeNode nil() {
-		return this._nil;
+		return _nil;
 	}
 	
 	/**
@@ -44,25 +56,31 @@ public class RedBlackTree {
 		} return s;
 	}
 	
+	/**
+	 * @return the TreeNode with minimum keyvalue in this subtree
+	 */
 	public TreeNode minimum() {
 		return minimumSubtree(_root);
 	}
 	
 	/**
 	 * @param x at this TreeNode begins the search
-	 * @return the TreeNode with minimum keyvalue
+	 * @return the TreeNode with minimum keyvalue in this subtree
 	 */
 	public TreeNode minimumSubtree(TreeNode x) {
 		return subtreeMinMax(x, false);
 	}
 	
+	/**
+	 * @return the TreeNode with maximum keyvalue in this subtree
+	 */
 	public TreeNode maximum() {
 		return maximumSubtree(_root);
 	}
 	
 	/**
 	 * @param x at this TreeNode begins the search
-	 * @return the TreeNode with maximum keyvalue
+	 * @return the TreeNode with maximum keyvalue in this subtree
 	 */
 	public TreeNode maximumSubtree(TreeNode x) {
 		return subtreeMinMax(x, true);
@@ -75,10 +93,10 @@ public class RedBlackTree {
 	 */
 	private TreeNode subtreeMinMax(TreeNode x, boolean max) {
 		TreeNode n = x;
-		while(n != null)
-			n = max ? 
-				x.right : 
-				x.left;
+		while(n != _nil)
+			n = max ?
+				x.right :	// maximum
+				x.left;		// minimum
 		return n;
 	}
 	
@@ -87,7 +105,7 @@ public class RedBlackTree {
 	 * @param z the TreeNode which cildren get kidnapped
 	 */
 	private void clearChildren(TreeNode z) {
-		z.left = z.right = _nil;
+		z.left = z.right = _nil;	// sets the children to our sentinel
 	}
 
 	/**
@@ -101,16 +119,15 @@ public class RedBlackTree {
 		
 		while(x != _nil) {
 			px = x;
-			if(x.key > newNode.key)
-				x = x.left;
-			else
-				x = x.right;
+			x = x.key > newNode.key ? 
+				x.left :
+				x.right;
 		}
 		newNode.p = px;
-		if(px == _nil)
+		if(px == _nil)			// if px didn't change the loop haven't run once
 			_root = newNode;
 		else {
-			if(px.key > newNode.key)
+			if(px.key > newNode.key) // hängt den neuen Knoten in der Sortierung passend als Kind an den Baum
 				px.left = newNode;
 			else
 				px.right = newNode;
@@ -119,6 +136,10 @@ public class RedBlackTree {
 		fixColorsAfterInsertion(newNode);
 	}
 	
+	/**
+	 * lackiert den Baum neu an, sodass er nach dem Einfügen immer noch ein Rot-Schwarz-Baum ist 
+	 * @param newNode der Problemknoten, welcher eingefügt wurde, mit dem das neu anstriechen beginnt
+	 */
 	private void fixColorsAfterInsertion(TreeNode newNode) {
 		while(newNode.p.color == TreeNode.NodeColor.RED) {
 			if(newNode.p == newNode.p.p.left) {
@@ -157,40 +178,55 @@ public class RedBlackTree {
 		} _root.color = TreeNode.NodeColor.BLACK;
 	}
 
+	/**
+	 * bewegt einen auf die Position seines linken Kindes 
+	 * @param x der Knoten der bewegt wird
+	 */
 	private void rotateLeft(TreeNode x) {
-		TreeNode y = x.right;
-		x.right=y.left;
+		TreeNode y = x.right;	// markiert das andere Kind
+		x.right = y.left;		// der linke Teilbaum des rechten Kindes ist nun das rechte Kind
 		if(y.left != _nil)
 			y.left.p = x;
 		y.p = x.p;
 		if(x.p == _nil)
 			_root = y;
-		else
+		else {
 			if(x == x.p.left)
 				x.p.left = y;
 			else
 				x.p.right = y;
+		}
 		y.left = x;
 		x.p = y;
 	}
 	
-	private void rotateRight(TreeNode x) {
-		TreeNode y = x.left;
-		x.right=y.left;
-		if(y.right != _nil)
-			y.right.p = x;
-		y.p = x.p;
-		if(x.p == _nil)
-			_root = y;
-		else
-			if(x == x.p.right)
-				x.p.right = y;
+	/**
+	 * bewegt einen auf die Position seines rechten Kindes 
+	 * @param x der Knoten der bewegt wird
+	 */
+	private void rotateRight(TreeNode y) {
+		TreeNode x = y.left;	// markiert das andere Kind
+		y.left = x.right;		// der rechte Teilbaum des linken Kindes ist nun das linke Kind
+		if(x.right != _nil)
+			x.right.p = y;
+		x.p = y.p;
+		if(y.p == _nil)
+			_root = x;
+		else {
+			if(y == y.p.right)
+				y.p.right = x;
 			else
-				x.p.left = y;
-		y.right = x;
-		x.p = y;
+				y.p.left = x;
+		}
+		x.right = y;
+		y.p = x;
 	}
 	
+	/**
+	 * Setzt Knoten v an die Position von Knoten u
+	 * @param u Knoten u
+	 * @param v Knoten v
+	 */
 	private void transplant(TreeNode u, TreeNode v) {
 		if(u.p == _nil)
 			_root = v;
@@ -209,7 +245,7 @@ public class RedBlackTree {
 	 * @param toDelete the TreeNode that gets removed
 	 */
 	public void delete(TreeNode toDelete) {
-		if(toDelete.left == _nil)
+		if(toDelete.left == _nil)			
 			transplant(toDelete, toDelete.right);
 		else if(toDelete.right == _nil)
 			transplant(toDelete, toDelete.left);
