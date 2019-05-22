@@ -94,11 +94,14 @@ public class RedBlackTree {
 	 */
 	private TreeNode subtreeMinMax(TreeNode x, boolean max) {
 		TreeNode n = x;
-		while(n != _nil)
+		TreeNode m = _nil; 
+		while(n != _nil) {
+			m = n;
 			n = max ?
-				x.right :	// maximum
-				x.left;		// minimum
-		return n;
+				n.right :	// maximum
+				n.left;		// minimum
+		}
+		return m;
 	}
 	
 	/**
@@ -249,22 +252,21 @@ public class RedBlackTree {
 	public void delete(TreeNode toDelete) {
 		TreeNode.NodeColor dColor = toDelete.color;
 		TreeNode x, y;
-		x = y = toDelete.right;
 		
-		if(toDelete.left == _nil)
-			transplant(toDelete, y);
-		else if(toDelete.right == _nil) {
-			y = toDelete.left;
-			x = y;
-			transplant(toDelete, y);
+		if(toDelete.left == _nil) {
+			x = toDelete.right;	
+			transplant(toDelete, toDelete.right);
+		} else if(toDelete.right == _nil) {
+			x = toDelete.left;
+			transplant(toDelete, toDelete.left);
 		} else {
-			y = minimumSubtree(y);
+			y = minimumSubtree(toDelete.right);
 			dColor = y.color;
+			
 			x = y.right;
 			if (y.p == toDelete)
 				x.p = y;
-			
-			if(y.p != toDelete) {
+			else {
 				transplant(y, y.right);
 				y.right = toDelete.right;
 				y.right.p = y;
@@ -279,55 +281,55 @@ public class RedBlackTree {
 	}
 	
 	private void fixUpAfterDelete(TreeNode x) {
-		if(x == _root && x.color != NodeColor.BLACK) {
-			x.color = NodeColor.BLACK;
-			return;
-		}
-		
-		boolean sPos = (x == x.p.left);
-		TreeNode xSibling = sPos ?
-							x.p.right :
-							x.p.left;
-		
-		if(xSibling.color == NodeColor.RED) {
-			xSibling.color = NodeColor.BLACK;
-			x.p.color = NodeColor.RED;
-			if(sPos) {
-				rotateLeft(x.p);
-				xSibling = x.p.right;
-			} else {
-				rotateRight(x.p);
-				xSibling = x.p.left;
-			}
-		}
-		if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) {
-			xSibling.color = NodeColor.RED;
-			fixUpAfterDelete(x.p);
-		} else {
-			if(sPos) {
-				if(xSibling.right.color == NodeColor.BLACK) {
-					xSibling.left.color = NodeColor.BLACK;
-					xSibling.color = NodeColor.RED;
-					rotateRight(xSibling);
+		TreeNode xSibling;
+		while(x != _root && x.color == NodeColor.BLACK) {
+			boolean sPos = (x == x.p.left);
+			xSibling = sPos ?
+					   x.p.right :
+					   x.p.left;
+			
+			if(xSibling.color == NodeColor.RED) { // Fall 1
+				xSibling.color = NodeColor.BLACK;
+				x.p.color = NodeColor.RED;
+				if(sPos) {
+					rotateLeft(x.p);
 					xSibling = x.p.right;
+				} else {
+					rotateRight(x.p);
+					xSibling = x.p.left;
 				}
-				xSibling.right.color = NodeColor.BLACK;
-				rotateLeft(x.p);
+			}
+			if(xSibling.right.color == NodeColor.BLACK) { // Fall 3.2
+				xSibling.color = NodeColor.RED;
+				x = x.p;
 			} else {
-				if(xSibling.left.color == NodeColor.BLACK) {
+				if(sPos) {
+					if(xSibling.right.color == NodeColor.BLACK) { // Fall 3.3
+						xSibling.left.color = NodeColor.BLACK;
+						xSibling.color = NodeColor.RED;
+						rotateRight(xSibling);
+						xSibling = x.p.right;
+					}	// Fall 3.4
+					xSibling.color = x.p.color;
+					x.p.color = NodeColor.BLACK;
 					xSibling.right.color = NodeColor.BLACK;
-					xSibling.color = NodeColor.RED;
-					rotateLeft(xSibling);
-					xSibling = x.p.right;
+					rotateLeft(x.p);
+					x = _root;
+				} else {
+					if(xSibling.left.color == NodeColor.BLACK) { // Fall 3.3
+						xSibling.right.color = NodeColor.BLACK;
+						xSibling.color = NodeColor.RED;
+						rotateLeft(xSibling);
+						xSibling = x.p.left;
+					}	// Fall 3.4
+					xSibling.color = x.p.color;
+					x.p.color = NodeColor.BLACK;
+					xSibling.left.color = NodeColor.BLACK;
+					rotateRight(x.p);
+					x = _root;
 				}
-				xSibling.right.color = NodeColor.BLACK;
-				rotateRight(x.p);
 			}
-			xSibling.color = x.p.color;
-			x.p.color = NodeColor.BLACK;
-			x = _root;
-		}
-		x.color = NodeColor.BLACK;
+		} x.color = NodeColor.BLACK;
 	}
 	
 }
