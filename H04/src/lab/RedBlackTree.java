@@ -1,6 +1,7 @@
 package lab;
 
 import frame.TreeNode;
+import frame.TreeNode.NodeColor;
 
 /**
  * Aufgabe H1a)
@@ -132,7 +133,7 @@ public class RedBlackTree {
 			else
 				px.right = newNode;
 		}
-		newNode.color = TreeNode.NodeColor.RED;
+		newNode.color = NodeColor.RED;
 		fixColorsAfterInsertion(newNode);
 	}
 	
@@ -141,41 +142,41 @@ public class RedBlackTree {
 	 * @param newNode der Problemknoten, welcher eingefügt wurde, mit dem das neu anstriechen beginnt
 	 */
 	private void fixColorsAfterInsertion(TreeNode newNode) {
-		while(newNode.p.color == TreeNode.NodeColor.RED) {
+		while(newNode.p.color == NodeColor.RED) {
 			if(newNode.p == newNode.p.p.left) {
 				TreeNode y = newNode.p.p.right;
-				if(y.color == TreeNode.NodeColor.RED) {
-					newNode.p.color = TreeNode.NodeColor.BLACK;
-					y.color = TreeNode.NodeColor.BLACK;
-					newNode.p.p.color = TreeNode.NodeColor.RED;
+				if(y.color == NodeColor.RED) {
+					newNode.p.color = NodeColor.BLACK;
+					y.color = NodeColor.BLACK;
+					newNode.p.p.color = NodeColor.RED;
 					newNode = newNode.p.p;
 				} else {
 					if(newNode == newNode.p.right) {
 						newNode = newNode.p;
 						rotateLeft(newNode);
 					}
-					newNode.p.color = TreeNode.NodeColor.BLACK;
-					newNode.p.p.color = TreeNode.NodeColor.RED;
+					newNode.p.color = NodeColor.BLACK;
+					newNode.p.p.color = NodeColor.RED;
 					rotateRight(newNode.p.p);
 				}
 			} else {
 				TreeNode y = newNode.p.p.left;
-				if(y.color == TreeNode.NodeColor.RED) {
-					newNode.p.color = TreeNode.NodeColor.BLACK;
-					y.color = TreeNode.NodeColor.BLACK;
-					newNode.p.p.color = TreeNode.NodeColor.RED;
+				if(y.color == NodeColor.RED) {
+					newNode.p.color = NodeColor.BLACK;
+					y.color = NodeColor.BLACK;
+					newNode.p.p.color = NodeColor.RED;
 					newNode = newNode.p.p;
 				} else {
 					if(newNode == newNode.p.left) {
 						newNode = newNode.p;
 						rotateRight(newNode);
 					}
-					newNode.p.color = TreeNode.NodeColor.BLACK;
-					newNode.p.p.color = TreeNode.NodeColor.RED;
+					newNode.p.color = NodeColor.BLACK;
+					newNode.p.p.color = NodeColor.RED;
 					rotateLeft(newNode.p.p);
 				}
 			}
-		} _root.color = TreeNode.NodeColor.BLACK;
+		} _root.color = NodeColor.BLACK;
 	}
 
 	/**
@@ -241,19 +242,27 @@ public class RedBlackTree {
 	}
 	
 	/**
+	 * @see https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/#Deletion
 	 * removes a TreeNode from this RedBlackTree
 	 * @param toDelete the TreeNode that gets removed
 	 */
 	public void delete(TreeNode toDelete) {
-		if(toDelete.left == _nil)			
-			transplant(toDelete, toDelete.right);
-		else if(toDelete.right == _nil)
-			transplant(toDelete, toDelete.left);
-		else {
-			TreeNode y = toDelete.right;
-			
-			while(y.left != _nil)
-				y = y.left;
+		TreeNode.NodeColor dColor = toDelete.color;
+		TreeNode x, y;
+		x = y = toDelete.right;
+		
+		if(toDelete.left == _nil)
+			transplant(toDelete, y);
+		else if(toDelete.right == _nil) {
+			y = toDelete.left;
+			x = y;
+			transplant(toDelete, y);
+		} else {
+			y = minimumSubtree(y);
+			dColor = y.color;
+			x = y.right;
+			if (y.p == toDelete)
+				x.p = y;
 			
 			if(y.p != toDelete) {
 				transplant(y, y.right);
@@ -263,7 +272,62 @@ public class RedBlackTree {
 			transplant(toDelete, y);
 			y.left = toDelete.left;
 			y.left.p = y;
+			y.color = toDelete.color;
 		}
+		if(dColor == NodeColor.BLACK)
+			fixUpAfterDelete(x);
+	}
+	
+	private void fixUpAfterDelete(TreeNode x) {
+		if(x == _root && x.color != NodeColor.BLACK) {
+			x.color = NodeColor.BLACK;
+			return;
+		}
+		
+		boolean sPos = (x == x.p.left);
+		TreeNode xSibling = sPos ?
+							x.p.right :
+							x.p.left;
+		
+		if(xSibling.color == NodeColor.RED) {
+			xSibling.color = NodeColor.BLACK;
+			x.p.color = NodeColor.RED;
+			if(sPos) {
+				rotateLeft(x.p);
+				xSibling = x.p.right;
+			} else {
+				rotateRight(x.p);
+				xSibling = x.p.left;
+			}
+		}
+		if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) {
+			xSibling.color = NodeColor.RED;
+			fixUpAfterDelete(x.p);
+		} else {
+			if(sPos) {
+				if(xSibling.right.color == NodeColor.BLACK) {
+					xSibling.left.color = NodeColor.BLACK;
+					xSibling.color = NodeColor.RED;
+					rotateRight(xSibling);
+					xSibling = x.p.right;
+				}
+				xSibling.right.color = NodeColor.BLACK;
+				rotateLeft(x.p);
+			} else {
+				if(xSibling.left.color == NodeColor.BLACK) {
+					xSibling.right.color = NodeColor.BLACK;
+					xSibling.color = NodeColor.RED;
+					rotateLeft(xSibling);
+					xSibling = x.p.right;
+				}
+				xSibling.right.color = NodeColor.BLACK;
+				rotateRight(x.p);
+			}
+			xSibling.color = x.p.color;
+			x.p.color = NodeColor.BLACK;
+			x = _root;
+		}
+		x.color = NodeColor.BLACK;
 	}
 	
 }
