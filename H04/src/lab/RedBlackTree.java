@@ -14,7 +14,7 @@ import frame.TreeNode.NodeColor;
 public class RedBlackTree {
 	
 	private TreeNode _root;
-	private TreeNode _nil; // mh.. When I try to access this. Do I get a NilPointerException?
+	private TreeNode _nil; // mh.. Can I get a NilPointerException?
 	
 	public RedBlackTree() {
 		_nil = new TreeNode();
@@ -41,13 +41,13 @@ public class RedBlackTree {
 	 * 		   or a TreeNode with that key
 	 */
 	public TreeNode search(int key) {
-		TreeNode s = _root;
+		TreeNode s = _root;		// die Suche startet mit der Wurzel
 		while(s != _nil) {
-			if(s.key == key)
-				break;
-			s = key < s.key ? 
-				s.left : 
-				s.right; 
+			if(s.key == key)	// Falls Element bereits den gesuchten wert hat,
+				break;			// ist die Suche hiermit beendet.
+			s = key < s.key ? 	// Je nachdem, ob der gesuchte Wert
+				s.left : 		// kleiner oder
+				s.right; 		// größer ist.
 		} return s;
 	}
 	
@@ -87,13 +87,13 @@ public class RedBlackTree {
 	 * @return the TreeNode with maximum or minimum keyvalue
 	 */
 	private TreeNode subtreeMinMax(TreeNode x, boolean max) {
-		TreeNode n = x;
-		TreeNode m = _nil; 
+		TreeNode n = x;		// die suche beginnt an der Wurzel des gewählten Unterbaums
+		TreeNode m = _nil;	// Wenn x=nil dann m auch nil  
 		while(n != _nil) {
-			m = n;
+			m = n;			// ansonsten m gleich "Eltern"-Element von n, wenn n=nil wird
 			n = max ?
-				n.right :	// maximum
-				n.left;		// minimum
+				n.right :	// maximum: rechstes Element 
+				n.left;		// minimum: linkstes Element
 		}
 		return m;
 	}
@@ -115,7 +115,7 @@ public class RedBlackTree {
 		TreeNode x = _root; 
 		TreeNode px = _nil;
 		
-		while(x != _nil) {
+		while(x != _nil) {	// find the position to insert
 			px = x;
 			x = x.key > newNode.key ? 
 				x.left :
@@ -130,8 +130,8 @@ public class RedBlackTree {
 			else
 				px.right = newNode;
 		}
-		newNode.color = NodeColor.RED;
-		fixColorsAfterInsertion(newNode);
+		newNode.color = NodeColor.RED; // new TreeNode are RED befor fixing
+		fixColorsAfterInsertion(newNode); // fix
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class RedBlackTree {
 	 * @param newNode der Problemknoten, welcher eingefügt wurde, mit dem das neu anstriechen beginnt
 	 */
 	private void fixColorsAfterInsertion(TreeNode newNode) {
-		while(newNode.p.color == NodeColor.RED) {
+		while(newNode.p.color == NodeColor.RED) { // Regel 3
 			if(newNode.p == newNode.p.p.left) {
 				TreeNode y = newNode.p.p.right;
 				if(y.color == NodeColor.RED) {
@@ -173,7 +173,7 @@ public class RedBlackTree {
 					rotateLeft(newNode.p.p);
 				}
 			}
-		} _root.color = NodeColor.BLACK;
+		} _root.color = NodeColor.BLACK; // Regel 2
 	}
 
 	/**
@@ -182,20 +182,20 @@ public class RedBlackTree {
 	 */
 	private void rotateLeft(TreeNode x) {
 		TreeNode y = x.right;	// markiert das andere Kind
-		x.right = y.left;		// der linke Teilbaum des rechten Kindes ist nun das rechte Kind
+		x.right = y.left;		// der linke Teilbaum des rechten Kindes ist nun das rechte Kind von x
 		if(y.left != _nil)
-			y.left.p = x;
-		y.p = x.p;
-		if(x.p == _nil)
-			_root = y;
+			y.left.p = x;		// somit hat der linke Teilbaum des rechten Kindes als Elter nun auch das Element x
+		y.p = x.p;				// y an das Elter von x hängen
+		if(x.p == _nil)			// Wenn das Elter nil ist,
+			_root = y;			// ist man bereits an der Wurzel
 		else {
-			if(x == x.p.left)
+			if(x == x.p.left)	// y an das Elter von x hängen
 				x.p.left = y;
 			else
 				x.p.right = y;
 		}
-		y.left = x;
-		x.p = y;
+		y.left = x;				// x ist nun linke Kind von y
+		x.p = y;				// somit ist y auch das Elter von x
 	}
 	
 	/**
@@ -204,20 +204,20 @@ public class RedBlackTree {
 	 */
 	private void rotateRight(TreeNode y) {
 		TreeNode x = y.left;	// markiert das andere Kind
-		y.left = x.right;		// der rechte Teilbaum des linken Kindes ist nun das linke Kind
+		y.left = x.right;		// der rechte Teilbaum des linken Kindes ist nun das rechte Kind von x
 		if(x.right != _nil)
-			x.right.p = y;
-		x.p = y.p;
-		if(y.p == _nil)
-			_root = x;
+			x.right.p = y;		// somit hat der rechte Teilbaum des linken Kindes als Elter nun auch das Element x
+		x.p = y.p;				// y an das Elter von x hängen
+		if(y.p == _nil)			// Wenn das Elter nil ist,
+			_root = x;			// ist man bereits an der Wurzel
 		else {
-			if(y == y.p.right)
+			if(y == y.p.right)	// y an das Elter von x hängen
 				y.p.right = x;
 			else
 				y.p.left = x;
 		}
-		x.right = y;
-		y.p = x;
+		x.right = y;			// x ist nun linke Kind von y
+		y.p = x;				// somit ist y auch das Elter von x
 	}
 	
 	/**
@@ -226,16 +226,16 @@ public class RedBlackTree {
 	 * @param v Knoten v
 	 */
 	private void transplant(TreeNode u, TreeNode v) {
-		if(u.p == _nil)
-			_root = v;
+		if(u.p == _nil)			// Wenn das Elter nil ist,
+			_root = v;			// ist man bereits an der Wurzel
 		else {
-			if(u == u.p.left)
+			if(u == u.p.left)	// v an das Elter von u hängen
 				u.p.left = v;
 			else
 				u.p.right = v;
 		}
 		//if(v != _nil)
-			v.p = u.p;
+			v.p = u.p;			// v an das Elter von u hängen
 	}
 	
 	/**
@@ -247,54 +247,54 @@ public class RedBlackTree {
 		NodeColor dColor = toDelete.color;
 		TreeNode x, y;
 		
-		if(toDelete.left == _nil) {
+		if(toDelete.left == _nil) { // Wenn das zulöschende Element mindestens ein Halbblatt ist,
 			x = toDelete.right;	
-			transplant(toDelete, toDelete.right);
+			transplant(toDelete, toDelete.right); // ersätze es durch seinen Unterbaum
 		} else if(toDelete.right == _nil) {
 			x = toDelete.left;
 			transplant(toDelete, toDelete.left);
 		} else {
-			y = minimumSubtree(toDelete.right);
+			y = minimumSubtree(toDelete.right); // Finde nach dem Wert nachfolgende Element
 			dColor = y.color;
 			
 			x = y.right;
 			if (y.p == toDelete)
 				x.p = y;
-			else {
-				transplant(y, y.right);
-				y.right = toDelete.right;
+			else { 							// Falls kein Nachfolger
+				transplant(y, y.right);		// das Halbblatt y durch seinen Unterbaum ersetzen
+				y.right = toDelete.right;	// und das zu löschende Element durch y ersetzen
 				y.right.p = y;
 			}
-			transplant(toDelete, y);
+			transplant(toDelete, y);		// und das zu löschende Element durch y ersetzen
 			y.left = toDelete.left;
 			y.left.p = y;
 			y.color = toDelete.color;
 		}
-		if(dColor == NodeColor.BLACK)
-			fixUpAfterDelete(x);
+		if(dColor == NodeColor.BLACK)	// Fall ein rotes aus dem Baum genommen wurde, verletzt dies Regel 4 nicht
+			fixUpAfterDelete(x);		// Sobald es schwarz war, wird ein fix benötigt
 	}
 	
 	private void fixUpAfterDelete(TreeNode x) {
-		TreeNode xSibling;
+		TreeNode xSibling; // Das Kind vom Elter von x, welches nicht x ist.
 		while(x != _root && x.color == NodeColor.BLACK) {
 			if(x == x.p.left) {
-				xSibling = x.p.right;
-				if(xSibling.color == NodeColor.RED) { // Fall 1
+				xSibling = x.p.right; // Fall 1: Geschwisterkind ist RED
+				if(xSibling.color == NodeColor.RED) {
 					xSibling.color = NodeColor.BLACK;
 					x.p.color = NodeColor.RED;
 					rotateLeft(x.p);
 					xSibling = x.p.right;
-				}
-				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) { // Fall 2
+				} // Fall 2: Geschwisterkind and seine Kinder sind BLACK
+				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) {
 					xSibling.color = NodeColor.RED;
 					x = x.p;
-				} else {
-					if(xSibling.right.color == NodeColor.BLACK) { // Fall 3
+				} else { // Fall 3: Geschwisterkind's rechtes Kind ist BLACK und sein linkes ist RED
+					if(xSibling.right.color == NodeColor.BLACK) {
 							xSibling.left.color = NodeColor.BLACK;
 							xSibling.color = NodeColor.RED;
 							rotateRight(xSibling);
 							xSibling = x.p.right;
-					}	// Fall 4
+					} // Fall 4: eines der Kinder des Geschwisterkinds ist RED
 					xSibling.color = x.p.color;
 					x.p.color = NodeColor.BLACK;
 					xSibling.right.color = NodeColor.BLACK;
@@ -302,23 +302,23 @@ public class RedBlackTree {
 					x = _root;
 				}
 			} else {
-				xSibling = x.p.left;
-				if(xSibling.color == NodeColor.RED) { // Fall 1
+				xSibling = x.p.left; // Fall 1: Geschwisterkind ist RED
+				if(xSibling.color == NodeColor.RED) {
 					xSibling.color = NodeColor.BLACK;
 					x.p.color = NodeColor.RED;
 					rotateRight(x.p);
 					xSibling = x.p.left;
-				}
-				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) { // Fall 2
+				} // Fall 2: Geschwisterkind and seine Kinder sind BLACK
+				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) {
 					xSibling.color = NodeColor.RED;
 					x = x.p;
-				} else {
-					if(xSibling.left.color == NodeColor.BLACK) { // Fall 3
+				} else { // Fall 3: Geschwisterkind's linkes Kind ist BLACK und sein rechtes ist RED
+					if(xSibling.left.color == NodeColor.BLACK) {
 						xSibling.right.color = NodeColor.BLACK;
 						xSibling.color = NodeColor.RED;
 						rotateLeft(xSibling);
 						xSibling = x.p.left;
-					}	// Fall 4
+					} // Fall 4: eines der Kinder des Geschwisterkinds ist RED
 					xSibling.color = x.p.color;
 					x.p.color = NodeColor.BLACK;
 					xSibling.left.color = NodeColor.BLACK;
