@@ -29,14 +29,30 @@ public class CompletelyFairScheduler {
 	 * @param windows The number of execution windows to distribute
 	 */
 	public void run(int windows) {
-		// TODO
+		for(int i = 0; i < windows; i++) {
+			TreeNode prcsMin = tree.minimum();
+			if(prcsMin == tree.nil()) break;
+			prcsMin.value.run(windowMaxLength);
+			tree.delete(prcsMin);
+			if(!prcsMin.value.finished()) {
+				add(prcsMin.value);
+			}
+		}
 	}
 	
 	/**
 	 * Add a process to the Scheduler.
 	 */
 	public void add(Process process) {
-		// TODO
+		TreeNode prcs = new TreeNode();
+		prcs.key = process.executionTime();
+		prcs.value = process;
+		if(tree.search(prcs.key) != tree.nil()) {
+			while(tree.search(prcs.key).key == prcs.key) {
+				prcs.key++;
+			}
+		}
+		tree.insert(prcs);
 	}
 	
 	// DO NOT MODIFY
