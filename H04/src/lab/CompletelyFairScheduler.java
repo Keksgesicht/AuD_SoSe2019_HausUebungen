@@ -29,13 +29,13 @@ public class CompletelyFairScheduler {
 	 * @param windows The number of execution windows to distribute
 	 */
 	public void run(int windows) {
-		for(int i = 0; i < windows; i++) {
-			TreeNode prcsMin = tree.minimum();
-			if(prcsMin == tree.nil()) break;
-			prcsMin.value.run(windowMaxLength);
-			tree.delete(prcsMin);
-			if(!prcsMin.value.finished()) {
-				add(prcsMin.value);
+		for(int i = 0; i < windows; i++) {		//Damit windows(int) viele Fenster verteilt werden
+			TreeNode prcsMin = tree.minimum();	//Suche des Prozesses mit geringster Ausführungszeit
+			if(prcsMin == tree.nil()) break;	//Verwerfen der restlichen Fenster, wenn RBTree leer/abgearbeitet ist;
+			prcsMin.value.run(windowMaxLength);	//Ausführen des Prozesses für windowMaxLength(int) des Schedulers
+			tree.delete(prcsMin);				//Entfernen des Knotens aus dem RBTree
+			if(!prcsMin.value.finished()) {		//Wenn der Prozess noch nicht fertig ist
+				add(prcsMin.value);				//Füge den Prozess wieder in den RBTree ein
 			}
 		}
 	}
@@ -44,15 +44,15 @@ public class CompletelyFairScheduler {
 	 * Add a process to the Scheduler.
 	 */
 	public void add(Process process) {
-		TreeNode prcs = new TreeNode();
-		prcs.key = process.executionTime();
-		prcs.value = process;
-		if(tree.search(prcs.key) != tree.nil()) {
-			while(tree.search(prcs.key).key == prcs.key) {
-				prcs.key++;
+		TreeNode prcs = new TreeNode();						//Erstellen eines neuen Knotens
+		prcs.key = process.executionTime();					
+		prcs.value = process;								//Abspeichern des Prozesses in value der treeNode
+		if(tree.search(prcs.key) != tree.nil()) {			//Wenn der Baum nicht leer ist
+			while(tree.search(prcs.key).key == prcs.key) {	//Solange es einen Knoten mit gleichem key gint
+				prcs.key++;									// erhöhe key um 1
 			}
 		}
-		tree.insert(prcs);
+		tree.insert(prcs);									//Einfügen des Knotens
 	}
 	
 	// DO NOT MODIFY
