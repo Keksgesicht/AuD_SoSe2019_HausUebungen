@@ -14,16 +14,10 @@ import frame.TreeNode.NodeColor;
 public class RedBlackTree {
 	
 	private TreeNode _root;
-	private static TreeNode _nil; // mh.. When I try to access this. Do I get a NilPointerException?
-	
-	static {
-		_nil = new TreeNode(); // nil doesn't need to exist multiple times
-		_nil.left = _nil;
-		_nil.right = _nil;	// nil is our sentinel
-		_nil.p = _nil;
-	}
+	private TreeNode _nil; // mh.. When I try to access this. Do I get a NilPointerException?
 	
 	public RedBlackTree() {
+		_nil = new TreeNode();
 		_root = _nil; // the root is at the beginning a useless node
 	}
 	
@@ -240,7 +234,7 @@ public class RedBlackTree {
 			else
 				u.p.right = v;
 		}
-		if(v != _nil)
+		//if(v != _nil)
 			v.p = u.p;
 	}
 	
@@ -250,7 +244,7 @@ public class RedBlackTree {
 	 * @param toDelete the TreeNode that gets removed
 	 */
 	public void delete(TreeNode toDelete) {
-		TreeNode.NodeColor dColor = toDelete.color;
+		NodeColor dColor = toDelete.color;
 		TreeNode x, y;
 		
 		if(toDelete.left == _nil) {
@@ -283,45 +277,48 @@ public class RedBlackTree {
 	private void fixUpAfterDelete(TreeNode x) {
 		TreeNode xSibling;
 		while(x != _root && x.color == NodeColor.BLACK) {
-			boolean sPos = (x == x.p.left);
-			xSibling = sPos ?
-					   x.p.right :
-					   x.p.left;
-			
-			if(xSibling.color == NodeColor.RED) { // Fall 1
-				xSibling.color = NodeColor.BLACK;
-				x.p.color = NodeColor.RED;
-				if(sPos) {
+			if(x == x.p.left) {
+				xSibling = x.p.right;
+				if(xSibling.color == NodeColor.RED) { // Fall 1
+					xSibling.color = NodeColor.BLACK;
+					x.p.color = NodeColor.RED;
 					rotateLeft(x.p);
 					xSibling = x.p.right;
-				} else {
-					rotateRight(x.p);
-					xSibling = x.p.left;
 				}
-			}
-			if(xSibling.right.color == NodeColor.BLACK) { // Fall 3.2
-				xSibling.color = NodeColor.RED;
-				x = x.p;
-			} else {
-				if(sPos) {
-					if(xSibling.right.color == NodeColor.BLACK) { // Fall 3.3
-						xSibling.left.color = NodeColor.BLACK;
-						xSibling.color = NodeColor.RED;
-						rotateRight(xSibling);
-						xSibling = x.p.right;
-					}	// Fall 3.4
+				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) { // Fall 2
+					xSibling.color = NodeColor.RED;
+					x = x.p;
+				} else {
+					if(xSibling.right.color == NodeColor.BLACK) { // Fall 3
+							xSibling.left.color = NodeColor.BLACK;
+							xSibling.color = NodeColor.RED;
+							rotateRight(xSibling);
+							xSibling = x.p.right;
+					}	// Fall 4
 					xSibling.color = x.p.color;
 					x.p.color = NodeColor.BLACK;
 					xSibling.right.color = NodeColor.BLACK;
 					rotateLeft(x.p);
 					x = _root;
+				}
+			} else {
+				xSibling = x.p.left;
+				if(xSibling.color == NodeColor.RED) { // Fall 1
+					xSibling.color = NodeColor.BLACK;
+					x.p.color = NodeColor.RED;
+					rotateRight(x.p);
+					xSibling = x.p.left;
+				}
+				if(xSibling.left.color == NodeColor.BLACK && xSibling.right.color == NodeColor.BLACK) { // Fall 2
+					xSibling.color = NodeColor.RED;
+					x = x.p;
 				} else {
-					if(xSibling.left.color == NodeColor.BLACK) { // Fall 3.3
+					if(xSibling.left.color == NodeColor.BLACK) { // Fall 3
 						xSibling.right.color = NodeColor.BLACK;
 						xSibling.color = NodeColor.RED;
 						rotateLeft(xSibling);
 						xSibling = x.p.left;
-					}	// Fall 3.4
+					}	// Fall 4
 					xSibling.color = x.p.color;
 					x.p.color = NodeColor.BLACK;
 					xSibling.left.color = NodeColor.BLACK;
