@@ -18,7 +18,7 @@ public class RedBlackTree {
 	
 	public RedBlackTree() {
 		_nil = new TreeNode();
-		_root = _nil; // the root is at the beginning a useless node
+		_root = _nil; // where is no root in an empty tree
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class RedBlackTree {
 	 * @param z the TreeNode which cildren get kidnapped
 	 */
 	private void clearChildren(TreeNode z) {
-		z.left = z.right = _nil;	// sets the children to our sentinel
+		z.left = z.right = _nil;	// the children gets neutralized
 	}
 
 	/**
@@ -115,14 +115,14 @@ public class RedBlackTree {
 		TreeNode x = _root; 
 		TreeNode px = _nil;
 		
-		while(x != _nil) {	// find the position to insert
+		while(x != _nil) {	// finds the position to insert
 			px = x;
 			x = x.key > newNode.key ? 
 				x.left :
 				x.right;
 		}
 		newNode.p = px;
-		if(px == _nil)			// if px didn't change the loop haven't run once
+		if(px == _nil)			// when px didn't change we are still at the root
 			_root = newNode;
 		else {
 			if(px.key > newNode.key) // hängt den neuen Knoten in der Sortierung passend als Kind an den Baum
@@ -130,7 +130,7 @@ public class RedBlackTree {
 			else
 				px.right = newNode;
 		}
-		newNode.color = NodeColor.RED; // new TreeNode are RED befor fixing
+		newNode.color = NodeColor.RED; // new TreeNodes are RED befor fixing
 		fixColorsAfterInsertion(newNode); // fix
 	}
 	
@@ -139,7 +139,7 @@ public class RedBlackTree {
 	 * @param newNode der Problemknoten, welcher eingefügt wurde, mit dem das neu anstriechen beginnt
 	 */
 	private void fixColorsAfterInsertion(TreeNode newNode) {
-		while(newNode.p.color == NodeColor.RED) { // Regel 3
+		while(newNode.p.color == NodeColor.RED) { // Regel 3: Rot-Rot-Regel
 			if(newNode.p == newNode.p.p.left) {
 				TreeNode y = newNode.p.p.right;
 				if(y.color == NodeColor.RED) {
@@ -173,7 +173,7 @@ public class RedBlackTree {
 					rotateLeft(newNode.p.p);
 				}
 			}
-		} _root.color = NodeColor.BLACK; // Regel 2
+		} _root.color = NodeColor.BLACK; // Regel 2: Wurzel ist schwarz
 	}
 
 	/**
