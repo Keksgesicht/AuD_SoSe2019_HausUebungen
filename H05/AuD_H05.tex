@@ -8,6 +8,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{nccmath}
+\usepackage{amssymb}
 \usepackage{xcolor}
 
 \title{Algorithmen und Datenstrukturen - Hausübung 05}
@@ -37,7 +40,8 @@
 	\section{H1}
 		
 		\subsection{a)}
-		
+			
+			\vspace{-7mm}
 			\includegraphics[width=0.10\linewidth]{picture/H1a/Picture1.png}
 			\includegraphics[width=0.10\linewidth]{picture/H1a/Picture2.png}
 			\hspace{0.02\linewidth}
@@ -64,9 +68,10 @@
 				Wenn dies ein {\color{red} Rot}-{\color{blue} Schwarz}-Baum werden soll, müssten die {\color{red} "1"} und die {\color{red} "6" rot} sein, da die "2" und die "7" über ihnen ansonsten nicht die selbe Anzahl an schwarzen Knoten in ihren Teilbäumen hätten. Somit wären die {\color{blue} "2"} und {\color{blue} "7"} darüber jedoch {\color{blue} schwarz} damit die "Nicht-{\color{red} Rot}-{\color{red} Rot}"-Regel erfüllt bleibt. Nun stellen wir fest, dass egal wie man man "5", "10" und "8" färben möchte einer von ihnen muss noch {\color{blue} schwarz} werden. Das würde jedoch bedeuten, dass der Teilbaum der "5" mindestens {\color{blue} 2 schwarze Knoten}  auf seinen Pfaden hat. Der Teilbaum der "2" jedoch nur einen {\color{blue} schwarzen Knoten} hat. Daraus folgt, dass dies kein {\color{red} Rot}-{\color{blue} Schwarz}-Baum sein kann.
 			\end{minipage}
 		
-		\vspace{7pt}
+		\vfill
 		\subsection{b)}
 			
+			\vspace{-3mm}
 			\includegraphics[width=0.13\linewidth]{picture/H1b/Picture1.png}
 			\hspace{0.02\linewidth}
 			\includegraphics[width=0.13\linewidth]{picture/H1b/Picture2.png}
@@ -121,7 +126,10 @@
 				\item Die Knoten {\color{red} "1", "6"} und {\color{red} "10" rot} und den Rest {\color{blue} schwarz}.
 			\end{itemize}
 	
+	\vfill
 	\section{H2}
+	
+		\href{https://en.wikipedia.org/wiki/File:Tree_rotation_animation_250x250.gif}{Link zur Animation einer Rechtsrotation}
 		
 		\subsection{a)}
 		
@@ -132,7 +140,7 @@
 				\item und nartürlich $z$ selbst
 			\end{itemize}
 			Da $y$ im Teilbaum von $x$ ist, welcher ein Unterbaum von $z$ ist, ist auch $y \leq z$. Also ist $ x \leq y \leq z $. Dies ist wichtig um zu erkennen, dass die Struktur des binären Suchbaum sich nicht ändert. \\
-			Im Algorithmus taucht auch noch $p$ als Elter von $z$ auf. Dies wird lediglich dafür gebraucht, um den Unterbaum nicht vom restlichen Baum zu trennen. Die wirkliche Veränderungen in der Binärbaum-Struktur geschehen nur in dem Unterbaum von $z$ oder später von $x$. \\
+			Im Algorithmus taucht auch noch $p$ als Elter von $z$ auf. Dies wird lediglich dafür gebraucht, um den Unterbaum nicht vom restlichen Baum zu trennen. Die wirkliche Veränderungen in der Binärbaum-Struktur geschehen nur in dem Unterbaum von $z$ oder später von $x$. Daher ist $p$ für uns nicht interessant. \\
 			Wir hängen nun $y$ (ursprünglich rechter Unterbaum von $x$) statt $x$ als linken Unterbaum an $z$ und $z$ wiederum als rechten Unterbaum an $x$, da $y$ ja nun an $z$ hängt. \\
 			Analysieren wir nun den Baum wie vor der Rotation stellen wir fest, dass $z$ ein rechter Unterbaum von $x$ und somit $x \leq z$ immer noch erfüllt ist. $y$ ist ein linker Unterbaum von $z$ und somit ist immer noch $y \leq z$. Und zu guter Letzt ist auch immer noch $x \leq y$, da $y$ ein Unterbaum von $z$ ist, welcher nun der rechte Unterbaum  ($x \leq z$) von $x$ ist.
 		
@@ -141,13 +149,9 @@
 		
 			Betrachten wir die selben Knoten wie in der Aufgabe a). \\
 			Vor der Rotation befinden sich $x$ und $y$ im linken Unterbaum von $z$. Nun ersetzt $x$ $z$ als die Wurzel unseres Teilbaums und $z$ und $y$ wandern in den rechten Unterbaum. Die Wurzel wird also lediglich um einen anderen Knoten ersetzt. Nach der Implementation in der Vorlesung macht eine Rechtsrotation nur Sinn, wenn der Knoten $z$ ein linkes Kind wie $x$ besitzt. Daher wandert mindestens ein Knoten vom linken in den rechten Teilbaum. Zusätzlich kann $y$ als Kind von $x$, falls es überhaupt existiert, in den rechten Teilbaum als Kind neues von $z$ wandern. Also schrumpft der linke Teilbaum um mindestens einen Knoten und der rechte wächst um mindestens einen Knoten. \\
-			Bei der Rechtsrotation um $z$ ist $ L(x)_{danach} := L(z)_{vorher} - 1 - L(y)_{vorher} $, $ L(y)_{danach} := L(y)_{vorher} $ \\ und $ L(z)_{danach} := L(z)_{vorher} - L(x)_{vorher} + L(y)_{vorher} $. \\
-			Bei jeder Rechtsrotation entfernen wir links von der Wurzel unseres Teilbäumen einen Unterbaum, jedoch fügen wir auf der rechten Seite wiederum einen Teilbaum $y$, falls dies überhaupt existierte, als linken Unterbäum wieder ein. 
-			
-		\subsection{c)}
+			Bei der Rechtsrotation um $z$ ist $ L(x)_{danach} := L(x)_{vorher} + L(z)_{danach} - L(y) $, $ L(y)_{danach} := L(y)_{vorher} $ und $ L(z)_{danach} := L(z)_{vorher} - L(x)_{vorher} + L(y) $. \\
+			Bei jeder Rechtsrotation entfernen wir links von der Wurzel unseres Teilbäumen mindestens einen linken Unterbaum, jedoch kann es vorkommen, dass wir auf der rechten Seite wiederum einen Teilbaum $y$, falls dieser überhaupt existiert, als linken Unterbäum wieder ein.
 		
-			qwertz
-			
 		\subsection{d)}
 		
 			Angenommen man hat eine Kette, die nur aus rechten Unterbäumen besteht, kann man nicht ohne Linksrotation dies in jeden anders strukturierten Binärbaum überführen. Dies gilt auch für ähnliche Bäume bei, denen mindestens ein Knoten keinen linken Unterbaum um diesen nach rechts zu rotieren. Daher kommen wir zu dem Schluss, dass dies nur mit Rechtsrotationen nicht möglich ist.
@@ -156,14 +160,17 @@
 		
 		\subsection{a)}
 		
-			qwertz
+			\textit{Induktionsanfang:}  $ n = 1 $ \\
+			$ b_{1} = \sum_{i=1}^{1} b_{i-1} \cdot b_{1-i} = b_{0} \cdot b_{0} = 1 $ \\
+			\\
+			\textit{Induktionsvoraussetzung:} \\
+			$ b_{n} = \sum_{i=1}^{n} b_{i-1} \cdot b_{n-i} $ \\
+			\\
+			\textit{Induktionsschritt:} $ n \rightarrow n+1 $ \\
+			Wir wählen ein beliebiges Blatt vom Baum. Da $ 1 < n+1 $ ist, ist dieses Blatt nicht die Wurzel. Wir entfernen nun dieses Blatt aus dem Baum. Die übrigen Knoten bilden einen Baum mit n Knoten. Aus der Induktionsvoraussetzung geht hevor, dass dieser Baum $ b_{n+1-1} \stackrel{\text{(IV)}}{=} \sum_{i=1}^{n+1-1} b_{i-1} \cdot b_{n+1-1-i} = \sum_{i=1}^{n} b_{i-1} \cdot b_{n-1} = b_{n} $ Varianten hat.
 		
 		\subsection{b)}
 		
-			qwertz
-		
-		\subsection{c)}
-		
-			qwertz		
+			$ B(x) = \sum_{n=0}^{\infty} b_{n} \cdot x^{n} = x \cdot \sum_{n=0}^{\infty} \Big( \sum_{i=1}^{n} b_{i-1} \cdot b_{n-i} \Big) \cdot x^{n} + 1 $
 			
 \end{document}
