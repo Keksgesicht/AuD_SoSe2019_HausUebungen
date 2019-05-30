@@ -181,7 +181,7 @@ public class RedBlackTree {
 	 * @param x der Knoten der bewegt wird
 	 */
 	private void rotateLeft(TreeNode x) {
-		TreeNode y = x.right;	// markiert das andere Kind
+		TreeNode y = x.right;	// markiert das rechte Kind
 		x.right = y.left;		// der linke Teilbaum des rechten Kindes ist nun das rechte Kind von x
 		if(y.left != _nil)
 			y.left.p = x;		// somit hat der linke Teilbaum des rechten Kindes als Elter nun auch das Element x
@@ -200,11 +200,11 @@ public class RedBlackTree {
 	
 	/**
 	 * bewegt einen auf die Position seines rechten Kindes 
-	 * @param x der Knoten der bewegt wird
+	 * @param y der Knoten der bewegt wird
 	 */
 	private void rotateRight(TreeNode y) {
-		TreeNode x = y.left;	// markiert das andere Kind
-		y.left = x.right;		// der rechte Teilbaum des linken Kindes ist nun das rechte Kind von x
+		TreeNode x = y.left;	// markiert das linke Kind
+		y.left = x.right;		// der rechte Teilbaum des linken Kindes ist nun das rechte Kind von y
 		if(x.right != _nil)
 			x.right.p = y;		// somit hat der rechte Teilbaum des linken Kindes als Elter nun auch das Element x
 		x.p = y.p;				// y an das Elter von x hängen

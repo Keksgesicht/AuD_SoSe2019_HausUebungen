@@ -116,16 +116,25 @@
 			\\ \\
 			\textbf{Möglichkeiten diesen AVL-Baum als {\color{red} Rot}-{\color{blue} Schwarz}-Baum darzustellen:}
 			\begin{itemize}
-				\item Die Blätter {\color{red} "1", "6", "9"} und {\color{red} "11" rot} und den Rest {\color{blue} schwarz}
-				\item Die Knoten {\color{red} "1", "6"} und {\color{red} "10" rot} und den Rest {\color{blue} schwarz}
+				\item Die Blätter {\color{red} "1", "6", "9"} und {\color{red} "11" rot} und den Rest {\color{blue} schwarz}.
+				\item Die Blätter {\color{red} "1", "6", "9"} und {\color{red} "11" rot}. Die Knoten {\color{red} "3"} und {\color{red} "8" rot}. Der Rest ist {\color{blue} schwarz}.
+				\item Die Knoten {\color{red} "1", "6"} und {\color{red} "10" rot} und den Rest {\color{blue} schwarz}.
 			\end{itemize}
-			
 	
 	\section{H2}
 		
 		\subsection{a)}
 		
-			qwertz
+			Wenn wir um $z$ nach rechts rotieren, müssen wir im Wesentlichen nur 3 Knoten betrachten:
+			\begin{itemize}
+				\item $x$ als linkes Kind von $z$ ($x \leq z$)
+				\item $y$ das rechte Kind von $x$ ($x \leq y$)
+				\item und nartürlich $z$ selbst
+			\end{itemize}
+			Da $y$ im Teilbaum von $x$ ist, welcher ein Unterbaum von $z$ ist, ist auch $y \leq z$. Also ist $ x \leq y \leq z $. Dies ist wichtig um zu erkennen, dass die Struktur des binären Suchbaum sich nicht ändert. \\
+			Im Algorithmus taucht auch noch $p$ als Elter von $z$ auf. Dies wird lediglich dafür gebraucht, um den Unterbaum nicht vom restlichen Baum zu trennen. Die wirkliche Veränderungen in der Binärbaum-Struktur geschehen nur in dem Unterbaum von $z$ oder später von $x$. \\
+			Wir hängen nun $y$ (ursprünglich rechter Unterbaum von $x$) statt $x$ als linken Unterbaum an $z$ und $z$ wiederum als rechten Unterbaum an $x$, da $y$ ja nun an $z$ hängt. \\
+			Analysieren wir nun den Baum wie vor der Rotation stellen wir fest, dass $z$ ein rechter Unterbaum von $x$ und somit $x \leq z$ immer noch erfüllt ist. $y$ ist ein linker Unterbaum von $z$ und somit ist immer noch $y \leq z$. Und zu guter Letzt ist auch immer noch $x \leq y$, da $y$ ein Unterbaum von $z$ ist, welcher nun der rechte Unterbaum  ($x \leq z$) von $x$ ist. 
 			
 		\subsection{b)}
 		
