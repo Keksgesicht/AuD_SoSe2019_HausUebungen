@@ -125,7 +125,7 @@
 		
 		\subsection{a)}
 		
-			Wenn wir um $z$ nach rechts rotieren, müssen wir im Wesentlichen nur 3 Knoten betrachten:
+			Wenn wir um den Knoten $z$ nach rechts rotieren, müssen wir im Wesentlichen nur 3 Knoten betrachten:
 			\begin{itemize}
 				\item $x$ als linkes Kind von $z$ ($x \leq z$)
 				\item $y$ das rechte Kind von $x$ ($x \leq y$)
@@ -134,11 +134,15 @@
 			Da $y$ im Teilbaum von $x$ ist, welcher ein Unterbaum von $z$ ist, ist auch $y \leq z$. Also ist $ x \leq y \leq z $. Dies ist wichtig um zu erkennen, dass die Struktur des binären Suchbaum sich nicht ändert. \\
 			Im Algorithmus taucht auch noch $p$ als Elter von $z$ auf. Dies wird lediglich dafür gebraucht, um den Unterbaum nicht vom restlichen Baum zu trennen. Die wirkliche Veränderungen in der Binärbaum-Struktur geschehen nur in dem Unterbaum von $z$ oder später von $x$. \\
 			Wir hängen nun $y$ (ursprünglich rechter Unterbaum von $x$) statt $x$ als linken Unterbaum an $z$ und $z$ wiederum als rechten Unterbaum an $x$, da $y$ ja nun an $z$ hängt. \\
-			Analysieren wir nun den Baum wie vor der Rotation stellen wir fest, dass $z$ ein rechter Unterbaum von $x$ und somit $x \leq z$ immer noch erfüllt ist. $y$ ist ein linker Unterbaum von $z$ und somit ist immer noch $y \leq z$. Und zu guter Letzt ist auch immer noch $x \leq y$, da $y$ ein Unterbaum von $z$ ist, welcher nun der rechte Unterbaum  ($x \leq z$) von $x$ ist. 
-			
+			Analysieren wir nun den Baum wie vor der Rotation stellen wir fest, dass $z$ ein rechter Unterbaum von $x$ und somit $x \leq z$ immer noch erfüllt ist. $y$ ist ein linker Unterbaum von $z$ und somit ist immer noch $y \leq z$. Und zu guter Letzt ist auch immer noch $x \leq y$, da $y$ ein Unterbaum von $z$ ist, welcher nun der rechte Unterbaum  ($x \leq z$) von $x$ ist.
+		
+		\newpage	
 		\subsection{b)}
 		
-			qwertz
+			Betrachten wir die selben Knoten wie in der Aufgabe a). \\
+			Vor der Rotation befinden sich $x$ und $y$ im linken Unterbaum von $z$. Nun ersetzt $x$ $z$ als die Wurzel unseres Teilbaums und $z$ und $y$ wandern in den rechten Unterbaum. Die Wurzel wird also lediglich um einen anderen Knoten ersetzt. Nach der Implementation in der Vorlesung macht eine Rechtsrotation nur Sinn, wenn der Knoten $z$ ein linkes Kind wie $x$ besitzt. Daher wandert mindestens ein Knoten vom linken in den rechten Teilbaum. Zusätzlich kann $y$ als Kind von $x$, falls es überhaupt existiert, in den rechten Teilbaum als Kind neues von $z$ wandern. Also schrumpft der linke Teilbaum um mindestens einen Knoten und der rechte wächst um mindestens einen Knoten. \\
+			Bei der Rechtsrotation um $z$ ist $ L(x)_{danach} := L(z)_{vorher} - 1 - L(y)_{vorher} $, $ L(y)_{danach} := L(y)_{vorher} $ \\ und $ L(z)_{danach} := L(z)_{vorher} - L(x)_{vorher} + L(y)_{vorher} $. \\
+			Bei jeder Rechtsrotation entfernen wir links von der Wurzel unseres Teilbäumen einen Unterbaum, jedoch fügen wir auf der rechten Seite wiederum einen Teilbaum $y$, falls dies überhaupt existierte, als linken Unterbäum wieder ein. 
 			
 		\subsection{c)}
 		
@@ -146,7 +150,7 @@
 			
 		\subsection{d)}
 		
-			qwertz
+			Angenommen man hat eine Kette, die nur aus rechten Unterbäumen besteht, kann man nicht ohne Linksrotation dies in jeden anders strukturierten Binärbaum überführen. Dies gilt auch für ähnliche Bäume bei, denen mindestens ein Knoten keinen linken Unterbaum um diesen nach rechts zu rotieren. Daher kommen wir zu dem Schluss, dass dies nur mit Rechtsrotationen nicht möglich ist.
 	
 	\section{H3}
 		
