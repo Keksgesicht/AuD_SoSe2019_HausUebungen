@@ -41,10 +41,10 @@ public class HuffmanCodes {
 	 * Write the frequency of every byte in data into frequencyTable.
 	 */
 	public void buildFrequencyTable(byte[] data) {
-		frequencyTable = new double[256];
+		frequencyTable = new double[256]; // offset 128 (In Arrays there are no negativ indezes)
 		
 		for(byte b : data) {
-			frequencyTable[b + 128]++;
+			frequencyTable[b + 128]++;	// offset 128 (Byte: between -128 and 127)
 		}
 	}
 	
@@ -56,20 +56,28 @@ public class HuffmanCodes {
 		for(short i=0; i < frequencyTable.length; i++) {
 			TreeNode tn = new TreeNode();
 			tn.frequency = frequencyTable[i];
-			tn.value = (byte) (i - 128);
+			tn.value = (byte) (i - 128);		// offset 128 (Byte: between -128 and 127)
 			prioBytes.add(tn);
 		}
 		
 		while(prioBytes.size() > 1) {
-			TreeNode first = prioBytes.remove();
-			TreeNode second = prioBytes.remove();
+			TreeNode first = prioBytes.remove();	// entfernen wir die zwei zu diesem Zeitpunkt 
+			TreeNode second = prioBytes.remove();	// kleinsten Knoten aus der Priority-Queue
 			
-			TreeNode newParent = new TreeNode(first, second, null, first.frequency + second.frequency, (byte) 0);
-			first.p = newParent;
-			second.p = newParent;
-			prioBytes.add(newParent);
+			TreeNode newParent = new TreeNode(first, second, null, first.frequency + second.frequency, (byte) 0);	 
+			first.p = newParent;		// erstellen einen neuen Knoten mit der Summe der Schlüssel der Kinder,
+			second.p = newParent;		// der die beiden entfernten Knoten als Kinder hat,
+			prioBytes.add(newParent);	// und fügen diesen wieder in die Priority-Queue ein.
 		}
 		huffmanTreeRoot = prioBytes.remove();
+	}
+	
+	/**
+	 * @param leaf possible leaf
+	 * @return whether the TreeNode leaf is a leaf in the tree
+	 */
+	private boolean isLeaf(TreeNode leaf) {
+		return (leaf.left == null);	// every TreeNode has two or zero children
 	}
 	
 	/**
@@ -81,23 +89,20 @@ public class HuffmanCodes {
 	}
 	
 	/**
-	 * @param leaf possible leaf
-	 * @return whether the TreeNode leaf is a leaf in the tree
+	 * @param tn der aktuelle Knoten
+	 * @param path die Bitfolge, welche den Weg zum aktuellen Knoten darstellt
 	 */
-	private boolean isLeaf(TreeNode leaf) {
-		return leaf.left == null && leaf.right == null;
-	}
-	
 	private void buildHuffmanTable(TreeNode tn, ArrayList<Integer> path) {
 		if(isLeaf(tn))
 			codeTable[tn.value + 128] = (ArrayList<Integer>) path.clone(); // the ArrayList of each Byte has to be individually
 		else {
-			// turn left
-			path.add(0);
+			// Falls wir im Pfad den linken Kindknoten auswählen, steht an dieser Stelle eine 0
+			path.add(0);	
 			buildHuffmanTable(tn.left, path);
 			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
-			// turn right
-			path.add(1);
+			
+			// wenn wir den rechten Kindknoten auswählen, eine 1
+			path.add(1);	
 			buildHuffmanTable(tn.right, path);
 			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
 		}
@@ -109,8 +114,8 @@ public class HuffmanCodes {
 	public void compress(ByteArrayInputStream inputStream, BitOutputStream outputStream) {
 		int b;
 		while((b = inputStream.read()) != -1) {
-			for(Integer bit : codeTable[b]) {
-				outputStream.write(bit);
+			for(Integer bit : codeTable[b]) { 	// ersetzt das Byte mit seiner Bitfolge im HuffmanTable 
+				outputStream.write(bit);		// schreibt die einzelnen Bit aus dem HuffmanTable
 			}
 		}
 	}
@@ -122,14 +127,14 @@ public class HuffmanCodes {
 		TreeNode tnBit = huffmanTreeRoot;
 		int b;
 		while((b = inputStream.read()) != -1) {
-			if(b == 0) {
+			if(b == 0) {	// Falls wir im Pfad den linken Kindknoten auswählen, steht an dieser Stelle eine 0
 				tnBit = tnBit.left;
-			} else {
+			} else {		// wenn wir den rechten Kindknoten auswählen, eine 1
 				tnBit = tnBit.right;
 			}
 			if(isLeaf(tnBit)) {
-				outputStream.write(tnBit.value);
-				tnBit = huffmanTreeRoot;
+				outputStream.write(tnBit.value);	// ersetzt Bitfolge durch das vollständige Byte
+				tnBit = huffmanTreeRoot;			// die nächste Bitfolge beginnt bei der Wurzel
 			}	
 		}
 	}
@@ -138,22 +143,22 @@ public class HuffmanCodes {
 	 * Save the Huffman tree as bitstream.
 	 */
 	public void saveHuffmanTree(BitOutputStream stream) {
-		treeToStream(stream, huffmanTreeRoot);
+		treeToStream(stream, huffmanTreeRoot);	// beginnen wir von Wurzel aus den Baum zu lesen
 	}
 	
 	/**
 	 * @see https://stackoverflow.com/questions/759707/efficient-way-of-storing-huffman-tree#answer-759766
-	 * @param stream
-	 * @param bit
+	 * @param stream tree as bitstream
+	 * @param tnBit the current TreeNode to read/convert
 	 */
 	private void treeToStream(BitOutputStream stream, TreeNode tnBit) {
-		if(isLeaf(tnBit)) {
-			stream.write(1);	// a 1 
-			stream.writeByte(tnBit.value);
+		if(isLeaf(tnBit)) {		// a leaf contains the value of the byte
+			stream.write(1);	// a 1 representents a following data byte
+			stream.writeByte(tnBit.value);	// the following data byte
 		} else {
-			stream.write(0);
-			treeToStream(stream, tnBit.left);
-			treeToStream(stream, tnBit.right);
+			stream.write(0);	// each step/node in the tree is represented as a 0
+			treeToStream(stream, tnBit.left);	// walking through the tree to all left
+			treeToStream(stream, tnBit.right);	// and right nodes
 		}
 	}
 	
@@ -161,28 +166,28 @@ public class HuffmanCodes {
 	 * Load the Huffman tree from the bitstream.
 	 */
 	public void loadHuffmanTree(BitInputStream stream) {
-		huffmanTreeRoot = streamToTree(stream);
+		huffmanTreeRoot = streamToTree(stream); // der im höhsten Rekursionsschritt erstellte Knoten ist die Wurzel
 	}
 	
 	/**
 	 * @see https://stackoverflow.com/questions/759707/efficient-way-of-storing-huffman-tree#answer-759766
-	 * @param stream
-	 * @return
+	 * @param stream tree as bitstream
+	 * @return den Kindknoten des im übergeordneten Rekursionsschrittes erstellten Knoten
 	 */
 	private TreeNode streamToTree(BitInputStream stream) {
 		int b = stream.read();
-		TreeNode newNode = new TreeNode();
+		TreeNode newNode = new TreeNode();	// creating a new TreeNode for every Bit
 		
-		if(b == 1) {
-			newNode.value = stream.readByte();
+		if(b == 1) {	// a 1 representents a following data byte 
+			newNode.value = stream.readByte();	// a leaf contains the value of the byte
 		} else {
-			newNode.left = streamToTree(stream);
+			newNode.left = streamToTree(stream);	// recreating the tree with all left
 			newNode.left.p = newNode;
 			
-			newNode.right = streamToTree(stream);
+			newNode.right = streamToTree(stream);	// and right nodes
 			newNode.right.p = newNode;
 		}
-		return newNode;
+		return newNode;	// dieses Knoten ist ein Kind des im übergeordneten Rekursionsschrittes erstellten Knoten
 	}
 	
 }
