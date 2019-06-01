@@ -46,9 +46,6 @@ public class HuffmanCodes {
 		for(byte b : data) {
 			frequencyTable[b + 128]++;
 		}
-		for(double d : frequencyTable) {
-			d /= data.length;
-		}
 	}
 	
 	/**
@@ -62,11 +59,14 @@ public class HuffmanCodes {
 			tn.value = (byte) (i - 128);
 			prioBytes.add(tn);
 		}
+		
 		while(prioBytes.size() > 1) {
 			TreeNode first = prioBytes.remove();
 			TreeNode second = prioBytes.remove();
 			
 			TreeNode newParent = new TreeNode(first, second, null, first.frequency + second.frequency, (byte) 0);
+			first.p = newParent;
+			second.p = newParent;
 			prioBytes.add(newParent);
 		}
 		huffmanTreeRoot = prioBytes.remove();
@@ -80,20 +80,26 @@ public class HuffmanCodes {
 		buildHuffmanTable(huffmanTreeRoot, new ArrayList<Integer>());
 	}
 	
+	/**
+	 * @param leaf possible leaf
+	 * @return whether the TreeNode leaf is a leaf in the tree
+	 */
+	private boolean isLeaf(TreeNode leaf) {
+		return leaf.left == null && leaf.right == null;
+	}
+	
 	private void buildHuffmanTable(TreeNode tn, ArrayList<Integer> path) {
-		if(tn.left == null && tn.right == null)
-			codeTable[tn.value + 128] = (ArrayList<Integer>) path.clone();
+		if(isLeaf(tn))
+			codeTable[tn.value + 128] = (ArrayList<Integer>) path.clone(); // the ArrayList of each Byte has to be individually
 		else {
-			if(tn.left != null) {
-				path.add(0);
-				buildHuffmanTable(tn.left, path);
-				path.remove(path.size() -1);
-			}
-			if(tn.right != null) {
-				path.add(1);
-				buildHuffmanTable(tn.right, path);
-				path.remove(path.size() -1);
-			}
+			// turn left
+			path.add(0);
+			buildHuffmanTable(tn.left, path);
+			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
+			// turn right
+			path.add(1);
+			buildHuffmanTable(tn.right, path);
+			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
 		}
 	}
 	
@@ -101,28 +107,82 @@ public class HuffmanCodes {
 	 * Compress the inputStream using codeTable.
 	 */
 	public void compress(ByteArrayInputStream inputStream, BitOutputStream outputStream) {
-		// TODO
+		int b;
+		while((b = inputStream.read()) != -1) {
+			for(Integer bit : codeTable[b]) {
+				outputStream.write(bit);
+			}
+		}
 	}
 	
 	/**
 	 * Decompress the bytesToRead many bytes from the inputStream. Use the Huffman tree for decoding.
 	 */
 	public void decompress(BitInputStream inputStream, ByteArrayOutputStream outputStream, int bytesToRead) {
-		// TODO
+		TreeNode tnBit = huffmanTreeRoot;
+		int b;
+		while((b = inputStream.read()) != -1) {
+			if(b == 0) {
+				tnBit = tnBit.left;
+			} else {
+				tnBit = tnBit.right;
+			}
+			if(isLeaf(tnBit)) {
+				outputStream.write(tnBit.value);
+				tnBit = huffmanTreeRoot;
+			}	
+		}
 	}
 	
 	/**
 	 * Save the Huffman tree as bitstream.
 	 */
 	public void saveHuffmanTree(BitOutputStream stream) {
-		// TODO
+		treeToStream(stream, huffmanTreeRoot);
+	}
+	
+	/**
+	 * @see https://stackoverflow.com/questions/759707/efficient-way-of-storing-huffman-tree#answer-759766
+	 * @param stream
+	 * @param bit
+	 */
+	private void treeToStream(BitOutputStream stream, TreeNode tnBit) {
+		if(isLeaf(tnBit)) {
+			stream.write(1);	// a 1 
+			stream.writeByte(tnBit.value);
+		} else {
+			stream.write(0);
+			treeToStream(stream, tnBit.left);
+			treeToStream(stream, tnBit.right);
+		}
 	}
 	
 	/**
 	 * Load the Huffman tree from the bitstream.
 	 */
 	public void loadHuffmanTree(BitInputStream stream) {
-		// TODO
+		huffmanTreeRoot = streamToTree(stream);
+	}
+	
+	/**
+	 * @see https://stackoverflow.com/questions/759707/efficient-way-of-storing-huffman-tree#answer-759766
+	 * @param stream
+	 * @return
+	 */
+	private TreeNode streamToTree(BitInputStream stream) {
+		int b = stream.read();
+		TreeNode newNode = new TreeNode();
+		
+		if(b == 1) {
+			newNode.value = stream.readByte();
+		} else {
+			newNode.left = streamToTree(stream);
+			newNode.left.p = newNode;
+			
+			newNode.right = streamToTree(stream);
+			newNode.right.p = newNode;
+		}
+		return newNode;
 	}
 	
 }
