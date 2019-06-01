@@ -6,6 +6,8 @@
 \usepackage[a4paper, left=22mm, right=22mm, top=22mm, bottom=22mm]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
 
 \title{Algorithmen und Datenstrukturen - Hausübung 07}
 \date{ }
@@ -35,14 +37,43 @@
 		
 		\subsection{a)}
 			
-			\textit{"to be filled in"}
+			\includegraphics[width=0.12\linewidth]{picture/H1a/Picture1.png}
+			\hspace{0.02\linewidth}
+			\includegraphics[width=0.12\linewidth]{picture/H1a/Picture2.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.18\linewidth]{picture/H1a/Picture3.png}
+			\hspace{0.02\linewidth}
+			\includegraphics[width=0.20\linewidth]{picture/H1a/Picture4.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.15\linewidth]{picture/H1a/Picture5.png}
+			\\ \\
+			\includegraphics[width=0.25\linewidth]{picture/H1a/Picture6.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.25\linewidth]{picture/H1a/Picture7.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.33\linewidth]{picture/H1a/Picture8.png}
+			\\ \\
+			\includegraphics[width=0.25\linewidth]{picture/H1a/Picture9.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.33\linewidth]{picture/H1a/Picture10.png}
+			\hspace{0.05\linewidth}
+			\includegraphics[width=0.27\linewidth]{picture/H1a/Picture11.png}
+			\\ \\
+			{\color{gray} grau:} Elterknoten y	
 		
 		\vfill	
 		\subsection{b)}
-			
-			\textit{"to be filled in"}
+			\begin{minipage}[t]{0.42\linewidth}
+				\includegraphics[width=\linewidth]{picture/H1b/Picture1.png}
+				{\color{blue} blau:} gesuchter Knoten
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.42\linewidth}
+				\includegraphics[width=\linewidth]{picture/H1b/Picture2.png}
+				{\color{orange} orange:} "größter" Knoten y in L
+			\end{minipage}
 	
-	\vfill		
+	\newpage		
 	\section{H2}
 		
 		\subsection{a)}
@@ -63,10 +94,50 @@
 	\section{H3}
 		
 		\subsection{a)}
-		
-			\textit{"to be filled in"}
-		
-		\vfill
+			
+			\begin{minipage}[t]{0.71\textwidth}
+				\vspace{0pt}
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							minPalindrom(w) \\
+							1	\>	count = 0 \\
+							2	\>	FOR i=0 TO w.length $-$ 1 \\
+							3	\>	\>	j = w.length $-$ 1 \\
+							4 	\>	\>	WHILE true DO \\
+							5	\>	\>	\>	WHILE(w[i] $\neq$ w[j]) DO \\
+							6	\>	\>	\>	\>	j-- \\
+							7	\>	\>	\>	IF i == j THEN \\
+							8	\>	\>	\>	\>	BREAK \\
+							9	\>	\>	\>	IF checkPalindrom(w, i, j) THEN \\
+							10	\>	\>	\>	\>	i = j // next iteration of FOR should be i=j+1 \\
+							11	\>	\>	\>	\>	BREAK \\
+							13	\>	\>	count++ \\
+							14	\> RETURN count
+						\end{tabbing}
+				\end{minipage}}
+			\end{minipage}
+			\begin{minipage}[t]{0.29\textwidth}
+				\vspace{0pt}
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							checkPalindrom(w, i, j) \\
+							1	\>	WHILE w[i] == w[j] DO \\
+							2	\>	\>	i++ \\
+							3	\>	\>	j-- \\
+							4	\>	IF i < j THEN \\
+							5	\>	\> RETURN false \\
+							6	\>	ELSE \\
+							7	\>	\> RETURN true
+						\end{tabbing}
+				\end{minipage}}
+			\end{minipage}
+			\vspace{1ex} \\
+			Mit i iterieren wir von links nach rechts über das Wort w und versuchen dabei jeweils mit Hilfe von j das größtmögliche Palidrom, das mit an i beginnt, zu finden. Wenn wir immer die größtmöglichen Palindrome finden, finden wir gleichzeitig auch die geringste Anzahl an Palindromen, da die Vorherigen den meisten Platz für die Folgenden wegnehmen.
+			
 		\subsection{b)}
 		
 			\textit{"to be filled in"}
