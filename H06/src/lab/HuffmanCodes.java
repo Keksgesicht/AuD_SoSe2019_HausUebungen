@@ -119,8 +119,8 @@ public class HuffmanCodes {
 	public void compress(ByteArrayInputStream inputStream, BitOutputStream outputStream) {
 		int b;
 		while((b = inputStream.read()) != -1) {
-			for(Integer bit : codeTable[b]) { 	// ersetzt das Byte mit seiner Bitfolge im HuffmanTable 
-				outputStream.write(bit);		// schreibt die einzelnen Bit aus dem HuffmanTable
+			for(Integer bit : codeTable[(byte) b + 128]) { 	// ersetzt das Byte mit seiner Bitfolge im HuffmanTable 
+				outputStream.write(bit);				// schreibt die einzelnen Bit aus dem HuffmanTable
 			}
 		}
 	}
@@ -138,8 +138,8 @@ public class HuffmanCodes {
 				tnBit = tnBit.right;
 			}
 			if(isLeaf(tnBit)) {
-				outputStream.write(tnBit.value + 128);	// ersetzt Bitfolge durch das vollständige Byte + offset: 128 writeByte workaround
-				tnBit = huffmanTreeRoot;				// die nächste Bitfolge beginnt bei der Wurzel
+				outputStream.write(tnBit.value);	// ersetzt Bitfolge durch das vollständige Byte + offset: 128 writeByte workaround
+				tnBit = huffmanTreeRoot;			// die nächste Bitfolge beginnt bei der Wurzel
 			}	
 		}
 	}
