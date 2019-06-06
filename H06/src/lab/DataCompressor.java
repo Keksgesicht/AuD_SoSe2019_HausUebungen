@@ -3,7 +3,9 @@ package lab;
 /**
  * Aufgabe H1
  * 
- * Abgabe von: <name>, <name> und <name>
+ * @author Emre Berber 2957148
+ * @author Christoph Berst 2743394
+ * @author Jan Braun 2768531
  */
 
 import java.io.ByteArrayInputStream;
