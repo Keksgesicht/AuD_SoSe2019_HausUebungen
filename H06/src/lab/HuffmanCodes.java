@@ -159,7 +159,9 @@ public class HuffmanCodes {
 	private void treeToStream(BitOutputStream stream, TreeNode tnBit) {
 		if(isLeaf(tnBit)) {		// a leaf contains the value of the byte
 			stream.write(1);	// a 1 representents a following data byte
-			stream.writeByte(tnBit.value);	// the following data byte
+			for(int i = 0; i < 8; i++) {					// writeByte workaround
+				stream.write((tnBit.value >> (7-i)) & 1); 	// the following data byte
+			}
 		} else {
 			stream.write(0);	// each step/node in the tree is represented as a 0
 			treeToStream(stream, tnBit.left);	// walking through the tree to all left
