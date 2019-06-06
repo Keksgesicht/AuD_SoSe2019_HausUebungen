@@ -46,13 +46,16 @@ public class HuffmanCodes {
 		for(byte b : data) {
 			frequencyTable[b + 128]++;	// offset 128 (Byte: between -128 and 127)
 		}
+		for(int i=0; i<frequencyTable.length; i++) {
+			frequencyTable[i] /= data.length;
+		}
 	}
 	
 	/**
 	 * Build a tree that defines the huffman code.
 	 */
 	public void buildHuffmanTree() {
-		PriorityQueue<TreeNode> prioBytes = new PriorityQueue<TreeNode>();
+		PriorityQueue<TreeNode> prioBytes = new PriorityQueue<TreeNode>(256);
 		for(short i=0; i < frequencyTable.length; i++) {
 			TreeNode tn = new TreeNode();
 			tn.frequency = frequencyTable[i];
@@ -69,7 +72,9 @@ public class HuffmanCodes {
 			second.p = newParent;		// der die beiden entfernten Knoten als Kinder hat,
 			prioBytes.add(newParent);	// und fügen diesen wieder in die Priority-Queue ein.
 		}
-		huffmanTreeRoot = prioBytes.remove();
+		huffmanTreeRoot = prioBytes.remove();		// ist nur ein Element in der Priority-Queue,
+		huffmanTreeRoot.left.p = huffmanTreeRoot;	// ist dieses die Wurzel unseres Baumes
+		huffmanTreeRoot.right.p = huffmanTreeRoot;
 	}
 	
 	/**
@@ -94,17 +99,17 @@ public class HuffmanCodes {
 	 */
 	private void buildHuffmanTable(TreeNode tn, ArrayList<Integer> path) {
 		if(isLeaf(tn))
-			codeTable[tn.value + 128] = (ArrayList<Integer>) path.clone(); // the ArrayList of each Byte has to be individually
+			codeTable[tn.value + 128] = (ArrayList<Integer>) path.clone(); // without cloning all ArrayLists would be empty
 		else {
 			// Falls wir im Pfad den linken Kindknoten auswählen, steht an dieser Stelle eine 0
 			path.add(0);	
 			buildHuffmanTable(tn.left, path);
-			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
+			path.remove(path.size() -1); // the ArrayList of each Byte has to be individually
 			
 			// wenn wir den rechten Kindknoten auswählen, eine 1
 			path.add(1);	
 			buildHuffmanTable(tn.right, path);
-			path.remove(path.size() -1);		// without cloning all ArrayLists would be empty
+			path.remove(path.size() -1); // the ArrayList of each Byte has to be individually
 		}
 	}
 	
