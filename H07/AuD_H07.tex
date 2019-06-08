@@ -59,7 +59,7 @@
 			\hspace{0.05\linewidth}
 			\includegraphics[width=0.27\linewidth]{picture/H1a/Picture11.png}
 			\\ \\
-			{\color{gray} grau:} Elterknoten y	
+			{\color{gray} grau:} Elterknoten y
 		
 		\vfill	
 		\subsection{b)}
@@ -70,25 +70,62 @@
 			\hfill
 			\begin{minipage}[t]{0.42\linewidth}
 				\includegraphics[width=\linewidth]{picture/H1b/Picture2.png}
-				{\color{orange} orange:} "größter" Knoten y in L
+				{\color{orange} orange:} "größter" Knoten y aus L
 			\end{minipage}
 	
 	\newpage		
 	\section{H2}
 		
 		\subsection{a)}
-		
-			\textit{"to be filled in"}
+			
+			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture1.png}
+			\hspace{0.03\linewidth}
+			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture2.png}
+			\hspace{0.03\linewidth}
+			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture3.png}
+			\\ \\
+			\includegraphics[width=0.47\linewidth]{picture/H2a/Picture4.png}
+			\hspace{0.06\linewidth}
+			\includegraphics[width=0.47\linewidth]{picture/H2a/Picture5.png}
+			\\ \\
+			Nach HeapSort(H.A) ist der Baum leer und ein absteigend sortiertes Array ist entstanden. 			
 		
 		\vfill		
 		\subsection{b)}
+			
+			\begin{itemize}
+				\item BuildHeap(H.A) mit A = \{64, 16, 1, 4, 2\}
+				\item ExtractMax(H)
+				\item Insert(H,32)
+				\item ExtractMax(H)
+				\item Insert(H,8) 
+			\end{itemize}
 		
-			\textit{"to be filled in"}
-		
-		\vfill
 		\subsection{c)}
-		
-			\textit{"to be filled in"}
+				
+			\begin{minipage}[t]{0.71\textwidth}
+				\vspace{0pt}
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							delete(H,i) \\
+							1	\>	IF isEmpty(H) THEN \\
+							2	\>	\>	ERROR 'underflow' \\
+							3	\>	IF i == 0 THEN \\
+							4	\>	\>	RETURN extractMax(H) \\
+							5	\>	IF i == H.size-1 THEN \\
+							6	\>	\>	result = H.A \\
+							7	\>	\>	H.size = H.size-1 \\
+							8	\>	ELSE \\
+							9	\>	\>	result = H.A \\
+							10	\>	\>	H.A = H.A[H.size-1] \\
+							11	\>	\>	H.size = H.size-1 \\
+							12	\>	\>	heapify (H,i) \\
+							13	\>	RETURN result
+						\end{tabbing}
+				\end{minipage}}
+			\end{minipage}			
 	
 	\vfill
 	\section{H3}
@@ -114,7 +151,7 @@
 							10	\>	\>	\>	\>	i = j // next iteration of FOR should be i=j+1 \\
 							11	\>	\>	\>	\>	BREAK \\
 							13	\>	\>	count++ \\
-							14	\> RETURN count
+							14	\>	RETURN count
 						\end{tabbing}
 				\end{minipage}}
 			\end{minipage}
@@ -136,8 +173,9 @@
 				\end{minipage}}
 			\end{minipage}
 			\vspace{1ex} \\
-			Mit i iterieren wir von links nach rechts über das Wort w und versuchen dabei jeweils mit Hilfe von j das größtmögliche Palidrom, das mit an i beginnt, zu finden. Wenn wir immer die größtmöglichen Palindrome finden, finden wir gleichzeitig auch die geringste Anzahl an Palindromen, da die Vorherigen den meisten Platz für die Folgenden wegnehmen.
-			
+			Mit i iterieren wir von links nach rechts über das Wort w und versuchen dabei jeweils mit Hilfe von j das größtmögliche Palindrom, das mit an i beginnt, zu finden. Wenn wir immer die größtmöglichen Palindrome finden, finden wir gleichzeitig auch die geringste Anzahl an Palindromen, da die Vorherigen den meisten Platz für die Folgenden wegnehmen.
+		
+		\vfill	
 		\subsection{b)}
 		
 			\textit{"to be filled in"}
