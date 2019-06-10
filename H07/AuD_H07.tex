@@ -12,6 +12,7 @@
 \title{Algorithmen und Datenstrukturen - Hausübung 07}
 \date{ }
 
+\setlength{\parindent}{0pt}
 \renewcommand*\contentsname{Inhaltsverzeichnis}
 \setcounter{secnumdepth}{0}
 
@@ -78,56 +79,74 @@
 		
 		\subsection{a)}
 			
-			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture1.png}
-			\hspace{0.03\linewidth}
-			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture2.png}
-			\hspace{0.03\linewidth}
-			\includegraphics[width=0.32\linewidth]{picture/H2a/Picture3.png}
-			\\ \\
-			\includegraphics[width=0.47\linewidth]{picture/H2a/Picture4.png}
-			\hspace{0.06\linewidth}
-			\includegraphics[width=0.47\linewidth]{picture/H2a/Picture5.png}
-			\\ \\
-			Nach HeapSort(H.A) ist der Baum leer und ein absteigend sortiertes Array ist entstanden. 			
+			\begin{figure}[!htb]
+				\ttfamily
+				\begin{minipage}{0.32\textwidth}
+					BuildHeap(H.A)
+					\includegraphics[width=\linewidth]{picture/H2a/Picture1.png}
+				\end{minipage} \hfill
+				\begin{minipage}{0.32\textwidth}
+					ExtractMax(H)
+					\includegraphics[width=\linewidth]{picture/H2a/Picture2.png}
+				\end{minipage} \hfill
+				\begin{minipage}{0.32\textwidth}
+					Insert(H,37)
+					\includegraphics[width=\linewidth]{picture/H2a/Picture3.png}
+				\end{minipage}
+			\end{figure}
+			\begin{figure}[!ht]
+				\ttfamily
+				\begin{minipage}{0.45\textwidth}
+					Insert(H,28) \\
+					\includegraphics[width=\linewidth]{picture/H2a/Picture4.png}
+				\end{minipage} \hfill
+				\begin{minipage}{0.52\textwidth}
+					Insert(H,42) \\
+					\includegraphics[width=\linewidth]{picture/H2a/Picture5.png}
+				\end{minipage}
+			\end{figure}
+			Nach HeapSort(H.A) ist der Baum leer und ein absteigend sortiertes Array ist entstanden.
 		
-		\vfill		
-		\subsection{b)}
+		\vfill	
+		\begin{minipage}[t]{0.5\linewidth}
+			\subsection{b)}
 			
-			\begin{itemize}
-				\item BuildHeap(H.A) mit A = \{64, 16, 1, 4, 2\}
-				\item ExtractMax(H)
-				\item Insert(H,32)
-				\item ExtractMax(H)
-				\item Insert(H,8) 
-			\end{itemize}
-		
-		\subsection{c)}
-				
-			\begin{minipage}[t]{0.71\textwidth}
-				\vspace{0pt}
-				\fbox{\begin{minipage}{\textwidth} % box
-						\ttfamily
-						\begin{tabbing}
-							\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
-							delete(H,i) \\
-							1	\>	IF isEmpty(H) THEN \\
-							2	\>	\>	ERROR 'underflow' \\
-							3	\>	IF i == 0 THEN \\
-							4	\>	\>	RETURN extractMax(H) \\
-							5	\>	IF i == H.size-1 THEN \\
-							6	\>	\>	result = H.A \\
-							7	\>	\>	H.size = H.size-1 \\
-							8	\>	ELSE \\
-							9	\>	\>	result = H.A \\
-							10	\>	\>	H.A = H.A[H.size-1] \\
-							11	\>	\>	H.size = H.size-1 \\
-							12	\>	\>	heapify (H,i) \\
-							13	\>	RETURN result
-						\end{tabbing}
-				\end{minipage}}
-			\end{minipage}			
+				\begin{itemize}
+					\item BuildHeap(H.A) mit A = \{64, 16, 1, 4, 2\}
+					\item ExtractMax(H)
+					\item Insert(H,32)
+					\item ExtractMax(H)
+					\item Insert(H,8) 
+				\end{itemize}
+		\end{minipage}
+		\begin{minipage}[t]{0.5\linewidth}
+			\subsection{c)}
+			
+				\begin{minipage}[t]{0.71\textwidth}
+					\vspace{0pt}
+					\fbox{\begin{minipage}{\textwidth} % box
+							\ttfamily
+							\begin{tabbing}
+								\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+								delete(H,i) \\
+								1	\>	IF isEmpty(H) THEN \\
+								2	\>	\>	ERROR 'underflow' \\
+								3	\>	IF i == 0 THEN \\
+								4	\>	\>	RETURN extractMax(H) \\
+								5	\>	IF i == H.size-1 THEN \\
+								6	\>	\>	result = H.A \\
+								7	\>	\>	H.size = H.size-1 \\
+								8	\>	ELSE \\
+								9	\>	\>	result = H.A \\
+								10	\>	\>	H.A = H.A[H.size-1] \\
+								11	\>	\>	H.size = H.size-1 \\
+								12	\>	\>	heapify (H,i) \\
+								13	\>	RETURN result
+							\end{tabbing}
+					\end{minipage}}
+				\end{minipage}
+		\end{minipage}
 	
-	\vfill
 	\section{H3}
 		
 		\subsection{a)}
@@ -174,8 +193,7 @@
 			\end{minipage}
 			\vspace{1ex} \\
 			Mit i iterieren wir von links nach rechts über das Wort w und versuchen dabei jeweils mit Hilfe von j das größtmögliche Palindrom, das mit an i beginnt, zu finden. Wenn wir immer die größtmöglichen Palindrome finden, finden wir gleichzeitig auch die geringste Anzahl an Palindromen, da die Vorherigen den meisten Platz für die Folgenden wegnehmen.
-		
-		\vfill	
+				
 		\subsection{b)}
 		
 			\textit{"to be filled in"}
