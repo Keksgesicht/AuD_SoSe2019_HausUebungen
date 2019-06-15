@@ -66,8 +66,13 @@ public class HashTable {
 	 * The hash function used in the hash table.
 	 */
 	public int hash(String x) {
-		// TODO
-		return 0;
+		
+	int result = 0 ;
+	for (int i = 0; i < x.length();i++) {	
+		result = result + ((i+(int)x.charAt(i))*i);
+	}
+		
+	return result;
 	}
 	
 	/**
