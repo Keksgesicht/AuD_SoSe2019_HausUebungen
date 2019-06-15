@@ -33,7 +33,14 @@ public class HashTable {
      * increased as described in the method rehash below.
      */
 	public HashTable(int initialCapacity) {
-		// TODO
+		entryLists = new LinkedList[initialCapacity];
+		
+		int p = entryLists.length;
+		hash_a = (int) (Math.random() * (p - 1));
+		hash_b = (int) (Math.random() * (p - 1));
+		while(hash_a == 0) {
+			hash_a = (int) (Math.random() * (p - 1));
+		}
 	}
 	
 	/**
@@ -65,14 +72,15 @@ public class HashTable {
 	/**
 	 * The hash function used in the hash table.
 	 */
-	public int hash(String x) {
-		
-	int result = 0 ;
-	for (int i = 0; i < x.length();i++) {	
-		result = result + ((i+(int)x.charAt(i))*i);
-	}
-		
-	return result;
+	public int hash(String s) {
+		int x = 0;
+		for (int i=0; i < s.length(); i++) {	
+			x += (i + 1) * ((int) s.charAt(i));
+		}
+		// Vorlesung Hash
+		int p = entryLists.length;
+		int hash_x = (int) ((hash_a * x + hash_b % p) % p);
+		return hash_x;
 	}
 	
 	/**
