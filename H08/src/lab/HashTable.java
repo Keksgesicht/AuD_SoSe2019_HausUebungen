@@ -125,14 +125,14 @@ public class HashTable {
 		HashTable h = new HashTable(capacity*10);
 		ListNode node;
 		for (LinkedList l : entryLists) {
-			 node = l.head();
 		if (l != null) {
+		   node = l.head();
 		   for (int i = 0; i < l.length();i++)  {
 			  h.insert(node.entry());
 			  node = node.next();
 		   }
 		}
-		}
+	   }
 	}
 	
 	/**
