@@ -129,8 +129,12 @@ public class HashTable {
 	 * Return null if key was not found.  
 	 */
 	public TableEntry delete(String key) {
-		
-		return null;
+		LinkedList keyList = getKeyList(key);
+		ListNode node = find(keyList, key);
+		if(node == null)
+			return null;
+		keyList.delete(node);
+		return node.entry();
 	}
 	
 	/**
