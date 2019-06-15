@@ -35,7 +35,7 @@ public class HashTable {
 	public HashTable(int initialCapacity) {
 		capacity = initialCapacity;
 		if(!isPrime(capacity))
-			capacity = primCapacity(capacity);
+		capacity = primCapacity(capacity);
 		entryLists = new LinkedList[capacity];
 		
 		int p = entryLists.length;
@@ -92,7 +92,7 @@ public class HashTable {
 	 * Return null if key was not found.  
 	 */
 	public TableEntry delete(String key) {
-		// TODO
+		
 		return null;
 	}
 	
@@ -122,7 +122,17 @@ public class HashTable {
 	 * Increase the capacity of the hash table and reorder all entries.
 	 */
 	private void rehash() {
-		// TODO
+		HashTable h = new HashTable(capacity*10);
+		ListNode node;
+		for (LinkedList l : entryLists) {
+			 node = l.head();
+		if (l != null) {
+		   for (int i = 0; i < l.length();i++)  {
+			  h.insert(node.entry());
+			  node = node.next();
+		   }
+		}
+		}
 	}
 	
 	/**
