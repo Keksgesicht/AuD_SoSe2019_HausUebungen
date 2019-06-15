@@ -33,7 +33,10 @@ public class HashTable {
      * increased as described in the method rehash below.
      */
 	public HashTable(int initialCapacity) {
-		entryLists = new LinkedList[initialCapacity];
+		capacity = initialCapacity;
+		if(!isPrime(capacity))
+			capacity = primCapacity(capacity);
+		entryLists = new LinkedList[capacity];
 		
 		int p = entryLists.length;
 		hash_a = (int) (Math.random() * (p - 1));
@@ -41,6 +44,23 @@ public class HashTable {
 		while(hash_a == 0) {
 			hash_a = (int) (Math.random() * (p - 1));
 		}
+	}
+	
+	private int primCapacity(int cap) {
+		if(cap % 2 == 0)
+			cap++;
+		while(!isPrime(cap))
+			cap += 2;
+		return cap;
+	}
+	
+	private boolean isPrime(int prim) {
+		int sqrt = (int) Math.sqrt(prim);
+		for(int i=2; i < sqrt; i++) {
+			if(prim % i == 0)
+				return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -57,7 +77,14 @@ public class HashTable {
 	 * to increase the capacity of the hash table.
 	 */
 	public void insert(TableEntry entry) {
-		// TODO
+		String key = entry.getKey();
+		int hash_key = hash(key);
+		LinkedList keyList = entryLists[hash_key];
+		ListNode headOfKeyList = keyList.head();
+		while(headOfKeyList != keyList.nil()) {
+			
+		}
+		
 	}
 	
 	/**
