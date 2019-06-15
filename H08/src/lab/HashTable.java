@@ -35,7 +35,7 @@ public class HashTable {
 	public HashTable(int initialCapacity) {
 		capacity = initialCapacity;
 		if(!isPrime(capacity))
-		capacity = primCapacity(capacity);
+			capacity = primCapacity(capacity);
 		entryLists = new LinkedList[capacity];
 		
 		int p = entryLists.length;
@@ -46,6 +46,10 @@ public class HashTable {
 		}
 	}
 	
+	/**
+	 * @param cap possible prime number
+	 * @return the next prime number
+	 */
 	private int primCapacity(int cap) {
 		if(cap % 2 == 0)
 			cap++;
@@ -54,6 +58,10 @@ public class HashTable {
 		return cap;
 	}
 	
+	/**
+	 * @param prim possible prime number
+	 * @return whether the given number is prime or not
+	 */
 	private boolean isPrime(int prim) {
 		int sqrt = (int) Math.sqrt(prim);
 		for(int i=2; i < sqrt; i++) {
@@ -64,11 +72,38 @@ public class HashTable {
 	}
 	
 	/**
+	 * @param key unhashed key
+	 * @return the LinkedList to the given key
+	 */
+	private LinkedList getKeyList(String key) {
+		int hash_key = hash(key);
+		if(entryLists[hash_key] == null)
+			entryLists[hash_key] = new LinkedList();
+		return entryLists[hash_key];
+	}
+	
+	/**
 	 * Search for an TableEntry with the given key. If no such TableEntry is found, return null.
 	 */
 	public TableEntry find(String key) {
-		// TODO
-		return null;
+		LinkedList keyList = getKeyList(key);
+		ListNode node = find(keyList, key);
+		return node == null ? null : node.entry();
+	}
+	
+	/**
+	 * @param keyList the LinkedList in which the key could be found
+	 * @param key unhashed key
+	 * @return the ListNode with the given key or null
+	 */
+	private ListNode find(LinkedList keyList, String key) {
+		ListNode headOfKeyList = keyList.head();
+		while(headOfKeyList != keyList.nil()) {
+			if(headOfKeyList.entry().getKey().equals(key))
+				break;
+			headOfKeyList = headOfKeyList.next();
+		}
+		return headOfKeyList == keyList.nil() ? null : headOfKeyList;
 	}
 	
 	/**
@@ -78,13 +113,15 @@ public class HashTable {
 	 */
 	public void insert(TableEntry entry) {
 		String key = entry.getKey();
-		int hash_key = hash(key);
-		LinkedList keyList = entryLists[hash_key];
-		ListNode headOfKeyList = keyList.head();
-		while(headOfKeyList != keyList.nil()) {
-			
-		}
+		LinkedList keyList = getKeyList(key);
+		ListNode node = find(keyList, key);
 		
+		if(node == null) {
+			keyList.append(entry);
+		} else {
+			keyList.insertBefore(entry, node);
+			keyList.delete(node);
+		}
 	}
 	
 	/**
@@ -114,8 +151,12 @@ public class HashTable {
 	 * Return the number of TableEntries in this hash table.
 	 */
 	public int size() {
-		// TODO
-		return -1;
+		int size = 0;
+		for(LinkedList ll : entryLists) {
+			if(ll != null)
+				size += ll.length();
+		}
+		return size;
 	}
 	
 	/**
@@ -125,14 +166,14 @@ public class HashTable {
 		HashTable h = new HashTable(capacity*10);
 		ListNode node;
 		for (LinkedList l : entryLists) {
-		if (l != null) {
-		   node = l.head();
-		   for (int i = 0; i < l.length();i++)  {
-			  h.insert(node.entry());
-			  node = node.next();
-		   }
+			if (l != null) {
+				node = l.head();
+				for (int i = 0; i < l.length();i++)  {
+					h.insert(node.entry());
+					node = node.next();
+				}
+			}
 		}
-	   }
 	}
 	
 	/**
