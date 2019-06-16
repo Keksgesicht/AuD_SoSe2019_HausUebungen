@@ -122,6 +122,11 @@ public class HashTable {
 			keyList.insertBefore(entry, node);
 			keyList.delete(node);
 		}
+		resize();
+	}
+	
+	private void resize() {
+		
 	}
 	
 	/**
@@ -186,8 +191,15 @@ public class HashTable {
 	 * list in the hash table).
 	 */
 	public int quality() {
-		// TODO
-		return -1;
+		int longestSize = 0;
+		for(LinkedList ll : entryLists) {
+			if(ll == null)
+				continue;
+			int listLength = ll.length();
+			if(listLength > longestSize)
+				longestSize = listLength;
+		}
+		return longestSize;
 	}
 	
 	public int getHash_a() {
