@@ -33,29 +33,45 @@ public class HashTable {
      * increased as described in the method rehash below.
      */
 	public HashTable(int initialCapacity) {
+		setCapacity(initialCapacity);
+		entryLists = new LinkedList[capacity];
+		setHash();
+	}
+	
+	/**
+	 * sets the capacity to the nex possible prime number 
+	 */
+	private void setCapacity(int initialCapacity) {
+		if(initialCapacity < 0)
+			throw new IllegalArgumentException("capacity must be positive!");
 		capacity = initialCapacity;
 		if(!isPrime(capacity))
-			capacity = primCapacity(capacity);
-		entryLists = new LinkedList[capacity];
-		
+			capacity = getNexPrime(capacity);
+	}
+	
+	/**
+	 * sets random values for hash_a and hash_b
+	 */
+	private void setHash() {
+		Random rnd = new Random(System.currentTimeMillis());
 		int p = entryLists.length;
-		hash_a = (int) (Math.random() * (p - 1));
-		hash_b = (int) (Math.random() * (p - 1));
+		hash_a = rnd.nextInt(p - 1);
+		hash_b = rnd.nextInt(p - 1);
 		while(hash_a == 0) {
-			hash_a = (int) (Math.random() * (p - 1));
+			hash_a = rnd.nextInt(p - 1);
 		}
 	}
 	
 	/**
-	 * @param cap possible prime number
+	 * @param prim possible prime number
 	 * @return the next prime number
 	 */
-	private int primCapacity(int cap) {
-		if(cap % 2 == 0)
-			cap++;
-		while(!isPrime(cap))
-			cap += 2;
-		return cap;
+	private int getNexPrime(int prim) {
+		if(prim % 2 == 0)
+			prim++;
+		while(!isPrime(prim))
+			prim += 2;
+		return prim;
 	}
 	
 	/**
@@ -63,6 +79,8 @@ public class HashTable {
 	 * @return whether the given number is prime or not
 	 */
 	private boolean isPrime(int prim) {
+		if(prim == 1)
+			return false;
 		int sqrt = (int) Math.sqrt(prim);
 		for(int i=2; i < sqrt; i++) {
 			if(prim % i == 0)
