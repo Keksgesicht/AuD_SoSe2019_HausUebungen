@@ -45,8 +45,9 @@ public class HashTable {
 		if(initialCapacity < 0)
 			throw new IllegalArgumentException("capacity must be positive!");
 		capacity = initialCapacity;
-		if(!isPrime(capacity))
-			capacity = getNexPrime(capacity);
+		if(!isPrime(capacity))					// Wird der Konstruktor nicht mit einer Primzahl aufgerufen,
+			capacity = getNexPrime(capacity);	// soll die nächstgrößere Primzahl gewählt werden.
+		System.out.println(capacity);
 	}
 	
 	/**
@@ -54,11 +55,11 @@ public class HashTable {
 	 */
 	private void setHash() {
 		Random rnd = new Random(System.currentTimeMillis());
-		int p = entryLists.length;
-		hash_a = rnd.nextInt(p - 1);
-		hash_b = rnd.nextInt(p - 1);
+		int p = entryLists.length;		// p = T.length
+		hash_a = rnd.nextInt(p - 1);	// a aus [0, p-1]
+		hash_b = rnd.nextInt(p - 1);	// b aus [0, p-1]
 		while(hash_a == 0) {
-			hash_a = rnd.nextInt(p - 1);
+			hash_a = rnd.nextInt(p - 1);	// a != 0
 		}
 	}
 	
@@ -67,10 +68,10 @@ public class HashTable {
 	 * @return the next prime number
 	 */
 	private int getNexPrime(int prim) {
-		if(prim % 2 == 0)
-			prim++;
-		while(!isPrime(prim))
-			prim += 2;
+		if(prim % 2 == 0)		// Falls gerade
+			prim++;				// ungerade machen
+		while(!isPrime(prim))	// solange es keine primezahl ist
+			prim += 2;			// alle ungeraden zahlen durchspringen
 		return prim;
 	}
 	
@@ -79,14 +80,18 @@ public class HashTable {
 	 * @return whether the given number is prime or not
 	 */
 	private boolean isPrime(int prim) {
-		if(prim == 1)
+		if(prim == 1)		// 1 ist keine Primzahl
 			return false;
-		int sqrt = (int) Math.sqrt(prim);
-		for(int i=2; i < sqrt; i++) {
-			if(prim % i == 0)
-				return false;
+		if(prim == 2)		// 2 ist eine Primzahl
+			return true;
+		if(prim % 2 == 0)	// gerades außer 2 ist keine Primezahl
+			return false;
+		int sqrt = (int) Math.sqrt(prim);	// Es reicht die Teiler bis zu Wurzel durchzuprobieren
+		for(int i=3; i < sqrt; i += 2) {
+			if(prim % i == 0)	// sobald es durch etwas teilbar ungeleich 1 oder sich selbst teilbar ist,
+				return false;	// kann es keine Primzahl sein
 		}
-		return true;
+		return true;	// Keinen Teiler gefunden
 	}
 	
 	/**
@@ -94,9 +99,9 @@ public class HashTable {
 	 * @return the LinkedList to the given key
 	 */
 	private LinkedList getKeyList(String key) {
-		int hash_key = hash(key);
-		if(entryLists[hash_key] == null)
-			entryLists[hash_key] = new LinkedList();
+		int hash_key = hash(key);						// key hashen 
+		if(entryLists[hash_key] == null)				// falls nicht existent,
+			entryLists[hash_key] = new LinkedList();	// Liste erstellen
 		return entryLists[hash_key];
 	}
 	
@@ -104,9 +109,9 @@ public class HashTable {
 	 * Search for an TableEntry with the given key. If no such TableEntry is found, return null.
 	 */
 	public TableEntry find(String key) {
-		LinkedList keyList = getKeyList(key);
-		ListNode node = find(keyList, key);
-		return node == null ? null : node.entry();
+		LinkedList keyList = getKeyList(key);		// key hashen und Liste finden
+		ListNode node = find(keyList, key);			// Knoten in der Liste finden
+		return node == null ? null : node.entry();	// falls vorhanden, wert zurückgeben
 	}
 	
 	/**
@@ -115,13 +120,13 @@ public class HashTable {
 	 * @return the ListNode with the given key or null
 	 */
 	private ListNode find(LinkedList keyList, String key) {
-		ListNode headOfKeyList = keyList.head();
-		while(headOfKeyList != keyList.nil()) {
-			if(headOfKeyList.entry().getKey().equals(key))
+		ListNode nodeOfKeyList = keyList.head();			// mit Kopf der Liste beginnen
+		while(nodeOfKeyList != keyList.nil()) {				// nur realle Werte der Liste durchlaufen	
+			if(nodeOfKeyList.entry().getKey().equals(key))	// Knoten mit key gefunden?
 				break;
-			headOfKeyList = headOfKeyList.next();
+			nodeOfKeyList = nodeOfKeyList.next();			// nächster Knoten!
 		}
-		return headOfKeyList == keyList.nil() ? null : headOfKeyList;
+		return nodeOfKeyList == keyList.nil() ? null : nodeOfKeyList; // falls verhanden, Knoten zurückgeben
 	}
 	
 	/**
@@ -130,21 +135,23 @@ public class HashTable {
 	 * to increase the capacity of the hash table.
 	 */
 	public void insert(TableEntry entry) {
-		String key = entry.getKey();
-		LinkedList keyList = getKeyList(key);
-		ListNode node = find(keyList, key);
+		String key = entry.getKey();			// key extrahieren
+		LinkedList keyList = getKeyList(key);	// key hashen und Liste finden
+		ListNode node = find(keyList, key);		// Knoten in der Liste finden
 		
-		if(node == null) {
-			keyList.append(entry);
+		if(node == null) {			// noch nicht vorhanden,
+			keyList.append(entry);	// dann hinten dran hängen
 		} else {
-			keyList.insertBefore(entry, node);
-			keyList.delete(node);
+			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
+			keyList.delete(node);				// durch den neuen Eintrag ersetzt werden
 		}
-		resize();
+		// resize();	// größe gegebenfalls anpassen
 	}
 	
 	private void resize() {
-		
+		if(size() < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
+			return;
+		rehash();	// Wird dieser Wert überschritten, soll rehash aufgerufen werden
 	}
 	
 	/**
@@ -152,12 +159,12 @@ public class HashTable {
 	 * Return null if key was not found.  
 	 */
 	public TableEntry delete(String key) {
-		LinkedList keyList = getKeyList(key);
-		ListNode node = find(keyList, key);
-		if(node == null)
-			return null;
-		keyList.delete(node);
-		return node.entry();
+		LinkedList keyList = getKeyList(key);	// key hashen und Liste finden
+		ListNode node = find(keyList, key);		// Knoten in der Liste finden
+		if(node == null)		// falls nicht existent,
+			return null;		// dann gibt es auch nichts zu tun
+		keyList.delete(node);	// Knoten aus der Liste entfernen
+		return node.entry();	// Wert des Knotens zurückgeben
 	}
 	
 	/**
@@ -165,12 +172,12 @@ public class HashTable {
 	 */
 	public int hash(String s) {
 		int x = 0;
-		for (int i=0; i < s.length(); i++) {	
-			x += (i + 1) * ((int) s.charAt(i));
+		for (int i=0; i < s.length(); i++) {
+			x += (i + 1) * ((int) s.charAt(i));	// Summe der Produkte der Zeichen(ASCI) mit ihrer Position
 		}
-		// Vorlesung Hash
-		int p = entryLists.length;
-		int hash_x = (int) ((hash_a * x + hash_b % p) % p);
+		// Hash-Funktion aus der Vorlesung 
+		int p = entryLists.length;	// p = T.length
+		int hash_x = (hash_a * x + hash_b % p) % p; // H(x) = (a * x + b mod p) mod T.length
 		return hash_x;
 	}
 	
@@ -181,7 +188,7 @@ public class HashTable {
 		int size = 0;
 		for(LinkedList ll : entryLists) {
 			if(ll != null)
-				size += ll.length();
+				size += ll.length(); // Summe aller längen der einzelenen LinkedLists
 		}
 		return size;
 	}
@@ -213,6 +220,7 @@ public class HashTable {
 		for(LinkedList ll : entryLists) {
 			if(ll == null)
 				continue;
+			// die Länge der längsten LinkedList
 			int listLength = ll.length();
 			if(listLength > longestSize)
 				longestSize = listLength;
