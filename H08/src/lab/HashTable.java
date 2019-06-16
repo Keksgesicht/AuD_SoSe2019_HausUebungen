@@ -47,7 +47,6 @@ public class HashTable {
 		capacity = initialCapacity;
 		if(!isPrime(capacity))					// Wird der Konstruktor nicht mit einer Primzahl aufgerufen,
 			capacity = getNexPrime(capacity);	// soll die nächstgrößere Primzahl gewählt werden.
-		System.out.println(capacity);
 	}
 	
 	/**
