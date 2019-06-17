@@ -196,13 +196,16 @@ public class HashTable {
 	 * Increase the capacity of the hash table and reorder all entries.
 	 */
 	private void rehash() {
-		HashTable h = new HashTable(capacity*10);
+	    this.setCapacity(capacity*10);
+	    this.setHash();
 		ListNode node;
-		for (LinkedList l : entryLists) {
+		LinkedList[] oldEntryLists = this.entryLists;
+		entryLists = new LinkedList[this.capacity];
+ 		for (LinkedList l : oldEntryLists) {
 			if (l != null) {
 				node = l.head();
-				for (int i = 0; i < l.length();i++)  {
-					h.insert(node.entry());
+				while (node != l.nil()) {
+					this.insert(node.entry());
 					node = node.next();
 				}
 			}
