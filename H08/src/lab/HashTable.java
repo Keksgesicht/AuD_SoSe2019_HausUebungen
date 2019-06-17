@@ -18,6 +18,7 @@ public class HashTable {
 	private int capacity;
 	private int hash_a;
 	private int hash_b;
+	private int size = 0;
 	private LinkedList[] entryLists;
 	
 	// add your own variables if you want
@@ -144,12 +145,15 @@ public class HashTable {
 			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
 			keyList.delete(node);				// durch den neuen Eintrag ersetzt werden
 		}
+		size++;
 		resize();	// größe gegebenfalls anpassen
 	}
 	
 	private void resize() {
-		if(size() < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
+		if(size < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
 			return;
+		System.out.println(size);
+		System.out.println(size());
 		rehash();	// Wird dieser Wert überschritten, soll rehash aufgerufen werden
 	}
 	
@@ -162,6 +166,7 @@ public class HashTable {
 		ListNode node = find(keyList, key);		// Knoten in der Liste finden
 		if(node == null)		// falls nicht existent,
 			return null;		// dann gibt es auch nichts zu tun
+		size--;
 		keyList.delete(node);	// Knoten aus der Liste entfernen
 		return node.entry();	// Wert des Knotens zurückgeben
 	}
@@ -184,12 +189,12 @@ public class HashTable {
 	 * Return the number of TableEntries in this hash table.
 	 */
 	public int size() {
-		int size = 0;
+		int tempSize = 0;
 		for(LinkedList ll : entryLists) {
 			if(ll != null)
-				size += ll.length(); // Summe aller längen der einzelenen LinkedLists
+				tempSize += ll.length(); // Summe aller längen der einzelenen LinkedLists
 		}
-		return size;
+		return tempSize;
 	}
 	
 	/**
@@ -201,6 +206,7 @@ public class HashTable {
 		ListNode node;
 		LinkedList[] oldEntryLists = this.entryLists;
 		entryLists = new LinkedList[this.capacity];
+		size = 0;
  		for (LinkedList l : oldEntryLists) {
 			if (l != null) {
 				node = l.head();
