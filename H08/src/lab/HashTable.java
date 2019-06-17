@@ -55,10 +55,10 @@ public class HashTable {
 	private void setHash() {
 		Random rnd = new Random(System.currentTimeMillis());
 		int p = entryLists.length;		// p = T.length
-		hash_a = rnd.nextInt(p - 1);	// a aus [0, p-1]
-		hash_b = rnd.nextInt(p - 1);	// b aus [0, p-1]
+		hash_a = rnd.nextInt(p);	// a aus [0, p-1]
+		hash_b = rnd.nextInt(p);	// b aus [0, p-1]
 		while(hash_a == 0) {
-			hash_a = rnd.nextInt(p - 1);	// a != 0
+			hash_a = rnd.nextInt(p);	// a != 0
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class HashTable {
 			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
 			keyList.delete(node);				// durch den neuen Eintrag ersetzt werden
 		}
-		// resize();	// größe gegebenfalls anpassen
+		resize();	// größe gegebenfalls anpassen
 	}
 	
 	private void resize() {
