@@ -141,7 +141,7 @@ public class HashTable {
 		
 		if(node == null) {			// noch nicht vorhanden,
 			keyList.append(entry);	// dann hinten dran hÃ¤ngen
-			size++;
+			size++;                 // nach dem Einfügen eines Elements wird size erhöht
 		} else {
 			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
 			keyList.delete(node);	            // durch den neuen Eintrag ersetzt werden
@@ -164,7 +164,7 @@ public class HashTable {
 		ListNode node = find(keyList, key);		// Knoten in der Liste finden
 		if(node == null)		// falls nicht existent,
 			return null;		// dann gibt es auch nichts zu tun
-		size--;
+		size--;                 // nach dem Löschen eines Elements wird size verringert
 		keyList.delete(node);	// Knoten aus der Liste entfernen
 		return node.entry();	// Wert des Knotens zurÃ¼ckgeben
 	}
@@ -187,25 +187,25 @@ public class HashTable {
 	 * Return the number of TableEntries in this hash table.
 	 */
 	public int size() {
-		return size;
+		return size;      
 	}
 	
 	/**
 	 * Increase the capacity of the hash table and reorder all entries.
 	 */
 	private void rehash() {
-	    this.setCapacity(capacity*10);
-	    this.setHash();
-		ListNode node;
-		LinkedList[] oldEntryLists = this.entryLists;
-		entryLists = new LinkedList[this.capacity];
-		size = 0;
- 		for (LinkedList l : oldEntryLists) {
-			if (l != null) {
-				node = l.head();
+	    this.setCapacity(capacity*10);                //die Capacity wird auf sein Zehnfaches gesätzt 
+	    this.setHash();							      //hash_a und hash_b werden wieder festgelegt
+		ListNode node;								  
+		LinkedList[] oldEntryLists = this.entryLists; // die alte entryLists wird zwischengespeichert
+		entryLists = new LinkedList[this.capacity];   // eine neue entyLists wird mit der neuen Capacity erstellt 
+		size = 0;                                     // die neue entryLists ist leer, also size = 0
+ 		for (LinkedList l : oldEntryLists) {          
+			if (l != null) {				          // überprüft ob die LinkedList leer ist	  
+				node = l.head();                      
 				while (node != l.nil()) {
-					this.insert(node.entry());
-					node = node.next();
+					this.insert(node.entry());        // entrys werden der neuen entryList hinzugefügt
+					node = node.next();             
 				}
 			}
 		}
