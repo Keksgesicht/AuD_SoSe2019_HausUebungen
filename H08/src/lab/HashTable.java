@@ -141,19 +141,17 @@ public class HashTable {
 		
 		if(node == null) {			// noch nicht vorhanden,
 			keyList.append(entry);	// dann hinten dran hängen
+			size++;
 		} else {
 			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
-			keyList.delete(node);				// durch den neuen Eintrag ersetzt werden
+			keyList.delete(node);	            // durch den neuen Eintrag ersetzt werden
 		}
-		size++;
 		resize();	// größe gegebenfalls anpassen
 	}
 	
 	private void resize() {
 		if(size < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
 			return;
-		System.out.println(size);
-		System.out.println(size());
 		rehash();	// Wird dieser Wert überschritten, soll rehash aufgerufen werden
 	}
 	
@@ -189,12 +187,7 @@ public class HashTable {
 	 * Return the number of TableEntries in this hash table.
 	 */
 	public int size() {
-		int tempSize = 0;
-		for(LinkedList ll : entryLists) {
-			if(ll != null)
-				tempSize += ll.length(); // Summe aller längen der einzelenen LinkedLists
-		}
-		return tempSize;
+		return size;
 	}
 	
 	/**
