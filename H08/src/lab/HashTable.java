@@ -141,7 +141,7 @@ public class HashTable {
 		
 		if(node == null) {			// noch nicht vorhanden,
 			keyList.append(entry);	// dann hinten dran hängen
-			size++;                 // nach dem Einf�gen eines Elements wird size erh�ht
+			size++;                 // nach dem Einfügen eines Elements wird size erhöht
 		} else {
 			keyList.insertBefore(entry, node);	// soll dieser existierende	Eintrag
 			keyList.delete(node);	            // durch den neuen Eintrag ersetzt werden
@@ -150,7 +150,7 @@ public class HashTable {
 	}
 	
 	private void resize() {
-		if(size < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
+		if(size() < getCapacity() * 0.75) // Größe der Hashtabelle sollte kleiner als 75% der Kapazität sein
 			return;
 		rehash();	// Wird dieser Wert überschritten, soll rehash aufgerufen werden
 	}
@@ -164,7 +164,7 @@ public class HashTable {
 		ListNode node = find(keyList, key);		// Knoten in der Liste finden
 		if(node == null)		// falls nicht existent,
 			return null;		// dann gibt es auch nichts zu tun
-		size--;                 // nach dem L�schen eines Elements wird size verringert
+		size--;                 // nach dem Löschen eines Elements wird size verringert
 		keyList.delete(node);	// Knoten aus der Liste entfernen
 		return node.entry();	// Wert des Knotens zurückgeben
 	}
@@ -194,17 +194,16 @@ public class HashTable {
 	 * Increase the capacity of the hash table and reorder all entries.
 	 */
 	private void rehash() {
-	    this.setCapacity(capacity*10);                //die Capacity wird auf sein Zehnfaches ges�tzt 
-	    this.setHash();							      //hash_a und hash_b werden wieder festgelegt
-		ListNode node;								  
+	    this.setCapacity(capacity*10);                // die Capacity wird auf sein Zehnfaches gesetzt 
+	    this.setHash();							      // hash_a und hash_b werden wieder festgelegt								  
 		LinkedList[] oldEntryLists = this.entryLists; // die alte entryLists wird zwischengespeichert
 		entryLists = new LinkedList[this.capacity];   // eine neue entyLists wird mit der neuen Capacity erstellt 
 		size = 0;                                     // die neue entryLists ist leer, also size = 0
  		for (LinkedList l : oldEntryLists) {          
-			if (l != null) {				          // �berpr�ft ob die LinkedList leer ist	  
-				node = l.head();                      
+			if (l != null) {				          // überprüft ob die LinkedList leer ist	  
+				ListNode node = l.head();                      
 				while (node != l.nil()) {
-					this.insert(node.entry());        // entrys werden der neuen entryList hinzugef�gt
+					this.insert(node.entry());        // entrys werden der neuen entryList hinzugef�gt
 					node = node.next();             
 				}
 			}
