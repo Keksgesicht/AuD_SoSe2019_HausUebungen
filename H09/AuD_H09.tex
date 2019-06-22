@@ -7,14 +7,15 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{xcolor}
+\usepackage{pbox}
 
 \title{Algorithmen und Datenstrukturen - Hausübung 09}
 \date{ }
 
-\setlength{\parindent}{0pt}
 \renewcommand*\contentsname{Inhaltsverzeichnis}
 \setcounter{secnumdepth}{0}
+
+\hyphenation{Wer-ten}
 
 \begin{document}
 	
@@ -71,7 +72,34 @@
 		\vfill	
 		\subsection{c)}
 		
-			\textit{"to be filled in"}
+			\begin{tabular}{ | c | p{67mm} | p{67mm} |}
+				\hline
+										& \vspace{-1ex} \textbf{Einfügen}
+										& \vspace{-1ex} \textbf{Löschen}
+				\\ \hline
+				\textbf{Invariante:}	& \parbox{67mm}{
+											\vspace{1ex}
+											Jeder Knoten hat maximal $2t-1$ Werte.
+											\vspace{1ex}
+										}
+										& \parbox{67mm}{
+											\vspace{1ex}
+											Jeder Kindknoten auf Pfad des zu löschenden Knotens hat mindestens $t$ Werte.
+											\vspace{1ex}
+										}
+				\\ \hline
+				\textbf{Beweis:}		& \parbox{67mm}{
+											\vspace{1ex}
+											Jedes Mal, wenn der Einfüge-Algorithmus auf einen Knoten mit $2t-1$ Werten stößt, wird dieser aufgesplittet, sodass dieser und seine Kinder definitiv weniger als $2t-1$ Werten besitzen.
+											\vspace{1ex}
+										}
+										& \parbox{67mm}{
+											\vspace{1ex}
+											Wenn darauffolgender Kindknoten nur \mbox{$t-1$} Werte hat, wird dieser, je nach Zustand der darumliegenden Knoten, verschoben, verschmolzen oder rotiert.
+											\vspace{1ex}
+										}
+				\\ \hline
+			\end{tabular}
 			
 		\vfill
 		\subsection{d)}
