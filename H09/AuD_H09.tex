@@ -7,6 +7,8 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{amssymb}
 \usepackage{pbox}
 
 \title{Algorithmen und Datenstrukturen - Hausübung 09}
@@ -116,18 +118,57 @@
 		\subsection{a)}
 			
 			\subsubsection{i)}
-			
-				\textit{"to be filled in"}
+				
+				\begin{minipage}[t]{0.56\linewidth}
+					\vspace{0pt}		
+					\fbox{\begin{minipage}{\textwidth} % box
+							\ttfamily
+							\begin{tabbing}
+								\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+								Bergsteigeralgorithmus(L,S,Z) \\
+								1	\>	P = S \\
+								2	\>	$\varepsilon$ = 1 \\
+								3	\>	WHILE d(P,Z) $\neq$ 0 \\
+								4	\>	\>	FOR x=0 TO L.length$-$1 \\
+								5	\>	\>	\>	New(NL) \\
+								6	\>	\>	\>	IF P $\neq$ L[x] $\land$ A $\neq$ L[x] $\land$ d(P,X) $\leq \varepsilon$ \\
+								7	\>	\>	\>	\> Add(NL,L[x]) \\
+								8	\>	\>	\>	A = P \\
+								9	\>	\>	\>	IF NL.length == 1 \\
+								10	\>	\>	\>	\>	P = NL[0] \\
+								11	\>	\>	\>	ELSE \\
+								12	\>	\>	\>	\>	FOR n=0 TO NL.length$-$1 \\
+								13	\>	\>	\>	\>	\>	IF d(P,Z) $>$ d(NL[n],Z) \\
+								14	\>	\>	\>	\>	\>	\>	P = NL[n] \\
+								15	\>	\>	\>	\>	IF A == P \\
+								16	\>	\>	\>	\>	\>	P = NL[RandomNextInt(N.length)] \\
+								17	\>	\>	setPosition(F,P)
+							\end{tabbing}
+					\end{minipage}}
+				\end{minipage}
+				\begin{minipage}[t]{0.44\linewidth}
+					\vspace{0pt}
+					\begin{itemize}
+						\item NL ist die Liste der Nachbarn des akuellen Position P der Figur F, welche durch Auswertung der x und y Koordinaten der in ihr gespeicherten Punkte, gegen den Uhrzeigersinn sortiert ist.
+						\item d(L1,L2) ist die Distanz-Funktion d aus der Aufgabenstellung, wobei L1, L2 $\in L^{2}$
+						\item Unser Qualitycheck findet durch Zeile 6 und Zeile 13 statt: Es wird versucht eine Nachbarposition mit einem geringern Abstand zu finden
+						\item Es wird versucht nicht auf den letzte Position rückkehren zu können, um somit in Sackgassen nicht stecken zu bleiben, in denen man sonst immer wieder gegen die Wand laufen würde.
+					\end{itemize}
+				\end{minipage}
+				\begin{itemize}
+					\item RandomNextInt(m) gibt einen Wert r $\in [0,m) \subseteq \mathbb{N}$ zurück.
+					\item setPosition(F,P) setzt die Figur F auf den Punkt P.
+				\end{itemize}						
 			
 			\vfill	
 			\subsubsection{ii)}
 			
-				\textit{"to be filled in"}
+				(5,1) $\rightarrow$ (5,2) $\rightarrow$ (4,2) $\rightarrow$ (4,3) $\rightarrow$ (4,4) $\rightarrow$ (3,4) $\rightarrow$ (3,5) $\rightarrow$ (2,5) $\rightarrow$ (1,5)
 				
 			\vfill
 			\subsubsection{iii)}
 			
-				\textit{"to be filled in"}
+				Während der Bearbeitung der i) haben wir unbemerkt unseren Algorithmus schon verbessert, in dem wir speichern auf welchem Feld er sich vorher befand (Variable A). Damit versuchen wir zu verhindern, dass die Figur andauernd versucht in Sackgassen ständig wieder zur Wand zu laufen. Sobald er an der Wand ist, sucht der Algorithmus nach einen Feld, welches immer noch nah genug ist, aber nicht das Feld ist auf dem er herkam. Somit versucht er vom lokalen Maximum zu dem globalen Maximum über qualitativ schlechtere Felder zu gelangen.
 		
 		\vfill
 		\subsection{b)}
