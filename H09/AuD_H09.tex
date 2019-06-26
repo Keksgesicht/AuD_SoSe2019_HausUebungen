@@ -8,6 +8,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{nccmath}
 \usepackage{amssymb}
 \usepackage{pbox}
 
@@ -125,7 +127,7 @@
 							\ttfamily
 							\begin{tabbing}
 								\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
-								Bergsteigeralgorithmus(L,S,Z) \\
+								Labyrinth(L,S,Z) \\
 								1	\>	P = S \\
 								2	\>	$\varepsilon$ = 1 \\
 								3	\>	WHILE d(P,Z) $\neq$ 0 \\
@@ -133,32 +135,33 @@
 								5	\>	\>	\>	New(NL) \\
 								6	\>	\>	\>	IF P $\neq$ L[x] $\land$ A $\neq$ L[x] $\land$ d(P,X) $\leq \varepsilon$ \\
 								7	\>	\>	\>	\> Add(NL,L[x]) \\
-								8	\>	\>	\>	A = P \\
-								9	\>	\>	\>	IF NL.length == 1 \\
-								10	\>	\>	\>	\>	P = NL[0] \\
-								11	\>	\>	\>	ELSE \\
-								12	\>	\>	\>	\>	FOR n=0 TO NL.length$-$1 \\
-								13	\>	\>	\>	\>	\>	IF d(P,Z) $>$ d(NL[n],Z) \\
-								14	\>	\>	\>	\>	\>	\>	P = NL[n] \\
-								15	\>	\>	\>	\>	IF A == P \\
-								16	\>	\>	\>	\>	\>	P = NL[RandomNextInt(N.length)] \\
-								17	\>	\>	setPosition(F,P)
+								8	\>	\>	\>	IF NL.length == 0 \\
+								9	\>	\>	\>	\>	P = A \\
+								10	\>	\>	\>	\>	BREAK \\		
+								11	\>	\>	\>	A = P \\
+								12	\>	\>	\>	IF NL.length == 1 \\
+								13	\>	\>	\>	\>	P = NL[0] \\
+								14	\>	\>	\>	ELSE \\
+								15	\>	\>	\>	\>	FOR n=0 TO NL.length$-$1 \\
+								16	\>	\>	\>	\>	\>	IF d(P,Z) $>$ d(NL[n],Z) \\
+								17	\>	\>	\>	\>	\>	\>	P = NL[n] \\
+								18	\>	\>	\>	\>	IF A == P \\
+								19	\>	\>	\>	\>	\>	P = NL[RandomNextInt(N.length)] \\
+								20	\>	\>	setPosition(F,P)
 							\end{tabbing}
 					\end{minipage}}
 				\end{minipage}
 				\begin{minipage}[t]{0.44\linewidth}
-					\vspace{0pt}
+					\vspace{-2mm}
 					\begin{itemize}
 						\item NL ist die Liste der Nachbarn des akuellen Position P der Figur F, welche durch Auswertung der x und y Koordinaten der in ihr gespeicherten Punkte, gegen den Uhrzeigersinn sortiert ist.
 						\item d(L1,L2) ist die Distanz-Funktion d aus der Aufgabenstellung, wobei L1, L2 $\in L^{2}$
 						\item Unser Qualitycheck findet durch Zeile 6 und Zeile 13 statt: Es wird versucht eine Nachbarposition mit einem geringern Abstand zu finden
 						\item Es wird versucht nicht auf den letzte Position rückkehren zu können, um somit in Sackgassen nicht stecken zu bleiben, in denen man sonst immer wieder gegen die Wand laufen würde.
+						\item RandomNextInt(m) gibt einen Wert \\ r $\in [0,m) \subseteq \mathbb{N}$ zurück.
+						\item setPosition(F,P) setzt die Figur F auf den Punkt P.
 					\end{itemize}
-				\end{minipage}
-				\begin{itemize}
-					\item RandomNextInt(m) gibt einen Wert r $\in [0,m) \subseteq \mathbb{N}$ zurück.
-					\item setPosition(F,P) setzt die Figur F auf den Punkt P.
-				\end{itemize}						
+				\end{minipage}						
 			
 			\vfill	
 			\subsubsection{ii)}
@@ -175,12 +178,42 @@
 	
 			\subsubsection{i)}
 			
-				\textit{"to be filled in"}
+				\begin{minipage}[t]{0.46\linewidth}
+					\vspace{0pt}
+					\fbox{\begin{minipage}{\textwidth} % box
+							\ttfamily
+							\begin{tabbing}
+								\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+								Bergsteiger(L,f,S) \\
+								1	\>	best = S \\
+								2	\>	$\varepsilon$ = 1 \\
+								3	\>	REPEAT \\
+								4	\>	\>	S = best \\
+								5	\>	\>	R = getBiggestNeighbor(L,S,f,$\varepsilon$) \\
+								6	\>	\>	IF f(R) > f(S) \\
+								7	\>	\>	\>	best = R \\
+								8	\>	UNTIL S == best \\
+								9	\>	RETURN best
+							\end{tabbing}
+					\end{minipage}}
+				\end{minipage}
+				\begin{minipage}[t]{0.54\linewidth}
+					\vspace{0pt}
+					die Funktion getBiggestNeighbor(L,S,f,$\varepsilon$) sucht einen Wert X $\in$ L $\times$ L, dessen wobei d(S,X) $\leq \varepsilon$ ist. All diese Werte gegen den Uhrzeigersinn durchgegangen in mit Hilfe von der Qualiätsfunktion f wird der Größte/Beste unter ihnen bestimmt.
+					\\ \\ \\
+					Unser Algorithmus versucht ständig zum größtmöglichen Nachbarn zu gelangen bis der aktuelle Punkt keinen größeren Nachbarn mehr hat. Dieser Punkt ist dann ein lokales Maximum in der Funktion f.
+				\end{minipage}
 			
-			\vfill	
 			\subsubsection{ii)}
 			
-				\textit{"to be filled in"}
+				\begin{fleqn}[\parindent]
+					\begin{equation*}
+						\begin{split}
+								& S_{0}: && f((-2,-4)) = 0	&& \rightarrow && f((-2,-4)) = 0 \\
+								& S_{1}: && f((4,4)) = 0	&& \rightarrow && f((3,3)) = 0.094 && \rightarrow && f((2,2)) = 1.508 && \rightarrow && f((1,2)) = 3.0625 \\
+						\end{split}
+					\end{equation*}
+				\end{fleqn}
 			
 			
 \end{document}
