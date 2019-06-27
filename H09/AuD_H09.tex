@@ -68,9 +68,9 @@
 		\vfill
 		\subsection{b)}
 		
-			\includegraphics[width=0.51\linewidth]{picture/H1b/Picture1.png}
-			\hfill
-			\includegraphics[width=0.46\linewidth]{picture/H1b/Picture2.png}
+			\includegraphics[width=0.70\linewidth]{picture/H1b/Picture1.png}
+			\\ \\
+			\includegraphics[width=0.63\linewidth]{picture/H1b/Picture2.png}
 		
 		\vfill	
 		\subsection{c)}
@@ -82,7 +82,7 @@
 				\\ \hline
 				\textbf{Invariante:}	& \parbox{67mm}{
 											\vspace{1ex}
-											Jeder Knoten hat maximal $2t-1$ Werte.
+											Jeder Knoten hat maximal $2t - 1$ Werte.
 											\vspace{1ex}
 										}
 										& \parbox{67mm}{
@@ -98,7 +98,7 @@
 										}
 										& \parbox{67mm}{
 											\vspace{1ex}
-											Wenn darauffolgender Kindknoten nur \mbox{$t-1$} Werte hat, wird dieser, je nach Zustand der darumliegenden Knoten, verschoben, verschmolzen oder rotiert.
+											zu besuchende Kindknoten mit nur $t - 1$ Werten werden mit direkten Geschwistern, die nur $t - 1$ Werte haben, verschmolzen. Falls ein Geschwister mehr als $t - 1$ Werte besitzt, wird der Wert in Richtung dem zu besuchenden Kind rotiert.
 											\vspace{1ex}
 										}
 				\\ \hline
@@ -107,7 +107,9 @@
 		\newpage
 		\subsection{d)}
 		
-			\textit{"to be filled in"}
+			Beim \textbf{Einfügen} würde splitten nicht mehr ausreichen, da aus $2t - 1$ Werten mindestens ein Knoten mit $t - 1$ Knoten entsteht. Nur der Knoten, bei dem die Suche nach der Position zum Einfügen hätte eine Chance $t$ Werte zu besitzen. Der beim splitten entstandene Elternwert würde dann einem Knoten mit sowieso schon $t$ Werten hinzugefügt werden, womit das splitten häufiger auftreten könnte. Was mit dem Knoten geschieht, bei dem die Suche nicht weitergeht, ist ungewiss. Wenn man ihn mit $t - 1$ lässt, hält er sich unerlaubt in Baum auf. Wenn ihn über den neuentstandenen Elternwert rotiert, wird der Baum unvollständig. 
+			\\ \\
+			Auf das \textbf{Löschen} hat dies im Prinzip keine Auswirkung siehe c) Invariante Löschen.
 		
 	\vfill
 	\section{H2}
@@ -152,7 +154,7 @@
 					\end{minipage}}
 				\end{minipage}
 				\begin{minipage}[t]{0.44\linewidth}
-					\vspace{-2mm}
+					\vspace{-2.3mm}
 					\begin{itemize}
 						\item NL ist die Liste der Nachbarn des akuellen Position P der Figur F, welche durch Auswertung der x und y Koordinaten der in ihr gespeicherten Punkte, gegen den Uhrzeigersinn sortiert ist.
 						\item d(L1,L2) ist die Distanz-Funktion d aus der Aufgabenstellung, wobei L1, L2 $\in L^{2}$
@@ -199,7 +201,7 @@
 				\end{minipage}
 				\begin{minipage}[t]{0.54\linewidth}
 					\vspace{0pt}
-					die Funktion getBiggestNeighbor(L,S,f,$\varepsilon$) sucht einen Wert X $\in$ L $\times$ L, dessen wobei d(S,X) $\leq \varepsilon$ ist. All diese Werte gegen den Uhrzeigersinn durchgegangen in mit Hilfe von der Qualiätsfunktion f wird der Größte/Beste unter ihnen bestimmt.
+					Die Funktion getBiggestNeighbor(L,S,f,$\varepsilon$) sucht einen Wert X $\in$ L $\times$ L, dessen wobei d(S,X) $\leq \varepsilon$ ist. All diese Werte gegen den Uhrzeigersinn durchgegangen in mit Hilfe von der Qualiätsfunktion f wird der Größte/Beste unter ihnen bestimmt.
 					\\ \\ \\
 					Unser Algorithmus versucht ständig zum größtmöglichen Nachbarn zu gelangen bis der aktuelle Punkt keinen größeren Nachbarn mehr hat. Dieser Punkt ist dann ein lokales Maximum in der Funktion f.
 				\end{minipage}
