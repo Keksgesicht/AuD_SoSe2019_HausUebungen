@@ -61,9 +61,9 @@
 			\hfill
 			\includegraphics[width=0.50\linewidth]{picture/H1a/Picture9.png}
 			\\ \\
-			\includegraphics[width=0.47\linewidth]{picture/H1a/Picture10.png}
-			\hfill
-			\includegraphics[width=0.50\linewidth]{picture/H1a/Picture11.png}
+			\includegraphics[width=0.69\linewidth]{picture/H1a/Picture10.png}
+			\\ \\
+			\includegraphics[width=0.76\linewidth]{picture/H1a/Picture11.png}
 			
 		\vfill
 		\subsection{b)}
@@ -72,7 +72,7 @@
 			\\ \\
 			\includegraphics[width=0.63\linewidth]{picture/H1b/Picture2.png}
 		
-		\vfill	
+		\newpage	
 		\subsection{c)}
 		
 			\begin{tabular}{ | c | p{67mm} | p{67mm} |}
@@ -82,12 +82,12 @@
 				\\ \hline
 				\textbf{Invariante:}	& \parbox{67mm}{
 											\vspace{1ex}
-											Jeder Knoten hat maximal $2t - 1$ Werte.
+											Jeder Knoten hat maximal $2t - 1$ Werte. Bis Auf die Wurzel hat jeder mindestens $t - 1$.
 											\vspace{1ex}
 										}
 										& \parbox{67mm}{
 											\vspace{1ex}
-											Jeder Kindknoten auf Pfad des zu löschenden Knotens hat mindestens $t$ Werte.
+											Jeder Kindknoten auf Pfad des zu löschenden Knotens hat mindestens $t - 1$ und maximal $2t -1$ Werte. 
 											\vspace{1ex}
 										}
 				\\ \hline
@@ -98,24 +98,19 @@
 										}
 										& \parbox{67mm}{
 											\vspace{1ex}
-											zu besuchende Kindknoten mit nur $t - 1$ Werten werden mit direkten Geschwistern, die nur $t - 1$ Werte haben, verschmolzen. Falls ein Geschwister mehr als $t - 1$ Werte besitzt, wird der Wert in Richtung dem zu besuchenden Kind rotiert.
+											Falls ein zu besuchendes Kind nur \mbox{$t - 1$} Werte haben sollte und deren direkten Geschwister auch $t - 1$ haben, werden diese mit dem Elternwert verschmolzen, sodass sich maximal/genau $2t - 1$ Werte in einem Knoten befinden. Falls nun eines der Geschwister mehr Werte besitzt, wird ein Wert von ihm zum zu besuchenden rotiert, sodass dieses bei mindestens $t - 1$ Werten bleibt.
 											\vspace{1ex}
 										}
 				\\ \hline
 			\end{tabular}
 			
-		\newpage
+		\vfill
 		\subsection{d)}
 		
 			Beim \textbf{Einfügen} würde splitten nicht mehr ausreichen, da aus $2t - 1$ Werten mindestens ein Knoten mit $t - 1$ Knoten entsteht. Nur der Knoten, bei dem die Suche nach der Position zum Einfügen hätte eine Chance $t$ Werte zu besitzen. Der beim splitten entstandene Elternwert würde dann einem Knoten mit sowieso schon $t$ Werten hinzugefügt werden, womit das splitten häufiger auftreten könnte. Was mit dem Knoten geschieht, bei dem die Suche nicht weitergeht, ist ungewiss. Wenn man ihn mit $t - 1$ lässt, hält er sich unerlaubt in Baum auf. Wenn ihn über den neuentstandenen Elternwert rotiert, wird der Baum unvollständig. 
 			\\ \\
-			Auf das \textbf{Löschen} hat dies im Prinzip keine Auswirkung siehe c) Invariante Löschen.
+			Beim \textbf{Löschen} wird besonders das Verschmelzen problematisch, da Knoten mit $2t$ Werten immer noch nicht erlaubt sind und andernfalls durch das Löschen Knoten mit weniger als $t$ Werten entstehen würden.
 		
-	\vfill
-	\section{H2}
-		
-		\textit{"to be filled in"}
-	
 	\vfill
 	\section{H3}
 	
@@ -217,5 +212,49 @@
 					\end{equation*}
 				\end{fleqn}
 			
-			
+	\vfill
+	\section{H2}
+	
+		\begin{minipage}[t]{0.42\linewidth}
+			\vspace{0pt}
+			\fbox{\begin{minipage}{\textwidth} % box
+					\ttfamily
+					\begin{tabbing}
+						\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+						subsetN(M,q) \\
+						1	\>	IF N.length == q \\
+						2	\>	\>	RETURN N \\
+						3	\>	ELSE \\
+						4	\>	\>	FOREACH m in M \\
+						5	\>	\>	\>	IF !contains(N,m) \\
+						6	\>	\>	\>	\>	add(N,m) \\
+						7	\>	\>	\>	ELSE \\
+						8	\>	\>	\>	\>	continue \\
+						9	\>	\>	\>	IF subsetN(M,q) == false \\
+						10	\>	\>	\>	\>	continue \\
+						11	\>	\>	\>	ELSE \\
+						12	\>	\>	\>	\>	RETURN N \\
+						13	\>	\>	RETURN FALSE
+					\end{tabbing}
+			\end{minipage}}
+		\end{minipage}
+		\begin{minipage}[t]{0.42\linewidth}
+			\vspace{0pt}
+			\fbox{\begin{minipage}{\textwidth} % box
+					\ttfamily
+					\begin{tabbing}
+						\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+						contains(N,m) \\
+						1	\>	FOREACH n in N \\
+						2	\>	\>	IF getX(m) == getX(n) \\
+						3	\>	\>	\> RETURN true \\
+						4	\>	\>	IF getY(m) == getY(n) \\
+						5	\>	\>	\> RETURN true \\
+						6	\>	\>	IF getZ(m) == getZ(n) \\
+						7	\>	\>	\> RETURN true \\
+						8	\>	RETURN false
+					\end{tabbing}
+			\end{minipage}}
+		\end{minipage}
+	
 \end{document}
