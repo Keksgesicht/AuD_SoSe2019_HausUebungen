@@ -76,7 +76,20 @@ public abstract class AbstractTSPSolver {
 	 * Solve the TSP.
 	 */
 	public void solve() {
-		// TODO
+		LinkedList<City> currentBest = new LinkedList<City>();
+		double bestLength = 0;
+		LinkedList<City> currentList = new LinkedList<City>();
+		double currentLength = 0;
+		
+		currentList.add(_cities.get(0));
+		
+	}
+	
+	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
+		
+		
+		
+		return currentList;
 	}
 	
 	/**
