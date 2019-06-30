@@ -17,6 +17,7 @@ public abstract class AbstractTSPSolver {
 	private LinkedList<City> _solution;
 	private double _length;
 	private double[][] _distanceMap;
+	int numberOfCities;
 	
 	/**
 	 * Create a solver on the given set of cities.
@@ -26,6 +27,7 @@ public abstract class AbstractTSPSolver {
 		_solution = null;
 		_length = -1;
 		_distanceMap = new double[cities.size()][cities.size()];
+		numberOfCities = _cities.size();
 	}
 	
 	/**
@@ -53,7 +55,6 @@ public abstract class AbstractTSPSolver {
 	 * Pre-calculate a map for all distances between cities.
 	 */
 	public void buildDistanceMap() {
-		int numberOfCities = _cities.size();
 		for(City c1 : _cities) {	// iteriert über alle Städte
 			int cID = c1.id();
 			for(int i=cID; i<numberOfCities; i++) {	// iteriert über die Verbleibenden um Dopplungen zu vermeiden
@@ -86,7 +87,7 @@ public abstract class AbstractTSPSolver {
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
-		
+		if(_cities.size() == )
 		
 		
 		return currentList;
