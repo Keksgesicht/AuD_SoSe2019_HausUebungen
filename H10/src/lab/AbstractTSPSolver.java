@@ -97,9 +97,11 @@ public abstract class AbstractTSPSolver {
 		}
 		else {
 			for(int i = 1; i < numberOfCities; i++) {
-				if(!currentList.contains(_cities.get(i))){
-					currentList.add(_cities.get(i));
+				City city17 = _cities.get(i);
+				if(!currentList.contains(city17)){
+					currentList.add(city17);
 					currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
+					currentList.remove(city17);
 				}
 			}
 			
