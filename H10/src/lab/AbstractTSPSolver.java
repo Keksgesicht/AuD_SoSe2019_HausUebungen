@@ -87,26 +87,25 @@ public abstract class AbstractTSPSolver {
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
-		if(numberOfCities == currentList.size()) {
-			currentLength += distance(currentList.getLast(), currentList.getFirst());
-			if(currentLength < bestLength) {
-				currentBest = currentList;
-				bestLength = currentLength;
-				notifyNewBest(currentBest, bestLength);
-			}
-		}
-		else {
-			for(int i = 1; i < numberOfCities; i++) {
-				City city17 = _cities.get(i);
-				if(!currentList.contains(city17)){
-					currentList.add(city17);
-					currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
-					currentList.remove(city17);
+		if(!prune(currentList, currentLength)) {
+			if(numberOfCities == currentList.size()) {
+				currentLength += distance(currentList.getLast(), currentList.getFirst());
+				if(currentLength < bestLength) {
+					currentBest = currentList;
+					bestLength = currentLength;
+					notifyNewBest(currentBest, bestLength);
 				}
 			}
-			
-			
-			
+			else {
+				for(int i = 1; i < numberOfCities; i++) {
+					City city17 = _cities.get(i);
+					if(!currentList.contains(city17)){
+						currentList.add(city17);
+						currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
+						currentList.remove(city17);
+					}
+				}
+			}
 		}
 		
 		return currentBest;
