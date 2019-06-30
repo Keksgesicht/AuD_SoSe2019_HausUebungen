@@ -53,7 +53,16 @@ public abstract class AbstractTSPSolver {
 	 * Pre-calculate a map for all distances between cities.
 	 */
 	public void buildDistanceMap() {
-		// TODO
+		int numberOfCities = _cities.size();
+		for(City c1 : _cities) {
+			int cID = c1.id();
+			for(int i=cID; i<numberOfCities; i++) {
+				City c2 = _cities.get(i);
+				double dist = Math.abs(Math.hypot(c2.x() - c1.x(), c2.y() - c1.y()));
+				_distanceMap[cID][i] = dist;
+				_distanceMap[i][cID] = dist;
+			}
+		}
 	}
 	
 	/**
