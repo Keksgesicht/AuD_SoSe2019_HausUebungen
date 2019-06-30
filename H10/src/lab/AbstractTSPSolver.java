@@ -95,7 +95,17 @@ public abstract class AbstractTSPSolver {
 				notifyNewBest(currentBest, bestLength);
 			}
 		}
-		
+		else {
+			for(int i = 1; i < numberOfCities; i++) {
+				if(!currentList.contains(_cities.get(i))){
+					currentList.add(_cities.get(i));
+					currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
+				}
+			}
+			
+			
+			
+		}
 		
 		return currentBest;
 	}
