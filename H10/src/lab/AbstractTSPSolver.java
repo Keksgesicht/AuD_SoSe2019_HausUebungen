@@ -87,10 +87,17 @@ public abstract class AbstractTSPSolver {
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
-		if(_cities.size() == )
+		if(numberOfCities == currentList.size()) {
+			currentLength += distance(currentList.getLast(), currentList.getFirst());
+			if(currentLength < bestLength) {
+				currentBest = currentList;
+				bestLength = currentLength;
+				notifyNewBest(currentBest, bestLength);
+			}
+		}
 		
 		
-		return currentList;
+		return currentBest;
 	}
 	
 	/**
