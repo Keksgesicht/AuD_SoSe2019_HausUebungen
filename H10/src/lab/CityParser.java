@@ -32,16 +32,16 @@ public class CityParser {
 	 */
 	public LinkedList<City> readFile() {
 		LinkedList<City> cities = new LinkedList<City>();
-		try(BufferedReader br = new BufferedReader(new FileReader(_filename))) {
+		try(BufferedReader br = new BufferedReader(new FileReader(_filename))) { // try-with-LineReader
 			String line;
-		    for(int i=0; (line = br.readLine()) != null; i++) {
-		    	String[] coordinates = line.split(";", 2);
-		    	cities.add(new City(i, Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])));
+		    for(int i=0; (line = br.readLine()) != null; i++) {	// count and read lines 
+		    	String[] coordinates = line.split(";", 2);		// get x- and y-coordinates
+		    	cities.add(new City(i, Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]))); // insert new City with coordinates into the list
 		    }
 		} catch(FileNotFoundException fnfe) {
 			throw new RuntimeException(fnfe.getMessage());
 		} catch (IOException ioe) {
-			throw new RuntimeException();
+			throw new RuntimeException(); //  Throw a RuntimeException if anything goes wrong
 		}
 		return cities;
 	}

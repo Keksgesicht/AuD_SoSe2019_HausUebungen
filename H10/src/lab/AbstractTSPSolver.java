@@ -54,13 +54,13 @@ public abstract class AbstractTSPSolver {
 	 */
 	public void buildDistanceMap() {
 		int numberOfCities = _cities.size();
-		for(City c1 : _cities) {
+		for(City c1 : _cities) {	// iteriert über alle Städte
 			int cID = c1.id();
-			for(int i=cID; i<numberOfCities; i++) {
+			for(int i=cID; i<numberOfCities; i++) {	// iteriert über die Verbleibenden um Dopplungen zu vermeiden
 				City c2 = _cities.get(i);
-				double dist = Math.abs(Math.hypot(c2.x() - c1.x(), c2.y() - c1.y()));
-				_distanceMap[cID][i] = dist;
-				_distanceMap[i][cID] = dist;
+				double dist = Math.hypot(c2.x() - c1.x(), c2.y() - c1.y());	// 2-Norm (Euklid)
+				_distanceMap[cID][i] = dist;	// Distanz sowohl zwischen c1 und c2
+				_distanceMap[i][cID] = dist;	// als auch zwischen c2 und c1 speichern
 			}
 		}
 	}
