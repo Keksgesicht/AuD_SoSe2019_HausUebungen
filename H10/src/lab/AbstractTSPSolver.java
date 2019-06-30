@@ -93,6 +93,7 @@ public abstract class AbstractTSPSolver {
 				if(currentLength < bestLength) {
 					currentBest = currentList;
 					bestLength = currentLength;
+					_length = bestLength;
 					notifyNewBest(currentBest, bestLength);
 				}
 			}
