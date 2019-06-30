@@ -78,7 +78,7 @@ public abstract class AbstractTSPSolver {
 	 */
 	public void solve() {
 		LinkedList<City> currentBest = new LinkedList<City>();
-		double bestLength = 0;
+		double bestLength = 99999;
 		LinkedList<City> currentList = new LinkedList<City>();
 		double currentLength = 0;
 		
@@ -100,9 +100,11 @@ public abstract class AbstractTSPSolver {
 				for(int i = 1; i < numberOfCities; i++) {
 					City city17 = _cities.get(i);
 					if(!currentList.contains(city17)){
+						currentLength += distance(currentList.getLast(), city17);
 						currentList.add(city17);
 						currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
 						currentList.remove(city17);
+						currentLength -= distance(currentList.getLast(), city17);
 					}
 				}
 			}
