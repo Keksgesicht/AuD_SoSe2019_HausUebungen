@@ -3,7 +3,9 @@ package lab;
 /**
  * Aufgabe H1a)
  * 
- * Abgabe von: <name>, <name> und <name>
+ * @author Emre Berber 2957148
+ * @author Christoph Berst 2743394
+ * @author Jan Braun 2768531
  */
 
 import java.io.BufferedReader;
@@ -29,8 +31,19 @@ public class CityParser {
 	 * Return the LinkedList of the cities in the same order as they were in the file.
 	 */
 	public LinkedList<City> readFile() {
-        // TODO
-		return new LinkedList<City>();
+		LinkedList<City> cities = new LinkedList<City>();
+		try(BufferedReader br = new BufferedReader(new FileReader(_filename))) {
+			String line;
+		    for(int i=0; (line = br.readLine()) != null; i++) {
+		    	String[] coordinates = line.split(";", 2);
+		    	cities.add(new City(i, Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])));
+		    }
+		} catch(FileNotFoundException fnfe) {
+			throw new RuntimeException(fnfe.getMessage());
+		} catch (IOException ioe) {
+			throw new RuntimeException();
+		}
+		return cities;
 	}
 
 }
