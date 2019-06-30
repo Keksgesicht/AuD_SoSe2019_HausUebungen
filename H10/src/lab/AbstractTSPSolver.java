@@ -18,6 +18,8 @@ public abstract class AbstractTSPSolver {
 	private double _length;
 	private double[][] _distanceMap;
 	int numberOfCities;
+	LinkedList<City> currentBest; 
+	double bestLength;
 	
 	/**
 	 * Create a solver on the given set of cities.
@@ -77,35 +79,37 @@ public abstract class AbstractTSPSolver {
 	 * Solve the TSP.
 	 */
 	public void solve() {
-		LinkedList<City> currentBest = new LinkedList<City>();
-		double bestLength = 99999;
+		currentBest = new LinkedList<City>();
+		bestLength = Double.MAX_VALUE;
 		LinkedList<City> currentList = new LinkedList<City>();
 		double currentLength = 0;
 		
 		currentList.add(_cities.get(0));
-		_solution = backtracker(currentBest, bestLength, currentList, currentLength);
+		_solution = backtracker(currentList, currentLength);
 	}
 	
-	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
+	private LinkedList<City> backtracker(LinkedList<City> currentList, double currentLength){
 		if(!prune(currentList, currentLength)) {
 			if(numberOfCities == currentList.size()) {
-				currentLength += distance(currentList.getLast(), currentList.getFirst());
+				double dist = distance(currentList.getLast(), currentList.getFirst());
+				currentLength += dist;
 				if(currentLength < bestLength) {
-					currentBest = currentList;
-					bestLength = currentLength;
-					_length = bestLength;
+					currentBest = (LinkedList<City>) currentList.clone();
+					_length = bestLength = currentLength;
 					notifyNewBest(currentBest, bestLength);
 				}
+				currentLength -= dist;
 			}
 			else {
 				for(int i = 1; i < numberOfCities; i++) {
 					City city17 = _cities.get(i);
 					if(!currentList.contains(city17)){
-						currentLength += distance(currentList.getLast(), city17);
+						double dist = distance(currentList.getLast(), city17);
+						currentLength += dist; 
 						currentList.add(city17);
-						currentBest = backtracker(currentBest, bestLength, currentList, currentLength);
+						currentBest = backtracker(currentList, currentLength);
 						currentList.remove(city17);
-						currentLength -= distance(currentList.getLast(), city17);
+						currentLength -= dist; 
 					}
 				}
 			}
