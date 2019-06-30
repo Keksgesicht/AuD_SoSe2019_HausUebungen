@@ -82,7 +82,7 @@ public abstract class AbstractTSPSolver {
 		double currentLength = 0;
 		
 		currentList.add(_cities.get(0));
-		
+		_solution = backtracker(currentBest, bestLength, currentList, currentLength);
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentBest, double bestLength, LinkedList<City> currentList, double currentLength){
