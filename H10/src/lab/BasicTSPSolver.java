@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import frame.City;
 
 /**
+ * @author Emre Berber 2957148
+ * @author Christoph Berst 2743394
+ * @author Jan Braun 2768531
+ * 
  * This is a simple TSP solver with no further optimisations.
  */
 public class BasicTSPSolver extends AbstractTSPSolver {
@@ -20,6 +24,7 @@ public class BasicTSPSolver extends AbstractTSPSolver {
 
 	@Override
 	protected void notifyNewBest(LinkedList<City> goodSolution, double length) {
+		
 	}
 
 }

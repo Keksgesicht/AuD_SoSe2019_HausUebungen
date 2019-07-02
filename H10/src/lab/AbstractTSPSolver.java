@@ -6,6 +6,10 @@ import java.util.ListIterator;
 import frame.City;
 
 /**
+ * @author Emre Berber 2957148
+ * @author Christoph Berst 2743394
+ * @author Jan Braun 2768531
+ * 
  * In this class, you should implement the backtracking algorithm for solving the TSP.
  * This is an abstract class - it can't be used directly, but classes that inherit from
  * this class and implement all the abstract methods can be used. BasicTSPSolver is such
@@ -17,7 +21,7 @@ public abstract class AbstractTSPSolver {
 	private LinkedList<City> _solution;
 	private double _length;
 	private double[][] _distanceMap;
-	int numberOfCities;
+	private int numberOfCities;
 	LinkedList<City> currentBest; 
 	double bestLength;
 	
