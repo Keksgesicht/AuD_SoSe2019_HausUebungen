@@ -93,33 +93,29 @@ public abstract class AbstractTSPSolver {
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentList, double currentLength){
-		if(!prune(currentList, currentLength)) {
-			if(numberOfCities == currentList.size()) {
-				double dist = distance(currentList.getLast(), currentList.getFirst());
-				currentLength += dist;
-				if(currentLength < bestLength) {
-					currentBest = (LinkedList<City>) currentList.clone();
-					_length = bestLength = currentLength;
-					notifyNewBest(currentBest, bestLength);
-				}
-				currentLength -= dist;
+		if(numberOfCities == currentList.size()) {
+			double dist = distance(currentList.getLast(), currentList.getFirst());
+			currentLength += dist;
+			if(currentLength < bestLength) {
+				currentBest = (LinkedList<City>) currentList.clone();
+				_length = bestLength = currentLength;
+				notifyNewBest(currentBest, bestLength);
 			}
-			else {
-				for(int i = 1; i < numberOfCities; i++) {
-					City city17 = _cities.get(i);
-					if(!currentList.contains(city17)){
-						double dist = distance(currentList.getLast(), city17);
-						currentLength += dist; 
-						currentList.add(city17);
-						currentBest = backtracker(currentList, currentLength);
-						currentList.remove(city17);
-						currentLength -= dist; 
-					}
-				}
-			}
+			currentLength -= dist;
 		}
-		
-		return currentBest;
+		else if(!prune(currentList, currentLength)) {
+			for(int i = 1; i < numberOfCities; i++) {
+				City city17 = _cities.get(i);
+				if(!currentList.contains(city17)){
+					double dist = distance(currentList.getLast(), city17);
+					currentLength += dist; 
+					currentList.add(city17);
+					currentBest = backtracker(currentList, currentLength);
+					currentList.remove(city17);
+					currentLength -= dist; 
+				}
+			}
+		} return currentBest;
 	}
 	
 	/**
