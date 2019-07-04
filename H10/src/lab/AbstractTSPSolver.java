@@ -84,35 +84,34 @@ public abstract class AbstractTSPSolver {
 	 */
 	public void solve() {
 		currentBest = new LinkedList<City>();
-		bestLength = Double.MAX_VALUE;
+		bestLength = Double.MAX_VALUE; // kein Bestes bisher
 		LinkedList<City> currentList = new LinkedList<City>();
 		double currentLength = 0;
 		
-		currentList.add(_cities.get(0));
+		currentList.add(_cities.get(0)); // Wir starten bei Stadt 0
 		_solution = backtracker(currentList, currentLength);
 	}
 	
 	private LinkedList<City> backtracker(LinkedList<City> currentList, double currentLength){
 		if(numberOfCities == currentList.size()) {
-			double dist = distance(currentList.getLast(), currentList.getFirst());
+			double dist = distance(currentList.getLast(), currentList.getFirst()); // Rundreise vollenden
 			currentLength += dist;
-			if(currentLength < bestLength) {
+			if(currentLength < bestLength) {	// update best
 				currentBest = (LinkedList<City>) currentList.clone();
 				_length = bestLength = currentLength;
-				notifyNewBest(currentBest, bestLength);
+				// notifyNewBest(currentBest, bestLength);
 			}
 			currentLength -= dist;
-		}
-		else if(!prune(currentList, currentLength)) {
-			for(int i = 1; i < numberOfCities; i++) {
+		} else if(!prune(currentList, currentLength)) {
+			for(int i = 1; i < numberOfCities; i++) { // Möglichkeiten der Reihe nach durchprobieren
 				City city17 = _cities.get(i);
-				if(!currentList.contains(city17)){
+				if(!currentList.contains(city17)){ // nur hinzufügen falls noch nicht vorhanden
 					double dist = distance(currentList.getLast(), city17);
-					currentLength += dist; 
-					currentList.add(city17);
+					currentLength += dist;		// Strecke hinzuaddieren
+					currentList.add(city17);	// Stadt hinzufügen
 					currentBest = backtracker(currentList, currentLength);
-					currentList.remove(city17);
-					currentLength -= dist; 
+					currentList.remove(city17);	// für weitere Möglichkeiten
+					currentLength -= dist; 		// Stadt wieder entfernen
 				}
 			}
 		} return currentBest;

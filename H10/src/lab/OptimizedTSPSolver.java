@@ -30,16 +30,16 @@ public class OptimizedTSPSolver extends AbstractTSPSolver {
 
 	@Override
 	protected boolean prune(LinkedList<City> currentList, double currentLength) {
-		if(useLengthPruning) {
+		if(useLengthPruning) {	// Falls aktuelle Länge schon länger die bisher beste Länge 
 			double dist = currentLength + distance(currentList.getLast(), currentList.getFirst());
 			if(dist >= bestLength) 
-				return true;
+				return true;	// dann Rekursion nicht weiterverfolgen
 		}
-		if(useIntersectionPruning) {
-			int listLength = currentList.size();
-			if(3 < listLength) {
-				City c1 = currentList.getLast();
-				City c2 = currentList.get(listLength - 2);
+		if(useIntersectionPruning) {	// überprüfen, ob letzte Strecke eine Bisherige kreuzt
+			Iterator<City> iL = currentList.descendingIterator();
+			City c1 = iL.next(); 		// letztes Element
+			if(iL.hasNext()) {
+				City c2 = iL.next();	// vorletztes Element
 				
 				for(City c3 : currentList) {
 					if(c1 == c3) continue;
@@ -49,7 +49,7 @@ public class OptimizedTSPSolver extends AbstractTSPSolver {
 						if(c1 == c4) continue;
 						if(c2 == c4) continue;
 						if(c3 == c4) continue;
-								
+						
 						double x1 = c1.x();
 						double x2 = c2.x();
 						double x3 = c3.x();
@@ -64,8 +64,9 @@ public class OptimizedTSPSolver extends AbstractTSPSolver {
 						double tB = ( (y1 - y2) * (x1 - x3) + (x2 - x1) * (y1 - y3) )
 								  / ( (x4 - x3) * (y1 - y2) - (x1 - x2) * (y4 - y3) );
 						
+						// Falls 0 < tA < 1 und 0 < tB < 1
 						if(0 < tA && tA < 1 && 0 < tB && tB < 1)
-							return true;
+							return true; // dann Rekursion nicht weiterverfolgen
 					}
 				}
 			}			
