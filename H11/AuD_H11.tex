@@ -6,13 +6,14 @@
 \usepackage[a4paper, landscape=true, left=22mm, right=22mm, top=22mm, bottom=22mm]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 \usepackage{amssymb}
 
 \title{Algorithmen und Datenstrukturen - Hausübung 11}
 \date{ }
 
-\renewcommand*\contentsname{Inhaltsverzeichnis}
 \setcounter{secnumdepth}{0}
+\renewcommand*\contentsname{Inhaltsverzeichnis}
 
 \begin{document}
 	
@@ -57,65 +58,135 @@
 			
 				\textit{"to be filled in!"}
 	
-	\vfill			
+	\newpage	
 	\section{H2}
 	
 		\subsection{a)}
 			
-			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | }
-				\hline
-				$\{u,v\}$ & $w(\{u,v\})$ & Dazu? & set(a) & set(b) & set(c) & set(d) & set(e) & set(f) & set(g) & set(h) & set(j) & set(k)
-				\\ \hline
-				$\square$ & $\square$ & $\square$ & \{a\} & \{b\} & \{c\} & \{d\} & \{e\} & \{f\} & \{g\} & \{h\} & \{j\} & \{k\}
-				\\ \hline 
-				$\{a,c\}$ & 1 & true & \{a,c\} & = & \{a,c\} & = & = & = & = & = & = & =
-				\\ \hline
-				$\{b,j\}$ & 2 & true & = & \{b,j\} & = & = & = & = & = & = & \{b,j\} & =
-				\\ \hline
-				$\{c,g\}$ & 2 & true & \{a,c,g\} & = & \{a,c,g\} & = & = & = & \{a,c,g\} & = & = & =
-				\\ \hline
-				$\{d,h\}$ & 2 & true & = & = & = & \{d,h\} & = & = & = & \{d,h\} & = & =
-				\\ \hline
-				$\{a,d\}$ & 3 & true & \{a,c,d,g,h\} & = & \multicolumn{2}{|c|}{\{a,c,d,g,h\}} & = & = & \multicolumn{2}{|c|}{\{a,c,d,g,h\}} & = & =
-				\\ \hline
-				$\{a,g\}$ & 3 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-				$\{b,k\}$ & 3 & true & = & \{b,j,k\} & = & = & = & = & = & = & \multicolumn{2}{|c|}{\{b,j,k\}}
-				\\ \hline
-				$\{a,f\}$ & 4 & true & \{a,c,d,f,g,h\} & = & \multicolumn{2}{|c|}{\{a,c,d,f,g,h\}} & = & \multicolumn{3}{|c|}{\{a,c,d,f,g,h\}} & = & =
-				\\ \hline
-				$\{f,h\}$ & 4 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-				$\{j,k\}$ & 4 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-				$\{c,f\}$ & 5 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-				$\{e,j\}$ & 5 & true & = & \{b,e,j,k\} & = & = & \{b,e,j,k\} & = & = & = & \multicolumn{2}{|c|}{\{b,e,j,k\}}
-				\\ \hline
-				$\{c,h\}$ & 7 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-				$\{b,e\}$ & 8 & false & = & = & = & = & = & = & = & = & = & =
-				\\ \hline
-			\end{tabular}
-	
-		\vfill	
+			\begin{minipage}[l]{0.78\linewidth}
+				\begin{center}
+					\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | }
+						\hline
+						$\{u,v\}$ & $w(\{u,v\})$ & Dazu? & set(a) & set(b) & set(c) & set(d) & set(e) & set(f) & set(g) & set(h) & set(j) & set(k)
+						\\ \hline\hline
+						$\square$ & $\square$ & $\square$ & \{a\} & \{b\} & \{c\} & \{d\} & \{e\} & \{f\} & \{g\} & \{h\} & \{j\} & \{k\}
+						\\ \hline 
+						$\{a,c\}$ & 1 & true & \{a,c\} & = & \{a,c\} & = & = & = & = & = & = & =
+						\\ \hline
+						$\{b,j\}$ & 2 & true & = & \{b,j\} & = & = & = & = & = & = & \{b,j\} & =
+						\\ \hline
+						$\{c,g\}$ & 2 & true & \{a,c,g\} & = & \{a,c,g\} & = & = & = & \{a,c,g\} & = & = & =
+						\\ \hline
+						$\{d,h\}$ & 2 & true & = & = & = & \{d,h\} & = & = & = & \{d,h\} & = & =
+						\\ \hline
+						$\{a,d\}$ & 3 & true & \{a,c,d,g,h\} & = & \multicolumn{2}{|c|}{\{a,c,d,g,h\}} & = & = & \multicolumn{2}{|c|}{\{a,c,d,g,h\}} & = & =
+						\\ \hline
+						$\{a,g\}$ & 3 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+						$\{b,k\}$ & 3 & true & = & \{b,j,k\} & = & = & = & = & = & = & \multicolumn{2}{|c|}{\{b,j,k\}}
+						\\ \hline
+						$\{a,f\}$ & 4 & true & \{a,c,d,f,g,h\} & = & \multicolumn{2}{|c|}{\{a,c,d,f,g,h\}} & = & \multicolumn{3}{|c|}{\{a,c,d,f,g,h\}} & = & =
+						\\ \hline
+						$\{f,h\}$ & 4 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+						$\{j,k\}$ & 4 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+						$\{c,f\}$ & 5 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+						$\{e,j\}$ & 5 & true & = & \{b,e,j,k\} & = & = & \{b,e,j,k\} & = & = & = & \multicolumn{2}{|c|}{\{b,e,j,k\}}
+						\\ \hline
+						$\{c,h\}$ & 7 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+						$\{b,e\}$ & 8 & false & = & = & = & = & = & = & = & = & = & =
+						\\ \hline
+					\end{tabular}
+					\\ \vspace{1em}
+					\includegraphics[width=0.39\linewidth]{picture/H2/Picture1.png}
+					\hfill
+					\includegraphics[width=0.42\linewidth]{picture/H2/Picture2.png}
+				\end{center}
+			\end{minipage}
+		
+		\newpage		
 		\subsection{b)}
 		
-			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
+			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
 				\hline
-				$a$.k & $b$.k & $c$.k & $d$.k & $e$.k & $f$.k & $g$.k & $h$.k & $j$.k & $k$.k & $l$.k & $m$.k & $n$.k & $p$.k & $r$.k & $u$
+				$a$.k & $b$.k & $c$.k & $d$.k & $e$.k & $f$.k & $g$.k & $h$.k & $j$.k & $k$.k & $l$.k & $m$.k & $n$.k & $p$.k & $r$.k & $u$ & $Q$
+				\\ \hline\hline
+				$-\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $-$ & $\{a,b,c,d,e,f,g,h,j,k,l,m,n,p,r\}$
 				\\ \hline
-				$-\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $-$
+				$-\infty$ & 3 & 1 & 2 & $\infty$ & 4 & 5 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & a & $\{c,d,b,f,g,e,h,j,k,l,m,n,p,r\}$
+				\\ \hline
+				$-\infty$ & 3 & 1 & 2 & $\infty$ & 4 & 2 & 7 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & c & $\{d,g,b,f,h,e,j,k,l,m,n,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & $\infty$ & 4 & 2 & 3 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & d & $\{b,g,h,f,e,j,k,l,m,n,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 7 & $\infty$ & $\infty$ & b & $\{g,h,f,n,e,j,k,l,m,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 7 & $\infty$ & $\infty$ & g & $\{h,f,n,e,j,k,l,m,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & 7 & $\infty$ & 7 & $\infty$ & $\infty$ & h & $\{f,l,n,e,j,k,m,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & 7 & 7 & 7 & $\infty$ & $\infty$ & f & $\{l,m,n,e,j,k,p,r\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & 7 & 7 & 7 & $\infty$ & 1 & l & $\{r,m,n,e,j,k,p\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & 7 & 7 & 7 & 3 & 1 & r & $\{p,m,n,e,j,k,\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & $\infty$ & 7 & 7 & 7 & 3 & 1 & p & $\{m,n,e,j,k,\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & $\infty$ & 3 & 7 & 7 & 7 & 3 & 1 & m & $\{k,n,e,j\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & 2 & 3 & 7 & 7 & 7 & 3 & 1 & k & $\{j,n,e\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & 2 & 3 & 7 & 7 & 5 & 3 & 1 & j & $\{n,e\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & 2 & 3 & 7 & 7 & 5 & 3 & 1 & n & $\{e\}$
+				\\ \hline
+				$-\infty$ & 1 & 1 & 2 & 8 & 4 & 2 & 3 & 2 & 3 & 7 & 7 & 5 & 3 & 1 & e & $\emptyset$
 				\\ \hline
 			\end{tabular}
 			\\ \\ \\
-			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
+			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
 				\hline
-				$a$.p & $b$.p & $c$.p & $d$.p & $e$.p & $f$.p & $g$.p & $h$.p & $j$.p & $k$.p & $l$.p & $m$.p & $n$.p & $p$.p & $r$.p & $Q$
+				$a$.p & $b$.p & $c$.p & $d$.p & $e$.p & $f$.p & $g$.p & $h$.p & $j$.p & $k$.p & $l$.p & $m$.p & $n$.p & $p$.p & $r$.p & $u$ & $Q$
+				\\ \hline\hline
+				nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & $-$ & $\{a,b,c,d,e,f,g,h,j,k,l,m,n,p,r\}$
 				\\ \hline
-				nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & $\{a,b,c,d,e,f,g,h,j,k,l,m,n,p,r\}$
+				nil & a & a & a & nil & a & a & nil & nil & nil & nil & nil & nil & nil & nil & a & $\{c,d,b,f,g,e,h,j,k,l,m,n,p,r\}$
+				\\ \hline
+				nil & a & a & a & nil & a & c & c & nil & nil & nil & nil & nil & nil & nil & c & $\{d,g,b,f,h,e,j,k,l,m,n,p,r\}$
+				\\ \hline
+				nil & d & a & a & nil & a & c & d & nil & nil & nil & nil & nil & nil & nil & d & $\{b,g,h,f,e,j,k,l,m,n,p,r\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & nil & nil & b & nil & nil & b & $\{g,h,f,n,e,j,k,l,m,p,r\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & nil & nil & b & nil & nil & g & $\{h,f,n,e,j,k,l,m,p,r\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & h & nil & b & nil & nil & h & $\{f,l,n,e,j,k,m,p,r\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & h & f & b & nil & nil & f & $\{n,l,m,e,j,k,p,r\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & h & f & b & nil & l & l & $\{r,m,n,e,j,k,p\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & h & f & b & r & l & r & $\{p,m,n,e,j,k\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & nil & h & f & b & r & l & p & $\{m,n,e,j,k\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & nil & m & h & f & b & r & l & m & $\{k,n,e,j\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & k & m & h & f & b & r & l & k & $\{j,n,e\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & k & m & h & f & j & r & l & j & $\{n,e\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & k & m & h & f & j & r & l & n & $\{e\}$
+				\\ \hline
+				nil & d & a & a & b & a & c & d & k & m & h & f & j & r & l & e & $\emptyset$
 				\\ \hline
 			\end{tabular}
+		
+			\includegraphics[width=0.54\linewidth]{picture/H2/Picture3.png}
 			
 	\vfill			
 	\section{H3}
