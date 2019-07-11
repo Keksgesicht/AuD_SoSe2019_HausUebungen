@@ -103,7 +103,8 @@
 					BFS-Baum $G^{6}_{pred}$ \\ \\
 					\includegraphics[width=\linewidth]{picture/H1/Picture1.png}
 			\end{minipage}
-			
+		
+		\vfill	
 		\subsection{b)}
 		
 			\begin{minipage}[t]{0.62\linewidth}
@@ -220,9 +221,9 @@
 		\thispagestyle{mylandscape}
 		\subsection{b)}
 		
-			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
+			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | l | }
 				\hline
-				$a$.k & $b$.k & $c$.k & $d$.k & $e$.k & $f$.k & $g$.k & $h$.k & $j$.k & $k$.k & $l$.k & $m$.k & $n$.k & $p$.k & $r$.k & $u$ & $Q$
+				$a$.k & $b$.k & $c$.k & $d$.k & $e$.k & $f$.k & $g$.k & $h$.k & $j$.k & $k$.k & $l$.k & $m$.k & $n$.k & $p$.k & $r$.k & $u$ & \multicolumn{1}{|c|}{$Q$}
 				\\ \hline\hline
 				$-\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $-$ & $\{a,b,c,d,e,f,g,h,j,k,l,m,n,p,r\}$
 				\\ \hline
@@ -258,9 +259,9 @@
 				\\ \hline
 			\end{tabular}
 			\\ \\ \\
-			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | }
+			\begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | l | }
 				\hline
-				$a$.p & $b$.p & $c$.p & $d$.p & $e$.p & $f$.p & $g$.p & $h$.p & $j$.p & $k$.p & $l$.p & $m$.p & $n$.p & $p$.p & $r$.p & $u$ & $Q$
+				$a$.p & $b$.p & $c$.p & $d$.p & $e$.p & $f$.p & $g$.p & $h$.p & $j$.p & $k$.p & $l$.p & $m$.p & $n$.p & $p$.p & $r$.p & $u$ & \multicolumn{1}{|c|}{$Q$}
 				\\ \hline\hline
 				nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & nil & $-$ & $\{a,b,c,d,e,f,g,h,j,k,l,m,n,p,r\}$
 				\\ \hline
@@ -299,14 +300,22 @@
 			
 			\newpage
 			\includegraphics[width=0.76\linewidth]{picture/H2/Picture3.png}
-			
+	
+	\vfill		
 	\section{H3}
 	
 		\subsection{a)}
 		
-			\textit{"to be filled in!"}
-	
-		\vfill	
+			\textit{Induktionsanfang:} r = 1 \\
+			$a^{1}_{i,j} = 1$ falls $\{v_{i},v_{j}\} \in E$. Gleichzeitig ist die Anzahl der Wege zwischen $v_{i}$ und $v_{j}$ auch 1, da es nur diese direkte Verbindung von $v_{i}$ zu $v_{j}$ gibt. Andernfalls würde keine Kante existieren und damit wäre $a^{1}_{i,j} = 0$.
+			\\ \\
+			\textit{Induktionsvorraussetzung:} \\
+			Für alle $i,j$ ist der Eintrag $a^{(r)}_{i,j} = (A^{r})_{i,j}$ gleich der Anzahl der Wege der Länge r in G \mbox{zwischen den Knoten i und j.} Weiterhin gilt falls kein Weg der Länge r existiert, welcher $v_{i}$ und $v_{j}$ verbindet, steht in $a^{(r)}_{i,j} = (A^{r})_{i,j} = 0$
+			\\ \\
+			\textit{Induktionsschritt:} r $\rightarrow$ r+1 \\
+			Falls es keinen Weg der Länge r+1 zwischen $v_{i}$ und $v_{j}$ gibt, steht an der $a^{(r)}_{i,j} = 0$. Gibt es einen Weg zwischen $v_{i}$ und $v_{j}$, dann steht in $a^{(r+1)}_{i,j}$ die Anzahl der paarweise verschiedenen Wege zwischen $v_{i}$ und $v_{j}$ \mbox{der Länge r+1.}
+		
+		\vfill		
 		\subsection{b)}
 	
 			\begin{minipage}[t]{0.46\textwidth}
@@ -337,16 +346,28 @@
 					\item adj(G,v,w) gibt das Gewicht der Kante zwischen \mbox{v und w} zurück. Mit v,w $\in$ V
 					\item adj(G,u).length$-$1 sollte identisch zu V.length$-$1 sein, da es sich bei adj(G,u) im die Zeile des Knotens u in der Adjazenzmatrize von G handelt, welche mit dem Wert 0 angibt das keine Verbindung \mbox{von u zu V[i]} besteht und ansonsten das Gewicht der Kante zwischen den Knoten u und V[i] enthält.
 				\end{itemize}
-				
 			\end{minipage}
-			
+		
+		\newpage
 		\subsection{c)}
 			
 			\underline{Komplexität:} \\
-			Wir druchlaufen n Knoten mit u, maximal n Kanten von u mit v und maximal weitere n Kanten \mbox{von u mit w.}
-			Dies macht dann n $\cdot$ n $\cdot$ n = $n^{3}$
+			Wir druchlaufen n Knoten mit u, maximal n Kanten, in denen u enthalten ist, mit v und maximal weitere \mbox{n Kanten,} in denen auch u enthalten ist, mit w.
+			Dies macht dann n $\cdot$ n $\cdot$ n = $n^{3}$.
 			\\ \\
 			\underline{Korrektheit:} \\
-			\textit{"to be filled in!"}			
-	
+			\textbf{Invariante:} \\
+			Alle Dreiecke bis zum u-ten Schritt, welche einen der u ersten Knoten enthalten, sind gezählt worden. 
+			\\ \\
+			\textit{Initialisierung:} \\
+			Solange kein Knoten betrachtet wurden, ist die Anzahl der Dreiecke auch einfach 0.
+			\\ \\
+			\textit{Fortsetzung:} \\
+			Für die bisherigen Knoten sind alle Dreiecke gefunden worden, die einen von diesen enthalten. Dies ist der Fall, da wir uns immer nur die weiteren Knoten nach unserem aktuellen Knoten anschauen. Somit schauen wir uns sowohl keinen der bisherigen nochmal an, noch versuchen wir ein Dreieck mit mehrmals dem selben Knoten zu bilden.
+			\\ \\
+			\textit{Terminierung:} \\
+			Die Schleife enden mit dem letzten Knoten V.length$-$1. Es müssten nun auch alle Dreiecke im Graphen gefundene worden sein.
+			\\ \\
+			Die selbe Argumentation kann man auf die inneren Schleifen übertragen.
+						
 \end{document}
