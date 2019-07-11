@@ -54,32 +54,121 @@
 	
 		\subsection{a)}
 			
-			\subsubsection{i)}
+			\begin{minipage}[t]{0.45\linewidth}
+				\subsubsection{i)}
+				
+					\begin{tabular}{ | c | c | c | c | }
+						\hline
+						Iteration & $u$ & $v$ & $Q$
+						\\ \hline\hline
+						0 & $-$ & $\square$ & \{6\}
+						\\ \hline
+						1 & 6 & [3,12,14] & \{3,12,14\}
+						\\ \hline
+						2 & 3 & [2] & \{12,14,2\}
+						\\ \hline
+						3 & 12 & [19] & \{14,2,19\}
+						\\ \hline
+						4 & 14 & [11,13,15] & \{2,19,11,13,15\}
+						\\ \hline
+						5 & 2 & [8] & \{19,11,13,15,8\}
+						\\ \hline
+						6 & 19 & [9] & \{11,13,15,8,9\}
+						\\ \hline
+						7 & 11 & [4] & \{13,15,8,9,4\}
+						\\ \hline
+						8 & 13 & [7,18] & \{15,8,9,4,7,18\}
+						\\ \hline
+						9 & 15 & $\square$ & \{8,9,4,7,18\}
+						\\ \hline
+						10 & 8 & $\square$ & \{9,4,7,18\}
+						\\ \hline
+						11 & 9 & $\square$ & \{4,7,18\}
+						\\ \hline
+						12 & 4 & $\square$ & \{7,18\}
+						\\ \hline
+						13 & 7 & $\square$ & \{18\}
+						\\ \hline
+						14 & 18 & $\square$ & $\emptyset$
+						\\ \hline
+						15 & $-$ & $\square$ & $\emptyset$
+						\\ \hline
+						16 & $-$ & $\square$ & $\emptyset$
+						\\ \hline
+					\end{tabular}
+			\end{minipage}
+			\begin{minipage}[t]{0.55\linewidth}
+				\subsubsection{ii)}
+				
+					BFS-Baum $G^{6}_{pred}$ \\ \\
+					\includegraphics[width=\linewidth]{picture/H1/Picture1.png}
+			\end{minipage}
 			
-				\textit{"to be filled in!"}
-			
-			\vfill
-			\subsubsection{ii)}
-			
-				\textit{"to be filled in!"}
-		
-		\vfill	
 		\subsection{b)}
 		
-			\subsubsection{i)}
-		
-				\textit{"to be filled in!"}
-		
-			\vfill
-			\subsubsection{ii)}
-			
-				\textit{"to be filled in!"}
+			\begin{minipage}[t]{0.62\linewidth}
+				\subsubsection{i)}
+				
+				\begin{tabular}{ | c | c | c | c | }
+					\hline
+					Knoten & Entdeckungszeit & Abschlusszeit & Vorgängerknoten
+					\\ \hline\hline
+					1 & 1 & 18 & nil
+					\\ \hline
+					2 & 19 & 20 & nil
+					\\ \hline
+					3 & 21 & 22 & nil
+					\\ \hline
+					4 & 3 & 6 & 5
+					\\ \hline
+					5 & 2 & 7 & 1
+					\\ \hline
+					6 & 23 & 24 & nil
+					\\ \hline
+					7 & 4 & 5 & 4
+					\\ \hline
+					8 & 25 & 26 & nil
+					\\ \hline
+					9 & 27 & 28 & nil
+					\\ \hline
+					10 & 8 & 17 & 1
+					\\ \hline
+					11 & 11 & 12 & 15
+					\\ \hline
+					12 & 29 & 30 & nil
+					\\ \hline
+					13 & 9 & 16 & 10
+					\\ \hline
+					14 & 31 & 32 & nil
+					\\ \hline
+					15 & 10 & 13 & 13
+					\\ \hline
+					16 & 33 & 34 & nil
+					\\ \hline
+					17 & 35 & 36 & nil
+					\\ \hline
+					18 & 14 & 15 & 13
+					\\ \hline
+					19 & 37 & 38 & nil
+					\\ \hline
+					20 & 39 & 40 & nil
+					\\ \hline
+				\end{tabular}
+			\end{minipage}
+			\begin{minipage}[t]{0.38\linewidth}
+				\subsubsection{ii)}
+				
+					topologisch Sortieren: \\
+					1,10,13,18,15,15,11,5,4,7 \\ \\
+					DFS-Wald $G_{pred}$ \\ \\
+					\includegraphics[width=\linewidth]{picture/H1/Picture2.png}
+			\end{minipage}	
 	
 	\newpage
 	\thispagestyle{mylandscape}
 	\begin{landscape}	
 	\section{H2}
-	
+	Für die Zeichnungen in dieser Aufgabe gilt, dass gestrichelten Linien sollen nicht Teil des Spannbaums sein.
 		\subsection{a)}
 			
 			\begin{minipage}[l]{0.78\linewidth}
@@ -120,9 +209,9 @@
 						\\ \hline
 					\end{tabular}
 					\\ \vspace{1em}
-					\includegraphics[width=0.39\linewidth]{picture/H2/Picture1.png}
+					\includegraphics[width=0.37\linewidth]{picture/H2/Picture1.png}
 					\hfill
-					\includegraphics[width=0.42\linewidth]{picture/H2/Picture2.png}
+					\includegraphics[width=0.40\linewidth]{picture/H2/Picture2.png}
 				\end{center}
 			\end{minipage}
 	
@@ -246,7 +335,7 @@
 				\begin{itemize}
 					\item V ist die Liste der Knoten in G und E ist die Liste der Kanten in G. \{v,w\} $\in$ E ist eine ungerichte Kante zwischen v und w.
 					\item adj(G,v,w) gibt das Gewicht der Kante zwischen \mbox{v und w} zurück. Mit v,w $\in$ V
-					\item adj(G,u).length$-$1 sollte identisch zu V.length$-$1 sein, da es sich bei adj(G,u) im die Zeile des Knotens u in der Adjazenzmatrize von G handelt, welche mit dem Wert 0 angibt das keine Verbindung von u zu V[i] besteht und ansonsten das Gewicht der Kante zwischen den Knoten u und V[i] enthält.
+					\item adj(G,u).length$-$1 sollte identisch zu V.length$-$1 sein, da es sich bei adj(G,u) im die Zeile des Knotens u in der Adjazenzmatrize von G handelt, welche mit dem Wert 0 angibt das keine Verbindung \mbox{von u zu V[i]} besteht und ansonsten das Gewicht der Kante zwischen den Knoten u und V[i] enthält.
 				\end{itemize}
 				
 			\end{minipage}
