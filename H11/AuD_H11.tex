@@ -220,11 +220,44 @@
 		\vfill	
 		\subsection{b)}
 	
-			\textit{"to be filled in!"}
-		
-		\vfill	
+			\begin{minipage}[t]{0.46\textwidth}
+				\vspace{0pt}
+				\fbox{\begin{minipage}{\textwidth} % box
+						\ttfamily
+						\begin{tabbing}
+							\hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \hspace*{2em}\= \kill % set the tabbings
+							GraphTriangles(G,V,E) \\
+							1	\>	c=0 \\
+							2	\>	FOR u=0 TO V.length$-$1 \\
+							3	\>	\>	FOR v=u+1 TO adj(G,u).length$-$1 \\
+							5	\>	\>	\>	IF adj(G,u,V[v]) == 0 \\
+							6	\>	\>	\>	\>	CONTINUE \\
+							7	\>	\>	\>	FOR w=v+1 TO adj(G,u).length$-$1 \\
+							8	\>	\>	\>	\>	IF adj(G,u,V[w]) == 0 \\
+							9	\>	\>	\>	\>	\>	CONTINUE \\
+							10	\>	\>	\>	\>	IF $\{V[v],V[w]\} \in$ E \\
+							11	\>	\>	\>	\>	\>	c++ \\
+							12	\>	return c
+						\end{tabbing}
+				\end{minipage}}
+			\end{minipage}
+			\begin{minipage}[t]{0.54\textwidth}
+				\vspace{0pt}
+				\begin{itemize}
+					\item V ist die Liste der Knoten in G und E ist die Liste der Kanten in G. \{v,w\} $\in$ E ist eine ungerichte Kante zwischen v und w.
+					\item adj(G,v,w) gibt das Gewicht der Kante zwischen \mbox{v und w} zurück. Mit v,w $\in$ V
+					\item adj(G,u).length$-$1 sollte identisch zu V.length$-$1 sein, da es sich bei adj(G,u) im die Zeile des Knotens u in der Adjazenzmatrize von G handelt, welche mit dem Wert 0 angibt das keine Verbindung von u zu V[i] besteht und ansonsten das Gewicht der Kante zwischen den Knoten u und V[i] enthält.
+				\end{itemize}
+				
+			\end{minipage}
+			
 		\subsection{c)}
-		
-			\textit{"to be filled in!"}
+			
+			\underline{Komplexität:} \\
+			Wir druchlaufen n Knoten mit u, maximal n Kanten von u mit v und maximal weitere n Kanten \mbox{von u mit w.}
+			Dies macht dann n $\cdot$ n $\cdot$ n = $n^{3}$
+			\\ \\
+			\underline{Korrektheit:} \\
+			\textit{"to be filled in!"}			
 	
 \end{document}
